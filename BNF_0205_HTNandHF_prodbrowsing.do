@@ -23,8 +23,6 @@ Final order, export for clinician review, tag file
 
 *******************************************************************************
 *1) Define drug class(es) of interest - collate list of terms for value sets
-	 *(refer to Appendix __ spreadsheet)
-
 *******************************************************************************/
 
 *******************************************************************************
