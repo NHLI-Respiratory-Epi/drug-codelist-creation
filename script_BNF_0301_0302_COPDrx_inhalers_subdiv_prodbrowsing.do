@@ -535,7 +535,7 @@ also_0303cromo
 sort laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_30104 ics_0302 icslaba_0302 triple_0302 termfromemis 
 
 drop chem_brand_term BNFaddtl category_prev bnfcode_prev termfromemis_prev atc_prev form_prev route_prev drugsubstance_prev _m
-*keep BNFaddtl (optional)
+*keep BNFaddtl labelling step 2b (optional)
 
 preserve
 keep if compare_previous!=.
