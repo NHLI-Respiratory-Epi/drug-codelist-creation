@@ -425,7 +425,7 @@ sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAAS20505 othadrblo
 
 drop chem_brand_term flag_me // bnfsearch205 
 
-*keep BNFaddtl (optional)
+*keep BNFaddtl labelling step 2b (optional)
 count // 601
 
 //export (v0 no clinician, raw)
