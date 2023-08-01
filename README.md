@@ -18,21 +18,21 @@ At all stages, request clinical input. We put **$** where we believe this to be 
 
 **Step 1 : Define purpose and value sets**  
 &nbsp;&nbsp;- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Choose organ system knowing what the drug targets (e.g., circulatory system)    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- A user-friendly BNF resource is the [OpenPrescribing](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main](https://openprescribing.net/bnf/) <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Choose organ system knowing what the drug targets (e.g., circulatory system)    
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- A user-friendly BNF resource is the [OpenPrescribing](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main](https://openprescribing.net/bnf/) <br />
 &nbsp;&nbsp;- Define value sets (i.e., subgroups of codes within this clinical definition)  
 &nbsp;&nbsp;- For each value set, collate search terms   
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- chemical names  <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- proprietary names (OPTIONAL)  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- chemical names  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- proprietary names (OPTIONAL)  <br />
 &nbsp;&nbsp;- Establish route (e.g., oral, parenteral/injected) **$**  
 &nbsp;&nbsp;- Consider purpose:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- repository  <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- disease-specific (e.g., COPD inhalers)  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- repository  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- disease-specific (e.g., COPD inhalers)  <br />
 &nbsp;&nbsp;- Consider chemistry: **$**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- for search efficiency  <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- for search efficiency  <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
 
 Put all information of Step 1 into a spreadsheet, so you can refer back to this later:   
 
