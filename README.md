@@ -24,7 +24,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 At all stages, request clinical input. We put **✱** where we believe this to be essential.
 
-**Step 1 : Define purpose and value sets**  
+## Step 1 : Define purpose and value sets**  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
@@ -112,7 +112,7 @@ Here's a diagram summarizing the Step 2 search process:
     - “intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist)
       - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
 - So we write code to automate re-sorting process to make those tags  
-    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
+      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
 
 - *Why is this proactive action for 4b) helpful?*
     - Overall, this helps the codelist stay modifiable.
@@ -120,7 +120,7 @@ Here's a diagram summarizing the Step 2 search process:
     - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)   
     - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.    
       - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD Aurum data, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?   
-      - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged *hydrochlorothiazide/ telmisartan* as a drug also pertaining to Ch. 2.2 diuretics).   
+      - We would be adapt our codelist by retaining drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged *hydrochlorothiazide/ telmisartan* as a drug also pertaining to Ch. 2.2 diuretics).   
 
 
   
