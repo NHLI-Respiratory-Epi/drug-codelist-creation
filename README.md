@@ -598,6 +598,10 @@ Here is what happens if you were to carry out a **Search B** based on just chemi
 	<img src="UpSetplot_Ch2.5codelist.png"/>
 </p>
 
+What the key takeway is sometimes the search type matters, sometimes it doesn't. 
+But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform. 
+So we recommend Search A, the comprehensive one!
+
 
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
