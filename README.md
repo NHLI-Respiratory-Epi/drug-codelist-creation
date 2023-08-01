@@ -51,7 +51,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 - **2a) Search database drug dictionary**
     - (i) chemical + proprietary term search (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)
     - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)
-            For example, the STATA coding for BNF Ch. 2.5.1 would be:
+For example, the STATA coding for BNF Ch. 2.5.1 would be:
 
             Child lists (drug lists within 2.5.1), including chemical and proprietary names:
                 ambrisentan_list " "*ambrisentan*" "*volibris*" "
