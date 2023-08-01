@@ -49,36 +49,43 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 
 - Search the browser dictionary in 2 stages
 - **2a) Search database drug dictionary**
-    - (i) chemical + proprietary term search (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)
+    - *2a(i)* chemical + proprietary term search (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)
     - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)
-
-//For example, the STATA coding for BNF Ch. 2.5.1 would be:
-
-//Child lists (drug lists within 2.5.1), including chemical and proprietary names:
-                ambrisentan_list " "*ambrisentan*" "*volibris*" "
-                bosentan_list " "*bosentan*" "*stayveer*" "*tracleer*" "
-
-//with the child lists nested within the:
-
-//Parent list (value set for Ch. 2.5.1):
-                vasodil20501 " "*ambrisentan_list*" "*bosentan_list*".....”
+    - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)
+    - In *Stata*, parent and child lists take the form of local macros; in R a comparable step would be to name a list of vectors, and nesting the lists as necessary.
 
 
-    - (ii) search on underlying ontology (OPTIONAL - if have complete data on chemical name, for each drug)
+    - *2a(ii)* search on underlying ontology (OPTIONAL - database dependent)
         - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
         - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
 
 - When searching dictionary for each of your search terms defined in **Step 1**, ensure dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case
      
 
-- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - if have complete data on chemical name, for each drug)
-- 
+- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - database dependent)
+- tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone
+- allows you to check if you included all possible terms / codelist completeness
+- *How are outstanding codes identified?*
+  - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)
+  - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)
+- *So what do I do if I get outstanding codes?*
+  - add the additional terms to the value sets
+  - re-run steps 2a to 2b (ITERATIVELY - as necessary)
+  - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.
+
+-*Why are Steps 2a(ii) and 2* database-dependent?*
+  - The database might have missing data in the search "attribute" variables
+  - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*
+
 
 Here's a diagram summarizing the Step 2 search process
-
+[insert]
 
 **Step 3: Exclusions**
-
+- Manually review each code, one by one
+- *How?* Eliminate by: name, route, formulation
+- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given for the heart)
+  
 **Step 4: Cleaning**
 - 4a)
 - 4a)
