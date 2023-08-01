@@ -7,7 +7,8 @@ Creating drug codelists can be broken down in to _ steps:
 
 ## Glossary 
 
-## Example *Stata* code for a codelist for Chapter 2.5 of the British National Formulary
+## Example *Stata* code 
+This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
 
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
