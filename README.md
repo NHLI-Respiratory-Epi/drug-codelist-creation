@@ -33,15 +33,15 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names  <br />
-    - proprietary names (OPTIONAL)  <br />
+    - proprietary names (OPTIONAL - database dependent)  <br />
 - Establish route (e.g., oral, parenteral/injected) **✱**  
 - Consider purpose:  
-    - repository  <br />
+    - repository - broad? malleable for various study/disease contexts? <br />
     - disease-specific (e.g., COPD inhalers)  <br />
-- Consider chemistry: **✱**  
-    - for search efficiency  <br />
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
+- Consider chemistry: **✱**   
+    - for search efficiency  <br /> 
+    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
+    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br /> 
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to this later:*   
 
@@ -51,40 +51,39 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 
 
 ## Step 2: Conducting search
-- Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as *strings*.
+- Before searching using your collated list, import the database’s drug “dictionary” as a text file.
+- Import all “attribute” variables searched upon as *strings*.
+- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location 
 
-- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location within a string
-
-- Search the browser dictionary in 2 stages  
 - **2a) Search database drug dictionary**  
     - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - database dependent)  
         - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
         - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)  
 
-
     - **2a(ii) search on underlying ontology** (OPTIONAL - database dependent)  
         - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
         - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
 
-- When searching dictionary for each of your search terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
+- When searching dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
 
 - **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - database dependent)  
-    - tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone  
-    - allows you to check if you included all possible terms / codelist completeness
+    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone  
+    - (Check if you included all possible terms / check codelist completeness)
       
     - *How are outstanding codes identified?*    
-        - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)    
-        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)
+        - Compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)    
+        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag, i.e., 2a(i) output does not equal 2a(ii) output 
              
     - *So what happens if I get outstanding codes?*    
-        - add the additional terms to the value sets    
+        - add additional terms to the value sets    
         - re-run steps 2a to 2b (ITERATIVELY - as necessary)    
-        - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.    
+        - upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms.
+        - (in rare cases in CPRD you'll have outstanding terms left that still show up, that don't fit your value sets, in which case these may be drugs that are miscoded or recently put on the market, perhaps)
 
     - *Why are Steps 2a(ii) and 2b database-dependent?*    
-        - The database might have missing data in the search "attribute" variables      
-        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
+        - Database might have missing data in search "attribute" variables      
+        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*  so you need to search in 2a(i) using all these variables    
 
 
 Here's a diagram summarizing the Step 2 search process:   
@@ -95,18 +94,18 @@ Here's a diagram summarizing the Step 2 search process:
 - Manually review each code, one by one 
 - *How?* Eliminate by: name, route, formulation 
 - *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given to slow the heart)
+
   
 ## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)   
-    - This step places a temporary tag to identify overlapping codes that were categorized across multiple value sets.  
-    - This unintended scenario wherein codes across value sets overlap is possible - given the broad search.
+    - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)  
       
-    - For example, let's say we created a disease-specific codelist (i.e., not a general one for the repository) for COPD inhalers, with the following value sets:  
+    - For example, let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:  
       - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)   
       - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)  
       - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids)  
       - (.....sets continue)  
-      - As you can see above, since I structured my search based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), I might be left with overlapping codes across the three sets.
+      - As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.
         
     - So we write code to automate the re-sorting process to make each set mutually exclusive  
 
@@ -120,7 +119,7 @@ Here's a diagram summarizing the Step 2 search process:
       - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
 
 - *Why is this proactive action for 4b) helpful?*
-    - Overall, this helps the codelist stay modifiable.
+    - Helps the codelist stay modifiable.
       
 - *When do we use 4b)?*
     - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)   
@@ -159,7 +158,7 @@ Here's a diagram summarizing the Step 2 search process:
 
 
 ## Step 7: Keep "master" codelist spreadsheet - with all versions and tags** 
-- This makes the codelist malleable (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts)
+- Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts)
   
 - Have columns that tag codes for certain codelist versions: 
     - (i) Raw codes (before clinician review)
@@ -169,14 +168,14 @@ Here's a diagram summarizing the Step 2 search process:
 
 
 **Here's an example (excerpt) of a master spreadsheet:**
-The full example is available to download.
+The full example is available to download, file called ________[insert]________.
 
 [insert screenshot of excel with clinician flags]
 
 
 ## Example *Stata* code (Steps 2 to 7) 
 
-This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
+This code is an example to create a codelist for Chapter 2.5 of the BNF ontology (i.e., [drugs indicated for hypertension and heart failure](https://openprescribing.net/bnf/0205/) )
 
 
 ```stata
