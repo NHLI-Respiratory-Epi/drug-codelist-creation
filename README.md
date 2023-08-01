@@ -41,18 +41,37 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 	<img src="inline_Step1.png"/>
 </p>
 
+
 **Step 2: Conducting search**
-- Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as strings.
+- Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as *strings*.
+
 - *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location within a string
 
 - Search the browser dictionary in 2 stages
-- 2a) Search database drug dictionary
-    - (i) chemical and proprietary term search (OPTIONAL - proprietary terms optional if complete data on chemical name, for each drug, even if also listed by its proprietary name)
-    - (ii) search on underlying ontology (OPTIONAL - again, optional if have complete data on chemical name, for each drug)
-        - consider syntax with slashes (eg, "*/ 302*" and "302*" for Ch. 3.2 BNF)
+- **2a) Search database drug dictionary**
+    - (i) chemical + proprietary term search (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)
+    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)
+            For example, the STATA coding for BNF Ch. 2.5.1 would be:
+
+            Child lists (drug lists within 2.5.1), including chemical and proprietary names:
+                ambrisentan_list " "*ambrisentan*" "*volibris*" "
+                bosentan_list " "*bosentan*" "*stayveer*" "*tracleer*" "
+
+            with the child lists nested within the:
+
+            Parent list (value set for Ch. 2.5.1):
+                vasodil20501 " "*ambrisentan_list*" "*bosentan_list*"….”
+
+
+    - (ii) search on underlying ontology (OPTIONAL - if have complete data on chemical name, for each drug)
+        - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
         - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
+
+- When searching dictionary for each of your search terms defined in **Step 1**, ensure dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case
      
-- Our automated search nests chemical and proprietary terms within each drug list (child lists), with child list nested within broader value sets (parent lists), in effect sorting output for (i) by value set.
+
+- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - if have complete data on chemical name, for each drug)
+- 
 
 Here's a diagram summarizing the Step 2 search process
 
