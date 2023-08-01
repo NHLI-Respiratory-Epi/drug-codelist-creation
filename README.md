@@ -17,8 +17,8 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 At all stages, request clinical input. We put **$** where we believe this to be essential.
 
 **Step 1 : Define purpose and value sets**  
-&nbsp;&nbsp;- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Choose organ system knowing what the drug targets (e.g., circulatory system)    
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**  
+  - Choose organ system knowing what the drug targets (e.g., circulatory system)    
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- A user-friendly BNF resource is the [OpenPrescribing](https://openprescribing.net/bnf/)      
 &nbsp;&nbsp;- Define value sets (i.e., subgroups of codes within this clinical definition)  
