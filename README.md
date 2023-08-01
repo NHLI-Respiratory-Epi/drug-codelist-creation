@@ -4,7 +4,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 Creating drug codelists can be broken down in to _ steps:
 <p align="center">
-	<img src="Flowchart.png" height="675"/>
+	<img src="Flowchart for github.png" height="675"/>
 </p>
 ## Steps
 
