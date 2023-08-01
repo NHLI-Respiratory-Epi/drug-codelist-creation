@@ -173,8 +173,11 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 - *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) **✱**
   
 
-**Here's an example (excerpt) of a master spreadsheet:**
-The full example is available to download, file called ________[insert]________.  
+**Here's an example (excerpt) of a master spreadsheet**
+The full example is available to download, file called ________[insert]________. 
+
+Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)
+Notice the missing data on the search attribute variables!
 
 <p align="center">
 	<img src="Step7_forexample_photo.png"/>
