@@ -92,7 +92,7 @@ Here's a diagram summarizing the Step 2 search process:
 **Step 3: Exclusions**
 - Manually review each code, one by one 
 - *How?* Eliminate by: name, route, formulation 
-- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given for the heart)
+- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given to slow the heart)
   
 **Step 4: Cleaning**   
 - **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)   
@@ -109,28 +109,46 @@ Here's a diagram summarizing the Step 2 search process:
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**  
 - Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*   
 - *What is intentional overlap?*   
-    - “Intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections. *hydrochlorothiazide/captopril* for example is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
-- So we write code to automate the re-sorting process to make those tags  
-    - In this code, define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
+    - “intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist)
+      - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
+- So we write code to automate re-sorting process to make those tags  
+    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
 
-- *Why is this proactive action for 4b) helpful?*   
+- *Why is this proactive action for 4b) helpful?*
+    - Overall, this helps the codelist stay modifiable.
+- *When do we use 4b)?*
     - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)   
     - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.    
-    - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?   
-    - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged Hydrochlorothiazide/ Telmisartan as a drug also pertaining to Ch. 2.2 diuretics).   
+      - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD Aurum data, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?   
+      - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged *hydrochlorothiazide/ telmisartan* as a drug also pertaining to Ch. 2.2 diuretics).   
 
 
   
 - **4c) Modify value sets as necessary** (OPTIONAL)  
-- For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits)  
+- For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits), or, you quite simply change your mind 
 
 
 **Step 5: Compare to previous codelists or mapping ontologies**
+- Version history = Merge together and compare current vs. previous versions 
+- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VANDF mapping).
+    - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)
+- *Why?* Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility to other database contexts 
 
-**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist**
 
-**Step 7: Keep "master" codelist spreadsheet - with all versions and tags**
-- Have columns that tags codes for certain codelist versions:
+**Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)** 
+
+
+**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist** 
+    - Export your codelist as an Excel spreadsheet 
+    - Ask clinician(s) to review your codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context)
+    - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:  
+      0 = “clear exclusion”    
+      1 = “certainty” to include 
+      2 = “uncertainty” if to include for future sensitivity analyses 
+
+
+**Step 7: Keep "master" codelist spreadsheet - with all versions and tags** 
+- Have columns that tags codes for certain codelist versions: 
     - (i) Raw codes (before clinician review)
     - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 sensitivity analysis)
     - (iii) Codes finalized for study (i.e., containing 1s only)
