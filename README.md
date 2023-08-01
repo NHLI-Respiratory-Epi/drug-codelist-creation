@@ -35,7 +35,7 @@ At all stages, request clinical input. We put **✱** where we believe this to b
     - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
     - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
 
-Put all information of Step 1 into a spreadsheet, so you can refer back to this later:   
+*Put all information of Step 1 into a spreadsheet, so you can refer back to this later:*   
 
 <p align="center">
 	<img src="inline_Step1.png"/>
@@ -78,7 +78,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
         - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
 
 
-Here's a diagram summarizing the Step 2 search process  
+Here's a diagram summarizing the Step 2 search process:  
 [insert]
 
 **Step 3: Exclusions**
@@ -102,6 +102,8 @@ Here's a diagram summarizing the Step 2 search process
     - (iii) Codes finalized for study (i.e., containing 1s only)
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple underlying ontology sections (e.g., Ch. 2.5 codelist, but drug also corresponds to Ch. 2.2 and Ch. 2.6)
 
+*Here's an example (excerpt) of a master spreadsheet:
+[insert screenshot of excel with clinician flags]
 
 
 ## Example *Stata* code (Steps 2 to 7) 
@@ -333,12 +335,12 @@ sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAASnooverlap20505 
 //3.) Remove any irrelevant codes
 *************************************************************
 
-*exclude by BNFaddtl codes - N/A
+*exclude by outstanding codes - N/A
 	*only if all not part of chemical value set. (step may not be indicated in all codelists)
 	*here N/A keep for clinician review
 	
 *exclude ROUTE 
-preserve
+preserve // this code here gives you a list of the routes 
 keep route
 duplicates drop
 list route
@@ -436,6 +438,8 @@ sort termfromemis
 
 *exclude by BNFCHAPTER - not recommended since very incomplete data
 
+*don't exclude by PRODUCT IDENTIFIER (i.e., prodcodeid in CPRD)
+/*Why? It is a less transparent coding method. As product identifiers are numerical codes that do not contain qualitative information (eg, name, route, formulation), the exclusions are harder to visualise as one read through the coding script. This is important partiicularly when a researcher were to return to the script, e.g., to revise the nature of the codelist exclusions, and visualise these exclusions explicity. */
 
 *************************************************************
 //4.) Cleaning / resorting
@@ -545,8 +549,6 @@ keep v0 raw, v3 merged, and v4 project-specific
 */
 
 
-
-
 //Generate tag file for codelist repository
 
 //= Update details here, everything else is automated ==========================
@@ -580,6 +582,9 @@ export delimited "`filename'.tag", replace novarnames delimiter(tab)
 use "`filename'", clear  //so that you can see results of search after do file run
 
 log close
+```
+
+
 
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
