@@ -19,9 +19,10 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 **Step 1 : Define purpose and value sets**  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
-    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
-    - A user-friendly BNF resource is the [OpenPrescribing](https://openprescribing.net/bnf/)      
-- Define value sets (i.e., subgroups of codes within this clinical definition)  
+    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
+    - A user-friendly BNF resource is [OpenPrescribing](https://openprescribing.net/bnf/)
+    - A user-friendly ATC resource is from the [WHO](https://www.whocc.no/atc_ddd_index/) or [DrugBank](https://go.drugbank.com/atc)
+- Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names  <br />
     - proprietary names (OPTIONAL)  <br />
@@ -45,7 +46,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
     - (i) chemical and proprietary term search (OPTIONAL - proprietary terms optional if complete data on chemical name, for each drug, even if also listed by its proprietary name)
     - (ii) search on underlying ontology (OPTIONAL - again, optional if have complete data on chemical name, for each drug)
         - consider syntax with slashes (eg, "*/ 302*" and "302*" for Ch. 3.2 BNF)
-        - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter*
+        - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
 
 **Step 3: Exclusions**
 
