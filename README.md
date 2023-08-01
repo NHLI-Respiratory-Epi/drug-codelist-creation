@@ -22,7 +22,7 @@ At all stages, request clinical input. We put $$ where we believe this to be ess
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
     		- A user-friendly BNF resource is the OpenPrescribing:   
     - Define value sets (i.e., subgroups of codes within this clinical definition)  
-    - For each value set, collate search terms  
+    - For each value set, collate search terms   
     		- chemical names  
       		- proprietary names (OPTIONAL)  
     - Establish route (e.g., oral, parenteral/injected) **$**  
