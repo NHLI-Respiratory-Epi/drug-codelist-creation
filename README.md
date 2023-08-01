@@ -7,24 +7,121 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 	<img src="Flowchart for github.png" height="675"/>
 </p>
 
-## Steps
-
 ## Glossary 
 <p align="center">
 	<img src="Definitions.PNG"/>
 </p>
 
-## Example *Stata* code 
+## STEPS 
+
+At all stages, request clinical input. We put **✱** where we believe this to be essential.
+
+**Step 1 : Define purpose and value sets**  
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
+    - Choose organ system knowing what the drug targets (e.g., circulatory system)    
+    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
+    - A user-friendly BNF resource is [OpenPrescribing](https://openprescribing.net/bnf/)
+    - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank Database](https://go.drugbank.com/atc)
+- Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
+- For each value set, collate search terms   
+    - chemical names  <br />
+    - proprietary names (OPTIONAL)  <br />
+- Establish route (e.g., oral, parenteral/injected) **✱**  
+- Consider purpose:  
+    - repository  <br />
+    - disease-specific (e.g., COPD inhalers)  <br />
+- Consider chemistry: **✱**  
+    - for search efficiency  <br />
+    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
+    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
+
+*Put all information of Step 1 into a spreadsheet, so you can refer back to this later:*   
+
+<p align="center">
+	<img src="inline_Step1.png"/>
+</p>
+
+
+**Step 2: Conducting search**
+- Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as *strings*.
+
+- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location within a string
+
+- Search the browser dictionary in 2 stages  
+- **2a) Search database drug dictionary**  
+    - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - database dependent)  
+        - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
+        - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)  
+        - In *Stata*, parent and child lists take the form of local macros; in R a comparable step would be to name a list of vectors, and nesting the lists as necessary.  
+
+
+    - **2a(ii) search on underlying ontology** (OPTIONAL - database dependent)  
+        - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
+        - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
+
+- When searching dictionary for each of your search terms defined in **Step 1**, ensure dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case  
+     
+
+- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - database dependent)  
+    - tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone  
+    - allows you to check if you included all possible terms / codelist completeness  
+    - *How are outstanding codes identified?*    
+        - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)    
+        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)    
+    - *So what do I do if I get outstanding codes?*    
+        - add the additional terms to the value sets    
+        - re-run steps 2a to 2b (ITERATIVELY - as necessary)    
+        - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.    
+
+    - *Why are Steps 2a(ii) and 2b database-dependent?*    
+        - The database might have missing data in the search "attribute" variables      
+        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
+
+
+Here's a diagram summarizing the Step 2 search process:  
+[insert]
+
+**Step 3: Exclusions**
+- Manually review each code, one by one
+- *How?* Eliminate by: name, route, formulation
+- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given for the heart)
+  
+**Step 4: Cleaning**
+- 4a)
+- 4a)
+- 4b)
+
+**Step 5: Compare to previous codelists or mapping ontologies**
+
+**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist**
+
+**Step 7: Keep "master" codelist spreadsheet - with all versions and tags**
+- Have columns that tags codes for certain codelist versions:
+    - (i) Raw codes (before clinician review)
+    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 sensitivity analysis)
+    - (iii) Codes finalized for study (i.e., containing 1s only)
+    - (iv) Tags for overlapping, fixed combination drugs falling into multiple underlying ontology sections (e.g., Ch. 2.5 codelist, but drug also corresponds to Ch. 2.2 and Ch. 2.6)
+
+*Here's an example (excerpt) of a master spreadsheet:
+[insert screenshot of excel with clinician flags]
+
+
+## Example *Stata* code (Steps 2 to 7) 
+
 This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
+
 *NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
 
-*******************************************************************************
-*1) Define drug class(es) of interest - collate list of terms for value sets
-*******************************************************************************/
+```stata
+//*******************************************************************************
+//*1) Define purpose and value sets: drug class(es) of interest, collate list of terms for value sets
+//*******************************************************************************/
 
-*******************************************************************************
-*2) Searching CPRD Aurum Product Browser
-*******************************************************************************/
+//(spreadsheet as above)
+
+//*******************************************************************************
+//*2) Searching CPRD Aurum Product Browser
+//*******************************************************************************/
 
 clear all
 macro drop _all
@@ -50,9 +147,9 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2)
 
 
 	
-******
+//******
 // 2a. (i)Chemical + proprietary name searchterms
-******
+//******
 	*Insert your search terms into each local as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
 
 
@@ -238,12 +335,12 @@ sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAASnooverlap20505 
 //3.) Remove any irrelevant codes
 *************************************************************
 
-*exclude by BNFaddtl codes - N/A
+*exclude by outstanding codes - N/A
 	*only if all not part of chemical value set. (step may not be indicated in all codelists)
 	*here N/A keep for clinician review
 	
 *exclude ROUTE 
-preserve
+preserve // this code here gives you a list of the routes 
 keep route
 duplicates drop
 list route
@@ -307,7 +404,7 @@ compress
 browse
 sort termfromemis 
 
-/*exclude PRODCODEID / template - but not a transparent method
+/*exclude PRODCODEID / template - but not a transparent method, not recommended
 local exclude_prodcodeid "XXXXXXXX"
 
 //search for prodcodeid-codes to exclude
@@ -341,6 +438,12 @@ sort termfromemis
 
 *exclude by BNFCHAPTER - not recommended since very incomplete data
 
+*Why don't exclude by PRODUCT IDENTIFIER? (i.e., prodcodeid in CPRD)
+/*Why? It is a less transparent coding method. As product identifiers are
+numerical codes that do not contain qualitative information (eg, name, route, formulation),
+the exclusions are harder to visualise as one read through the coding script.
+This is important partiicularly when a researcher were to return to the script,
+e.g., to revise the nature of the codelist exclusions, and visualise these exclusions explicity. */
 
 *************************************************************
 //4.) Cleaning / resorting
@@ -450,8 +553,6 @@ keep v0 raw, v3 merged, and v4 project-specific
 */
 
 
-
-
 //Generate tag file for codelist repository
 
 //= Update details here, everything else is automated ==========================
@@ -485,6 +586,16 @@ export delimited "`filename'.tag", replace novarnames delimiter(tab)
 use "`filename'", clear  //so that you can see results of search after do file run
 
 log close
+```  
+
+^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
+
+In CPRD Aurum, because there's missing data in the drug dictionary...  
+
+Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), and applied the codelist to a sample cohort to find prescriptions:  
+
+[insert upset plot for 2.5]
+
 
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
