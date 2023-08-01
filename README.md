@@ -11,7 +11,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 ## Glossary 
 <p align="center">
-	<img src="inline_Step1.png"/>
+	<img src="Definitions.PNG"/>
 </p>
 
 ## Example *Stata* code 
@@ -25,7 +25,7 @@ This code is an example to create a codelist for Chapter 2.5 of the British Nati
 *******************************************************************************/
 
 <p align="center">
-	<img src="Flowchart for github.png" height="675"/>
+	<img src="inline_Step1.png"/>
 </p>
 
 
