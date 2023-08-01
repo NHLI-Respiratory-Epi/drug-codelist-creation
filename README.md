@@ -12,7 +12,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 	<img src="Definitions.PNG"/>
 </p>
 
-## STEPS
+## STEPS 
 
 At all stages, request clinical input. We put $$ where we believe this to be essential.
 
