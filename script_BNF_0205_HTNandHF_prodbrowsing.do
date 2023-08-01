@@ -1,6 +1,6 @@
 /********************************************************************************
 	CPRD Product Code Browser Searching
-	23/09/2020	ELA //   Updated by PWS on 2022-06-22  // Updated by ELG for Product Browsing 2022-04-11
+	23/09/2020	ELA //   Updated by PWS on 2022-06-22  // Updated by ELG for Product Browsing 2022-12-02
 	2 Dec 2022
 	Emily Graul
 	Codelist: BNF, 0205 HTN and Heart Failure RX
@@ -49,7 +49,7 @@ local browser_dir "Z:\Database guidelines and info\CPRD\CPRD_CodeBrowser_202202_
 import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) 
 	*FORCE 'prodcode' and 'dmdcode' to be string variable, or will lose data
 
-//no lookupfile required (unlike medical code browsing)
+//no EMIS lookupfile required (unlike medical code browsing)
 
 
 	
@@ -178,45 +178,51 @@ foreach searchterm in ///
 
 
 ******
-// (ii)separate BNF search 
+// 2a(ii)separate BNF search 
 ******
 *helps pick up outstanding brand or chem names
 *can't include in above - nested macros don't like astricks (***)
 
-generate byte bnfsearch205=.
-replace bnfsearch205=1 if 	strmatch(bnfchapter,"205*")  | ///
+generate byte 	step2aii_bnfsearch205=.
+replace 		step2aii_bnfsearch205=1 if 	strmatch(bnfchapter,"205*")  | ///
 							strmatch(bnfchapter,"*/ 205*")  
 
-*keep found terms for (i) (ii))
-generate byte chem_brand_term = .
-replace chem_brand_term=1 if vasodil20501==1 | centact20502==1 | adrblocker20503==1 | ablocker20504==1 | RAASnooverlap20505==1 | RAAS1overlap20505==1 | RAAS2overlap20505==1 | othadrblocker20508==1
+*keep found terms for (2ai) (2aii)
+generate byte step2ai_chem_brand_term = .
+replace step2ai_chem_brand_term=1 if vasodil20501==1 | centact20502==1 | adrblocker20503==1 | ablocker20504==1 | RAASnooverlap20505==1 | RAAS1overlap20505==1 | RAAS2overlap20505==1 | othadrblocker20508==1
 
-keep if chem_brand_term == 1 | bnfsearch205==1 
+count if step2ai_chem_brand_term == 1 	// 617 from (2a,i)
+count if step2aii_bnfsearch205	 == 1		// 281 from (2a,ii)
+
+keep if step2ai_chem_brand_term == 1 | step2aii_bnfsearch205==1  // 627 from (2a i and ii together)
 
 compress
-count 
+count // 627 total  (2a i and ii together)
 browse
 
 
 ******
-//2b. Did BNF search pick up *additional* codes(proprietary or chemical names) not initially searched on?
+//2b. Did BNF search pick up *outstanding / additional* codes(proprietary or chemical names) not initially searched on in (2ai)?
 ******
 
-generate byte BNFaddtl=.
-replace BNFaddtl=1 if chem_brand_term!=1 & bnfsearch205==1
-label define lab1 1 "yesBNFaddtl"
-label values BNFaddtl lab1 
+generate byte 	step2b_BNFoutstanding=.
+replace 		step2b_BNFoutstanding=1 if step2ai_chem_brand_term!=1 & step2aii_bnfsearch205==1
+label define lab1 1 "outstanding from 2aii BNFsearch"
+label values 	step2b_BNFoutstanding lab1 
 
-codebook BNFaddtl
-list if BNFaddtl==1
-browse if BNFaddtl==1 //Selexipag & Na Nitroprusside
+codebook 	step2b_BNFoutstanding
+list 	if step2b_BNFoutstanding==1
+browse 	if step2b_BNFoutstanding==1  
+count 	if step2b_BNFoutstanding==1   // 10 outstanding codes 
+	*10 not part of initial value sets = 9 Selexipag & 1 Na-Nitroprusside. Rare? Not commonly prescribed? wait for clinician review.
 
 compress
-count
-*if pick up new brand names, return to step 1a and add in outstanding brand names for the iteration/rerun of code
+count // 627 
+*if pick up new brand names, return to step 2ai and add in outstanding brand names for the iteration/rerun of code
 *then run this step again
-*may not have any/very few yesBNFaddtl=1 if your search is sensitive/broad enough and you went thru iterations of adding outstanding search terms
-*of the yesBNFaddtl=1, few drug issues...new drug? if all clearly not part of value set, exclude. Otherwise wait for clinician.
+*may not have any/very few step2b_BNFoutstanding=1 if your search is sensitive/broad enough and you went thru iterations of adding outstanding search terms
+
+*here, of the step2b_BNFoutstanding=1, few drug issues...new drug? (if all clearly not part of value set, exclude. Otherwise wait for clinician.)
 
 
 *change 0 in chem_brand_term to . - easier to visualise which codes picked up
@@ -263,16 +269,16 @@ foreach excludeterm in exclude_route {
 }
 
 list term prodcodeid drugsubstancename route if exclude_route == 1	
-count if exclude_route == 1 
+		count if exclude_route == 1 
 
-drop if exclude_route == 1 
-drop exclude_route 
+		drop if exclude_route == 1 // 20 deleted based on route
+		drop exclude_route 
 
-count 
-compress
+		count // 607 new total
+		compress
 
-browse
-sort termfromemis 
+		browse
+		sort termfromemis 
 		
 *exclude TERM, DRUGSUBSTANCENAME 
 		*although previously excluded on 'ocular' route, route has missing data for what we want to exclude, so also exclude based on term 'eye'
@@ -295,16 +301,16 @@ foreach excludeterm in exclude_term_drugsub {
 list term prodcodeid drugsubstancename route if exclude_term_drugsub == 1
 count if exclude_term_drugsub == 1 
 
-drop if exclude_term_drugsub == 1 
+drop if exclude_term_drugsub == 1 // 6 deleted based on term & drugsubstancename
 drop exclude_term_drugsub 
 
-count 
+count // 601 new total
 compress
 
 browse
 sort termfromemis 
 
-/*exclude PRODCODEID / template
+/*exclude PRODCODEID / template - but not a transparent method
 local exclude_prodcodeid "XXXXXXXX"
 
 //search for prodcodeid-codes to exclude
@@ -344,45 +350,47 @@ sort termfromemis
 *************************************************************
 
 ******
-//4a. flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
+//4a. flag the codes in multiple BNF subsections / overlap/not mutually exclusive - that should NOT be + make mutually exclusive
 ******
 *this may be more important for chapters with subsections that may have overlap in resulting found terms, if your search is specific/broad enough (e.g., in Ch. 2.2 Diuretics, searching just on "furosemide" would lead to found terms in both 2.2.2 and 2.2.4 and 2.2.8, that should not be )
 
-generate flag_me=.
+generate flag_overlap=.
 egen rowtotal = rowtotal(vasodil20501 centact20502 adrblocker20503 ablocker20504 RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505 othadrblocker20508)
-replace flag_me=1 if rowtotal>1
+replace flag_overlap=1 if rowtotal>1
 drop rowtotal
 
-sort flag_me drugsubstancename termfromemis
-count if flag_me==1 //none
-*count if flag_me==1 & drugsubstancename!=""
-*br if flag_me==1 
+sort flag_overlap drugsubstancename termfromemis
+count if flag_overlap==1 // none (0)
+*count if flag_overlap==1 & drugsubstancename!=""
+*br if flag_overlap==1 
 
 compress
-count
+count // 601
 browse
 
 *make not mutually exclusive - resort based on missing & complete data on drug substance name
-	*N/A
+	*N/A for this codelist
 
 ******
 //4b. Flag codes in multiple BNF subsections, that SHOULD be - for clinician & covariate analysis
 ******
 
 	*flagging 0202 diuretics
-	generate byte also_0202_diuretic=.
-	replace also_0202_diuretic=1 if strmatch(lower(term),"*azide*") 
-	replace also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*azide*") 
-	replace also_0202_diuretic=1 if strmatch(lower(term),"*pamide*") 
-	replace also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*pamide*")
+	generate byte step4b_also_0202_diuretic=.
+	replace step4b_also_0202_diuretic=1 if strmatch(lower(term),"*azide*") 
+	replace step4b_also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*azide*") 
+	replace step4b_also_0202_diuretic=1 if strmatch(lower(term),"*pamide*") 
+	replace step4b_also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*pamide*")
+	count if step4b_also_0202_diuretic==1 	// 66 codes with ingredients also Ch. 2.2 diuretic
 
 	*flagging 0206 Ca2+ channel blockers
-	generate byte also_0206_CCB=.
-	replace also_0206_CCB=1 if strmatch(lower(term),"*triapin*")  
-	replace also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*dipine*") 
-	replace also_0206_CCB=1 if strmatch(lower(term),"*dipine*")  
-	replace also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*pamil*") 
-	replace also_0206_CCB=1 if strmatch(lower(term),"*pamil*") 
+	generate byte step4b_also_0206_CCB=.
+	replace step4b_also_0206_CCB=1 if strmatch(lower(term),"*triapin*")  
+	replace step4b_also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*dipine*") 
+	replace step4b_also_0206_CCB=1 if strmatch(lower(term),"*dipine*")  
+	replace step4b_also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*pamil*") 
+	replace step4b_also_0206_CCB=1 if strmatch(lower(term),"*pamil*") 
+	count if step4b_also_0206_CCB==1 		// 28 codes with ingredients also Ch. 2.6 CCB
 
 ******		
 //4c. Modify value sets, as necessary
@@ -418,15 +426,14 @@ drop RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505
 
 //order
 order prodcodeid termfromemis productname dmdid formulation routeofadministration drugsubstancename substancestrength bnfchapter drugissues ///
-vasodil20501 centact20502 adrblocker20503 ablocker20504 RAAS20505 othadrblocker20508  bnfsearch205 ///
-also_0202_diuretic also_0206_CCB  
+vasodil20501 centact20502 adrblocker20503 ablocker20504 RAAS20505 othadrblocker20508  step2ai_chem_brand_term step2aii_bnfsearch205 step2b_BNFoutstanding ///
+step4b_also_0202_diuretic step4b_also_0206_CCB  
 
 sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAAS20505 othadrblocker20508 termfromemis 
 
-drop chem_brand_term flag_me // bnfsearch205 
+drop flag_overlap 
 
-*keep BNFaddtl labelling step 2b (optional)
-count // 601
+count // 601 total  - pre-clinician review
 
 //export (v0 no clinician, raw)
 compress

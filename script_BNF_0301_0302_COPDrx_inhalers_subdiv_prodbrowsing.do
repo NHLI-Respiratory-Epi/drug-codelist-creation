@@ -1,6 +1,6 @@
 /********************************************************************************
 	CPRD Product Code Browser Searching
-	23/09/2020	ELA //   Updated by PWS on 2022-06-22  // Updated by ELG for Product Browsing 2022-04-11
+	23/09/2020	ELA //   Updated by PWS on 2022-06-22  // Updated by ELG for Product Browsing 2022-12-02
 	2 Dec 2022
 	Emily Graul
 	Codelist: BNF 0301-01,02,04; 0302 COPD Rx inhalers
@@ -35,12 +35,13 @@ set more off
 
 //Enter directory to save files in
 cd "Z:\Group_work\Emily\Product_browsing_study_data\Codelists\Do-files_working_publication\COPDrx_inhalers_checked\"
+
 pwd 
 
 local filename "publication_COPDrx_inhalers_subdiv_prodbrowsing"
 
-//capture log close
-//log using `filename', text replace
+capture log close
+log using `filename', text replace
 
 //Directory of product dictionary
 local browser_dir "Z:\Database guidelines and info\CPRD\CPRD_CodeBrowser_202202_Aurum"
@@ -49,7 +50,7 @@ local browser_dir "Z:\Database guidelines and info\CPRD\CPRD_CodeBrowser_202202_
 import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) 
 	*FORCE 'prodcode' and 'dmdcode' to be string variable, or will lose data
 
-//no EMIS code categories to label (unlike medical code browsing)
+//no EMIS lookupfile required (unlike medical code browsing)
 
 
 ******
@@ -179,55 +180,57 @@ foreach searchterm in ///
 
 
 ******
-// (ii) separate BNF search 
+// 2a(ii) separate BNF search 
 ******
 *helps pick up outstanding brand or chem names
 *can't include in above - nested macros don't like astricks (***)
 
-generate byte bnfsearch301_302=.
-replace bnfsearch301_302=1 if 	strmatch(bnfchapter,"301*") | ///
+generate byte step2aii_bnfsearch301_302=.
+replace step2aii_bnfsearch301_302=1 if 	strmatch(bnfchapter,"301*") | ///
 								strmatch(bnfchapter,"*/ 301*") | ///  
 								strmatch(bnfchapter,"302*") | /// 
 								strmatch(bnfchapter,"*/ 302*")  
 		
-*not part of value set:
-replace bnfsearch301_302=. if 	strmatch(bnfchapter,"30103*") | /// 
+*3.1.3not part of value set, set to missing:
+replace step2aii_bnfsearch301_302=. if 	strmatch(bnfchapter,"30103*") | /// 
 								strmatch(bnfchapter,"*/ 30103*") | ///  
 								strmatch(bnfchapter,"30105*") | /// 
 								strmatch(bnfchapter,"*/ 30105*")   
 
-*keep found terms for 2a. 2b. 
-generate byte chem_brand_term = .
-replace chem_brand_term=1 if laba_030101==1 | saba_030101==1 | lama_030102==1 | sama_030102==1 | sabasama_30104==1 | labalama_30104==1 | ics_0302==1 | icslaba_0302==1 | triple_0302==1
+*keep found terms for (2ai) (2aii)
+generate byte step2ai_chem_brand_term = .
+replace step2ai_chem_brand_term=1 if laba_030101==1 | saba_030101==1 | lama_030102==1 | sama_030102==1 | sabasama_30104==1 | labalama_30104==1 | ics_0302==1 | icslaba_0302==1 | triple_0302==1
 
-keep if chem_brand_term == 1 | bnfsearch301_302==1 
+count if step2ai_chem_brand_term == 1 	    	// 675 from (2a,i)
+count if step2aii_bnfsearch301_302	 == 1		// 242 from (2a,ii)
+
+keep if step2ai_chem_brand_term == 1 | step2aii_bnfsearch301_302==1 // 692 from (2a i and ii together)
 
 compress
-count //692
+count // 692 total  (2a i and ii together)
 browse
 
 ******
-//2b. Did BNF search pick up *additional* codes(proprietary or chemical names) not initially searched on in (i) ?
+//2b. Did BNF search pick up *outstanding / additional* codes(proprietary or chemical names) not initially searched on in (2ai) ?
 ******
 
-generate byte BNFaddtl=.
-replace BNFaddtl=1 if chem_brand_term!=1 & bnfsearch301_302==1
-label define lab1 1 "yesBNFaddtl"
-label values BNFaddtl lab1 
+generate byte step2b_BNFoutstanding=.
+replace step2b_BNFoutstanding=1 if step2ai_chem_brand_term!=1 & step2aii_bnfsearch301_302==1
+label define lab1 1 "outstanding from 2aii BNFsearch"
+label values step2b_BNFoutstanding lab1 
 
-codebook BNFaddtl
-count if BNFaddtl==1
-list if BNFaddtl==1
-browse if BNFaddtl==1 // final iteration once value sets/macros complete - all 17 additional are not part of value set, exclude later
+codebook step2b_BNFoutstanding
+count if step2b_BNFoutstanding==1
+list if step2b_BNFoutstanding==1
+browse if step2b_BNFoutstanding==1 // final iteration once value sets/macros complete - all 17 additional are undoubtably not part of value set, exclude in step 3, before clinician review
 
 compress
-count
-sort BNFaddtl drugsubstancename 
-sort BNFaddtl drugsubstancename termfromemis
-*if pick up new brand names, return to step 2a and add in outstanding brand names for the iteration/rerun of code
-*then run 2a-2b steps again
-*may not have any/very few yesBNFaddtl=1 if your search is sensitive/broad enough and you went thru iterations of adding outstanding search terms
-*of the yesBNFaddtl=1, few drug issues...new drug? if all clearly not part of value set, exclude. Otherwise wait for clinician.
+count // 692
+*if pick up new brand names, return to step 2ai and add in outstanding brand names for the iteration/rerun of code
+*then run this step again
+*may not have any/very few step2b_BNFoutstanding=1 if your search is sensitive/broad enough and you went thru iterations of adding outstanding search terms
+*of the step2b_BNFoutstanding=1, few drug issues...new drug? if all clearly not part of value set, exclude. Otherwise wait for clinician.
+*here, of the step2b_BNFoutstanding=1, all clearly not part of value set, exclude in step 3. (if all clearly not part of value set, exclude. Otherwise wait for clinician.)
 
 
 *change 0 in chem_brand_term to . - easier to visualise which codes picked up
@@ -249,15 +252,15 @@ sort laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_301
 //3.) Remove any irrelevant codes
 *************************************************************
 
-*exclude by BNFaddtl codes - here, all BNFaddtl not part of chemical value set. (step may not be indicated in all codelists and may require later clinician review)
-		*chemicals not part of value set: "*bambuterol*" "*prednisolone*" "*betamethasone*" "*hydrocortisone*" "*ephedrine*"
-list term prodcodeid drugsubstancename route if BNFaddtl == 1
-		count if BNFaddtl == 1 // 17 all not part of chemical value set
+*exclude by step2b_BNFoutstanding codes - here, all step2b_BNFoutstanding not part of chemical value set. 
+
+list term prodcodeid drugsubstancename route if step2b_BNFoutstanding == 1
+		count if step2b_BNFoutstanding == 1 // 17 all not part of chemical value set
 		
-		drop if BNFaddtl == 1 
+		drop if step2b_BNFoutstanding == 1 // 17 deleted based on outstanding.
 		*drop BNFaddtl later - since part of future step  
 		
-		count 
+		count // 675 new total
 		compress
 		browse
 		
@@ -297,10 +300,10 @@ list term prodcodeid drugsubstancename route if exclude_route_formulation == 1
 		count if exclude_route_formulation == 1 
 		*br if exclude_route_formulation == 1
 		
-		drop if exclude_route_formulation == 1 
+		drop if exclude_route_formulation == 1 // 172 deleted based on route and/or formulation
 		drop exclude_route_formulation 
 		
-		count 
+		count // 503 new total
 		compress
 		browse
 		
@@ -348,7 +351,7 @@ list term prodcodeid if exclude_prodcodeid == 1
 		browse
 sort _____ termfromemis
 */
-/
+
 *exclude TERM, DRUGSUBSTANCENAME 
 local exclude_term_drugsub " "*nebulis*" "*nebules*" "*tablets*" "*nasal*" "*injection*" "*ileostomy*" "*ointment*" "*cream*" "*ventide*" "*beclometasone*salbutamol*" "  
 
@@ -369,16 +372,16 @@ foreach excludeterm in exclude_term_drugsub {
 list term prodcodeid drugsubstancename route if exclude_term_drugsub == 1
 		count if exclude_term_drugsub == 1 
 		
-		drop if exclude_term_drugsub == 1 
+		drop if exclude_term_drugsub == 1 // 44 deleted based on drugsubstancename
 		drop exclude_term_drugsub 
 		
-		count 
+		count // 459 new total
 		compress
 
 		browse
 
 sort laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_30104 ics_0302 icslaba_0302 triple_0302 termfromemis 
-/
+
 *exclude by FORMULATION - N/A
 
 *exclude by BNFCHAPTER - not recommended since very incomplete data
@@ -391,7 +394,7 @@ sort laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_301
 
 
 ******
-//4a. flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
+//4a. flag the codes in multiple BNF subsections / overlap/not mutually exclusive - that should NOT be + make mutually exclusive
 ******
 *this may be more important for chapters with subsections that may have overlap in resulting found terms, if your search is specific/broad enough (e.g., in Ch. 2.2 Diuretics, searching just on "furosemide" would lead to found terms in both 2.2.2 and 2.2.4 and 2.2.8, that should not be )
 
@@ -447,10 +450,10 @@ replace category="triple" if triple_0302==1
 
 	*flagging 0303 Cromoglycate, leukotriene and phosphodesterase type-4 inhib
 	*Aerocrom = salbutamol/cromoglicate
-	generate also_0303cromo=.
-	replace also_0303cromo=1 if strmatch(lower(term),"*cromoglicate*") 
-	replace also_0303cromo=1 if strmatch(lower(drugsubstancename),"*cromoglicate*") 
-
+	generate step4b_also_0303cromo=.
+	replace step4b_also_0303cromo=1 if strmatch(lower(term),"*cromoglicate*") 
+	replace step4b_also_0303cromo=1 if strmatch(lower(drugsubstancename),"*cromoglicate*") 
+	count if step4b_also_0303cromo==1 // 2 codes with ingredients also in Ch. 3.3 
 
 ******		
 //4c. Modify value sets, as necessary
@@ -465,9 +468,9 @@ replace category="triple" if triple_0302==1
 ******
 
 *combine with step 5, since I have a previous codelist to work with
-
 	
-	
+count // 459 total pre-step 5, pre-clinician review
+ 
 *************************************************************
 //5.) Compare to previous lists or taxonomic mapping 
 *************************************************************
@@ -530,12 +533,11 @@ drop compare_previous_tmp
 //order
 order prodcodeid termfromemis productname dmdid formulation routeofadministration drugsubstancename substancestrength bnfchapter drugissues category ///
 laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_30104 ics_0302 icslaba_0302  triple_0302 ///
-also_0303cromo  
+step2ai_chem_brand_term step2aii_bnfsearch301_302 step2b_BNFoutstanding step4b_also_0303cromo
 
 sort laba_030101 saba_030101 lama_030102 sama_030102 sabasama_30104 labalama_30104 ics_0302 icslaba_0302 triple_0302 termfromemis 
 
-drop chem_brand_term BNFaddtl category_prev bnfcode_prev termfromemis_prev atc_prev form_prev route_prev drugsubstance_prev _m
-*keep BNFaddtl labelling step 2b (optional)
+drop category_prev bnfcode_prev termfromemis_prev atc_prev form_prev route_prev drugsubstance_prev _m
 
 preserve
 keep if compare_previous!=.
@@ -546,15 +548,18 @@ preserve
 keep if compare_previous==2 //new
 tabulate category compare_previous, missing col
 restore
-
-count // 477
+rename compare_previous step5_compare_previous_mapped
+count // 472 mapped pre-clinician review; 459 unmapped pre-clinician review
 
 //export (v0 no clinician, raw)
 compress
 save `filename', replace
 export excel using `filename'.xlsx, firstrow(variables) replace
 //export delimited `filename'.csv, quote replace
-/
+
+
+
+
 /*example versions:
 v0 = Raw codelist 
 v1 = Clinician1 1/2/0s
@@ -565,6 +570,9 @@ v4 = Final, project-specific Codelist- discordancies resolved, final project-spe
 keep v0 raw, v3 merged, and v4 project-specific
 
 */
+
+
+
 
 //Generate tag file for codelist repository
 
