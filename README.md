@@ -595,7 +595,7 @@ In CPRD Aurum, because there's missing data in the drug dictionary...
 Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), and applied the codelist to a sample cohort to find prescriptions:  
 
 <p align="center">
-	<img src="UpSetplot_Ch2.5codelist.pdf"/>
+	<img src="UpSetplot_Ch2.5codelist.png"/>
 </p>
 
 
