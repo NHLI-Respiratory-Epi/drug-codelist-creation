@@ -20,7 +20,7 @@ At all stages, request clinical input. We put **$** where we believe this to be 
     - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
-    		- A user-friendly BNF resource is the [OpenPrescribing](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main](https://openprescribing.net/bnf/) <br />
+		> - A user-friendly BNF resource is the [OpenPrescribing](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main](https://openprescribing.net/bnf/) <br />
     - Define value sets (i.e., subgroups of codes within this clinical definition)  
     - For each value set, collate search terms   
     		- chemical names  <br />
