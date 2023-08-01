@@ -2,9 +2,6 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
-## Pre-print
-Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
-
 ## Creating drug codelists can be broken down in to 8 steps:
 <p align="center">
 	<img src="Flowchart for github.png" height="675"/>
@@ -576,4 +573,6 @@ export delimited "`filename'.tag", replace novarnames delimiter(tab)
 use "`filename'", clear  //so that you can see results of search after do file run
 
 log close
-```
+
+## Pre-print
+Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
