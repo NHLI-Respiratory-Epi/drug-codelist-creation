@@ -45,7 +45,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
     - (i) chemical and proprietary term search (OPTIONAL - proprietary terms optional if complete data on chemical name, for each drug, even if also listed by its proprietary name)
     - (ii) search on underlying ontology (OPTIONAL - again, optional if have complete data on chemical name, for each drug)
         - consider syntax with slashes (eg, "*/ 302*" and "302*" for Ch. 3.2 BNF)
-        - why slashes? medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes)
+        - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter*
 
 **Step 3: Exclusions**
 
