@@ -49,7 +49,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 
 - Search the browser dictionary in 2 stages  
 - **2a) Search database drug dictionary**  
-    - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)  
+    - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - database dependent)  
         - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
         - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)  
         - In *Stata*, parent and child lists take the form of local macros; in R a comparable step would be to name a list of vectors, and nesting the lists as necessary.  
@@ -65,17 +65,17 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 - **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - database dependent)  
     - tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone  
     - allows you to check if you included all possible terms / codelist completeness  
-    - *How are outstanding codes identified?*  
-        - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)  
-        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)  
-    - *So what do I do if I get outstanding codes?*  
-        - add the additional terms to the value sets  
-        - re-run steps 2a to 2b (ITERATIVELY - as necessary)  
-        - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.  
+    - *How are outstanding codes identified?*    
+        - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)    
+        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)    
+    - *So what do I do if I get outstanding codes?*    
+        - add the additional terms to the value sets    
+        - re-run steps 2a to 2b (ITERATIVELY - as necessary)    
+        - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.    
 
-    - *Why are Steps 2a(ii) and 2* database-dependent?*  
-        - The database might have missing data in the search "attribute" variables    
-        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*    
+    - *Why are Steps 2a(ii) and 2* database-dependent?*    
+        - The database might have missing data in the search "attribute" variables      
+        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
 
 
 Here's a diagram summarizing the Step 2 search process  
