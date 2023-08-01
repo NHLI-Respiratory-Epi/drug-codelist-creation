@@ -16,7 +16,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 | Ontology | Hierarchical set up of reference guide | BNF chapter 2 for Circulatory System |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
 | Drug dictionary | aka a "browser" with the full list of all possible drug codes | insert ex |  
-| Search Attribute Variables | Variables with key information you search through | *termfromemis*, *productname*, *bnfchapter*, *drugsubstancename* in the database CPRD Aurum |
+| Search Attribute Variables | Variables with key information you search through, data might be missing depending on the database | *termfromemis*, *productname*, *bnfchapter*, *drugsubstancename* in the database CPRD Aurum |
 
 </div>
 
@@ -49,6 +49,8 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 	<img src="inline_Step1.png"/>
 </p>
 
+*This spreadsheet is available for download, called _________.*
+
 
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
@@ -58,10 +60,11 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 - **2a) Search database drug dictionary**  
     - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - database dependent)  
         - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-        - For example, the *Stata* coding for BNF Ch. 2.5.1 would contain an *ambrisentan_list* ("*ambrisentan*" "*volibris*") and a *bosentan_list* ("*bosentan*" "*stayveer*" "*tracleer*") with both lists nested within value set list Ch. 2.5.1 for vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".......others......)  
+        - For example, the *Stata* coding for BNF Ch. 2.5.1 would contain an *ambrisentan_list* ("*ambrisentan*" "*volibris*") and a *bosentan_list* ("*bosentan*" "*stayveer*" "*tracleer*")
+        - With both lists nested within value set list Ch. 2.5.1 for vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".......others......)  
 
     - **2a(ii) search on underlying ontology** (OPTIONAL - database dependent)  
-        - Consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
+        - Consider syntax with slashes (e.g., in *Stata* coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
         - *Why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
 
 - When searching dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
@@ -86,7 +89,7 @@ At all stages, request clinical input. We put **✱** where we believe this to b
         - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., term from EMIS software), *productname* (containing chemical and proprietary information), *drugsubstancename* (chemical information/recipe). Ideally you would just search on *drugsubstancename* but there's missing data we search in 2a(i) using all these variables
 
 
-Here's a diagram summarizing the Step 2 search process:   
+*Here's a diagram summarizing the Step 2 search process:*   
 [insert] 
 
 
@@ -129,7 +132,7 @@ Here's a diagram summarizing the Step 2 search process:
 
   
 - **4c) Modify value sets as necessary** (OPTIONAL)  
-    - Combine multiple value sets into a broader value set because of
+    - Combine multiple value sets into a broader value set because of:
       - Study context
       - Computational considerations (e.g., *Stata* has macro character limits), or
       - You quite simply change your mind   
@@ -153,15 +156,15 @@ Here's a diagram summarizing the Step 2 search process:
     - 0 = no - “clear exclusion”    
     - 1 = yes - “certainty” 
     - 2 = maybe - “uncertainty” - use for sensitivity analyses? 
-- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist)
-    - resolve discordances between clinicians (OPTIONAL)
+- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)
+    - Resolve discordances between clinicians (OPTIONAL)
  
 - Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))
 
 
 ## Step 7: Keep "master" codelist spreadsheet - with all versions and tags** 
   
-- Columns tag codes for certain codelist versions: 
+- Columns tag codes for different codelist versions: 
     - (i) Raw codes (before clinician review)
     - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)
     - (iii) Codes finalized for study (1s only)
