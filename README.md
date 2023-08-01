@@ -14,19 +14,17 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 	<img src="Definitions.PNG"/>
 </p>
 
+## Step 1 : Define drug class(es) of interest - collate list of terms for value sets
+<p align="center">
+	<img src="inline_Step1.png"/>
+</p>
+
+
 ## Example *Stata* code 
 
 This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
 
 *NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
-
-*******************************************************************************
-*1) Define drug class(es) of interest - collate list of terms for value sets
-*******************************************************************************/
-
-<p align="center">
-	<img src="inline_Step1.png"/>
-</p>
 
 
 ```stata
