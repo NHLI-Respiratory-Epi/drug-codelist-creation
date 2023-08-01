@@ -14,7 +14,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 ## STEPS 
 
-*At all stages, request clinical input. We put $$ where we believe this to be essential.
+At all stages, request clinical input. We put $$ where we believe this to be essential.
 
 **Step 1 : Define purpose and value sets**
     - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**
@@ -34,7 +34,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
       		- don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate* 
 		- although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
 
-     Put all information of Step 1 into a spreadsheet, so you can refer back to this later: 
+Put all information of Step 1 into a spreadsheet, so you can refer back to this later: 
 
 <p align="center">
 	<img src="inline_Step1.png"/>
