@@ -2,7 +2,7 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
-Creating drug codelists can be broken down in to _ steps:
+Creating drug codelists can be broken down in to 8 steps:
 <p align="center">
 	<img src="Flowchart for github.png" height="675"/>
 </p>
