@@ -174,9 +174,11 @@ At all stages, request clinical input. We put **✱** where we believe this to b
   
 
 **Here's an example (excerpt) of a master spreadsheet:**
-The full example is available to download, file called ________[insert]________.
+The full example is available to download, file called ________[insert]________.  
 
-[insert screenshot of excel with clinician flags]
+<p align="center">
+	<img src="Step7_forexample_photo.png"/>
+</p>
 
 
 
