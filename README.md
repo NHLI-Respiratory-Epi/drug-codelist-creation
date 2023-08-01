@@ -7,12 +7,12 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 	<img src="Flowchart for github.png" height="675"/>
 </p>
 
-## Steps
-
 ## Glossary 
 <p align="center">
 	<img src="Definitions.PNG"/>
 </p>
+
+## STEPS
 
 ## Step 1 : Define drug class(es) of interest - collate list of terms for value sets
 <p align="center">
@@ -20,14 +20,19 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 </p>
 
 
-## Example *Stata* code 
+## Example *Stata* code (Steps 2 to 7) 
 
 This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
 
 *NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
 
-
 ```stata
+//*******************************************************************************
+//*1) Define drug class(es) of interest - collate list of terms for value sets
+//*******************************************************************************/
+
+//(spreadsheet as above)
+
 //*******************************************************************************
 //*2) Searching CPRD Aurum Product Browser
 //*******************************************************************************/
@@ -56,9 +61,9 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2)
 
 
 	
-******
+//******
 // 2a. (i)Chemical + proprietary name searchterms
-******
+//******
 	*Insert your search terms into each local as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
 
 
