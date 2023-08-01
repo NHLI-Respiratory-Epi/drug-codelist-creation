@@ -94,35 +94,35 @@ Here's a diagram summarizing the Step 2 search process:
 - *How?* Eliminate by: name, route, formulation 
 - *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given for the heart)
   
-**Step 4: Cleaning**
-- **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)
-    - This step places a temporary tag to identify overlapping codes that were categorized across multiple value sets.
-    - This unintended scenario wherein codes across value sets overlap is possible - given the broad search.
-    - For example, let's say we created a disease-specific codelist (i.e., not a general one for the repository) for COPD inhalers, with the following value sets:
-      - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists) 
-      - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)
-      - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids)
-      - (.....sets continue)
-      - As you can see above, since I structured my search based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), I might be left with overlapping codes across the three sets.
-    - So we write code to automate the re-sorting process to make each set mutually exclusive
+**Step 4: Cleaning**   
+- **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)   
+    - This step places a temporary tag to identify overlapping codes that were categorized across multiple value sets.  
+    - This unintended scenario wherein codes across value sets overlap is possible - given the broad search.  
+    - For example, let's say we created a disease-specific codelist (i.e., not a general one for the repository) for COPD inhalers, with the following value sets:  
+      - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)   
+      - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)  
+      - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids)  
+      - (.....sets continue)  
+      - As you can see above, since I structured my search based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), I might be left with overlapping codes across the three sets.  
+    - So we write code to automate the re-sorting process to make each set mutually exclusive  
 
-- **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**
-- Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap* 
-- *What is intentional overlap?* 
-    - “Intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections. *hydrochlorothiazide/captopril* for example is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).
-- So we write code to automate the re-sorting process to make those tags
-    - In this code, define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**
+- **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**  
+- Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*   
+- *What is intentional overlap?*   
+    - “Intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections. *hydrochlorothiazide/captopril* for example is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
+- So we write code to automate the re-sorting process to make those tags  
+    - In this code, define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
 
-- *Why is this proactive action for 4b) helpful?* 
-    - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) 
-    - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.  
-    - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist? 
-    - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged Hydrochlorothiazide/ Telmisartan as a drug also pertaining to Ch. 2.2 diuretics). 
+- *Why is this proactive action for 4b) helpful?*   
+    - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)   
+    - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.    
+    - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?   
+    - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged Hydrochlorothiazide/ Telmisartan as a drug also pertaining to Ch. 2.2 diuretics).   
 
 
   
-- **4c) Modify value sets as necessary** (OPTIONAL)
-- For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits)
+- **4c) Modify value sets as necessary** (OPTIONAL)  
+- For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits)  
 
 
 **Step 5: Compare to previous codelists or mapping ontologies**
