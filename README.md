@@ -404,7 +404,7 @@ compress
 browse
 sort termfromemis 
 
-/*exclude PRODCODEID / template - but not a transparent method
+/*exclude PRODCODEID / template - but not a transparent method, not recommended
 local exclude_prodcodeid "XXXXXXXX"
 
 //search for prodcodeid-codes to exclude
@@ -438,8 +438,12 @@ sort termfromemis
 
 *exclude by BNFCHAPTER - not recommended since very incomplete data
 
-*don't exclude by PRODUCT IDENTIFIER (i.e., prodcodeid in CPRD)
-/*Why? It is a less transparent coding method. As product identifiers are numerical codes that do not contain qualitative information (eg, name, route, formulation), the exclusions are harder to visualise as one read through the coding script. This is important partiicularly when a researcher were to return to the script, e.g., to revise the nature of the codelist exclusions, and visualise these exclusions explicity. */
+*Why don't exclude by PRODUCT IDENTIFIER? (i.e., prodcodeid in CPRD)
+/*Why? It is a less transparent coding method. As product identifiers are
+numerical codes that do not contain qualitative information (eg, name, route, formulation),
+the exclusions are harder to visualise as one read through the coding script.
+This is important partiicularly when a researcher were to return to the script,
+e.g., to revise the nature of the codelist exclusions, and visualise these exclusions explicity. */
 
 *************************************************************
 //4.) Cleaning / resorting
@@ -584,6 +588,13 @@ use "`filename'", clear  //so that you can see results of search after do file r
 log close
 ```
 
+^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
+
+In CPRD Aurum, because there's missing data in the drug dictionary...  
+
+Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), and applied the codelist to a sample cohort to find prescriptions:  
+
+[insert upset plot for 2.5]
 
 
 ## Pre-print
