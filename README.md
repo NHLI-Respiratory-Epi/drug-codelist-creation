@@ -586,7 +586,7 @@ export delimited "`filename'.tag", replace novarnames delimiter(tab)
 use "`filename'", clear  //so that you can see results of search after do file run
 
 log close
-```
+```  
 
 ^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
 
