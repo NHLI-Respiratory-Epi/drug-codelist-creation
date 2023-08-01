@@ -11,9 +11,15 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 </p>
 
 ## Glossary 
-<p align="center">
-	<img src="Definitions.PNG"/>
-</p>
+<div align="center">
+	
+| Term | Definition | Example |
+| :-- | :-- | :-- |
+| Phenotype | Medication which is to be researched | Antihypertensives |
+| Ontology | Hierarchical set up of reference guide | BNF chapter 2 |
+| Value set | Subgroups of medications based upon broader code list | <li>Ch 2.5.1 Vasodilator anti-hypertensives</li><li>Ch 2.5.1 Centrally-acting anti-hypertensives</li> |
+
+</div>
 
 ## STEPS 
 
