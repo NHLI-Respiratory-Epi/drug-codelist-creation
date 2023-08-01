@@ -9,7 +9,9 @@ Creating drug codelists can be broken down in to 8 steps:
 ## Steps
 
 ## Glossary 
-
+<p align="center">
+	<img src="Classifications.png" height="675"/>
+</p>
 ## Example *Stata* code 
 This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
 *NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
