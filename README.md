@@ -11,7 +11,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 ## Glossary 
 <p align="center">
-	<img src="Definitions.PNG" height="300" width="600"/>
+	<img src="Definitions.PNG"/>
 </p>
 
 ## Example *Stata* code 
