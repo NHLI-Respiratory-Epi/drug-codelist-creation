@@ -49,13 +49,13 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 
 - Search the browser dictionary in 2 stages  
 - **2a) Search database drug dictionary**  
-    - *2a(i)* chemical + proprietary term search (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)  
+    - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - if complete data on chemical name, for each drug, even if also listed by its proprietary name)  
     - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
     - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)  
     - In *Stata*, parent and child lists take the form of local macros; in R a comparable step would be to name a list of vectors, and nesting the lists as necessary.  
 
 
-    - *2a(ii)* search on underlying ontology (OPTIONAL - database dependent)  
+    - **2a(ii) search on underlying ontology** (OPTIONAL - database dependent)  
         - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
         - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
 
