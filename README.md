@@ -6,6 +6,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 <p align="center">
 	<img src="Flowchart for github.png" height="675"/>
 </p>
+
 ## Steps
 
 ## Glossary 
