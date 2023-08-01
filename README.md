@@ -40,7 +40,31 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
 	<img src="inline_Step1.png"/>
 </p>
 
-**Step 2 __**
+**Step 2: Conducting search**
+- 2a) Search database drug dictionary
+    - (i) chemical and proprietary term search (OPTIONAL - proprietary terms optional if complete data on chemical name, for each drug, even if also listed by its proprietary name)
+    - (ii) search on underlying ontology (OPTIONAL - again, optional if have complete data on chemical name, for each drug)
+        - consider syntax with slashes (eg, "*/ 302*" and "302*" for Ch. 3.2 BNF)
+        - why slashes? medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes)
+
+**Step 3: Exclusions**
+
+**Step 4: Cleaning**
+- 4a)
+- 4a)
+- 4b)
+
+**Step 5: Compare to previous codelists or mapping ontologies**
+
+**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist**
+
+**Step 7: Keep "master" codelist spreadsheet - with all versions and tags**
+- Have columns that tags codes for certain codelist versions:
+    - (i) Raw codes (before clinician review)
+    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 sensitivity analysis)
+    - (iii) Codes finalized for study (i.e., containing 1s only)
+    - (iv) Tags for overlapping, fixed combination drugs falling into multiple underlying ontology sections (e.g., Ch. 2.5 codelist, but drug also corresponds to Ch. 2.2 and Ch. 2.6)
+
 
 
 ## Example *Stata* code (Steps 2 to 7) 
