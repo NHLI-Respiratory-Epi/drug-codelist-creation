@@ -14,7 +14,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 ## STEPS 
 
-At all stages, request clinical input. We put $$ where we believe this to be essential.
+*At all stages, request clinical input. We put $$ where we believe this to be essential.
 
 **Step 1 : Define purpose and value sets**
     - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**
