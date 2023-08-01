@@ -73,7 +73,7 @@ Put all information of Step 1 into a spreadsheet, so you can refer back to this 
         - re-run steps 2a to 2b (ITERATIVELY - as necessary)    
         - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.    
 
-    - *Why are Steps 2a(ii) and 2* database-dependent?*    
+    - *Why are Steps 2a(ii) and 2b database-dependent?*    
         - The database might have missing data in the search "attribute" variables      
         - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
 
