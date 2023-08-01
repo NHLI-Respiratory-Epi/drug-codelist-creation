@@ -14,25 +14,25 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 ## STEPS 
 
-At all stages, request clinical input. We put $$ where we believe this to be essential.
+At all stages, request clinical input. We put **$** where we believe this to be essential.
 
 **Step 1 : Define purpose and value sets**  
     - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **$**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  
-    		- A user-friendly BNF resource is the OpenPrescribing:   
+    		- A user-friendly BNF resource is the [OpenPrescribing](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main](https://openprescribing.net/bnf/) <br />
     - Define value sets (i.e., subgroups of codes within this clinical definition)  
     - For each value set, collate search terms   
-    		- chemical names  
-      		- proprietary names (OPTIONAL)  
+    		- chemical names  <br />
+      		- proprietary names (OPTIONAL)  <br />
     - Establish route (e.g., oral, parenteral/injected) **$**  
     - Consider purpose:  
-    		- repository  
-      		- disease-specific (e.g., COPD inhalers)  
+    		- repository  <br />
+      		- disease-specific (e.g., COPD inhalers)  <br />
     - Consider chemistry: **$**  
-    		- for search efficiency  
-      		- don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   
-		- although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  
+    		- for search efficiency  <br />
+      		- don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
+		- although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
 
 Put all information of Step 1 into a spreadsheet, so you can refer back to this later:   
 
