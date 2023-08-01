@@ -24,7 +24,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 
 At all stages, request clinical input. We put **✱** where we believe this to be essential.
 
-## Step 1 : Define purpose and value sets**  
+## Step 1 : Define purpose and value sets  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
@@ -50,7 +50,7 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 </p>
 
 
-**Step 2: Conducting search**
+## Step 2: Conducting search
 - Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as *strings*.
 
 - *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location within a string
@@ -89,12 +89,12 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 Here's a diagram summarizing the Step 2 search process:   
 [insert] 
 
-**Step 3: Exclusions**
+## Step 3: Exclusions
 - Manually review each code, one by one 
 - *How?* Eliminate by: name, route, formulation 
 - *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given to slow the heart)
   
-**Step 4: Cleaning**   
+## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)   
     - This step places a temporary tag to identify overlapping codes that were categorized across multiple value sets.  
     - This unintended scenario wherein codes across value sets overlap is possible - given the broad search.  
@@ -128,7 +128,7 @@ Here's a diagram summarizing the Step 2 search process:
 - For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits), or, you quite simply change your mind 
 
 
-**Step 5: Compare to previous codelists or mapping ontologies**
+## Step 5: Compare to previous codelists or mapping ontologies
 - Version history = Merge together and compare current vs. previous versions 
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VANDF mapping).
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)
@@ -138,21 +138,27 @@ Here's a diagram summarizing the Step 2 search process:
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)** 
 
 
-**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist** 
-    - Export your codelist as an Excel spreadsheet 
-    - Ask clinician(s) to review your codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context)
-    - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:  
-      0 = “clear exclusion”    
-      1 = “certainty” to include 
-      2 = “uncertainty” if to include for future sensitivity analyses 
+## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist 
+- Export your codelist as an Excel spreadsheet 
+- Ask clinician(s) to review your codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**
+- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:  
+    - 0 = no - “clear exclusion”    
+    - 1 = yes - “certainty” 
+    - 2 = maybe - “uncertainty” - use for sensitivity analyses? 
+- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist)
+    - resolve discordances between clinicians (OPTIONAL)
+ 
+- Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))
 
-
-**Step 7: Keep "master" codelist spreadsheet - with all versions and tags** 
-- Have columns that tags codes for certain codelist versions: 
+## Step 7: Keep "master" codelist spreadsheet - with all versions and tags** 
+- This makes the codelist malleable (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts)
+  
+- Have columns that tag codes for certain codelist versions: 
     - (i) Raw codes (before clinician review)
-    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 sensitivity analysis)
-    - (iii) Codes finalized for study (i.e., containing 1s only)
-    - (iv) Tags for overlapping, fixed combination drugs falling into multiple underlying ontology sections (e.g., Ch. 2.5 codelist, but drug also corresponds to Ch. 2.2 and Ch. 2.6)
+    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)
+    - (iii) Codes finalized for study (1s only)
+    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)
+
 
 *Here's an example (excerpt) of a master spreadsheet:
 [insert screenshot of excel with clinician flags]
