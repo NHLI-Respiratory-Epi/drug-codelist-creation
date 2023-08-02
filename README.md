@@ -37,10 +37,10 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We have put 🩺 where we believe this to be essential.
+At all stages, consider **clinical input**. We have put **✱**  where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) 🩺
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱** 
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
@@ -53,11 +53,11 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
 - For each value set, collate search terms   
     - chemical names
     - proprietary names (OPTIONAL - if present in database)
-- Establish route (e.g., oral, parenteral/injected) 🩺
+- Establish route (e.g., oral, parenteral/injected) **✱** 
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: 🩺 
+- Consider chemistry: **✱** 
     - To reduce false positives:
     	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
     	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
@@ -145,7 +145,7 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
       <details><summary><i>What is an example of overlap?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>       
         
     - So we write code to automate re-sorting process to make those tags      
-      - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
+      - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
 
     - This step helps the codelist stay modifiable, for:
   		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
@@ -191,8 +191,8 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
 | 1 | Yes | Certainty |
 | 2 | Maybe | Uncertainty - use for sensitivity analyses
 </div>
-- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
-    - Resolve discordances between clinicians    (OPTIONAL)    
+
+- Use multiple clinicians for studies with multimorbidity, resolve discordances between clinicians   (OPTIONAL)    
  
 - Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
 
