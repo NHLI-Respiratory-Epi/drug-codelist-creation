@@ -43,7 +43,7 @@ At all stages, request clinical input. We put **✱** where we believe this to b
     - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
     - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br /> 
 
-*Put all information of Step 1 into a spreadsheet, so you can refer back to this later:*   
+*Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
 <p align="center">
 	<img src="inline_Step1.png"/>
@@ -60,12 +60,12 @@ At all stages, request clinical input. We put **✱** where we believe this to b
 - **2a) Search database drug dictionary**  
     - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
         - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-        - For example, the *Stata* coding for BNF Ch. 2.5.1 would contain an *ambrisentan_list* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
-        - With both lists nested within value set list Ch. 2.5.1 for vasodilator anti-hypertensives (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
+        - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
+        - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 
     - **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
         - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
-        - *Why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
+        - *Why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
 
 - When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
@@ -136,7 +136,7 @@ At all stages, request clinical input. We put **✱** where we believe this to b
     - Combine multiple value sets into a broader value set because of:  
       - Study context  
       - Computational considerations (e.g., *Stata* has macro character limits), or
-      - You quite simply change your mind     
+      - You simply change your mind     
 
 
 ## Step 5: Compare to previous codelists or mapping ontologies    
