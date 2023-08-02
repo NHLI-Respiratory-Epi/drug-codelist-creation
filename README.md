@@ -47,10 +47,9 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
     	- ATC: [WHO Collaborating Centre for Drug Statistics Methodology](https://www.whocc.no/atc_ddd_index/)
      	</details>   
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
-- For each value set, collate search terms   
-      <details><summary><i>Other considerations:</i> [Click to expand]</summary> <i>Name type</i> (chemical, proprietary) <i>Route</i> (oral, injected)&nbsp;&nbsp;&nbsp;&nbsp;<i>Purpose</i> (repository - broad/adaptable across contexts? disease-specific?)&nbsp;&nbsp;&nbsp;&nbsp;<i>Chemistry</i> (don't search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*)
-
-       </details>
+- For each value set, collate search terms
+  <details><summary><i>Other considerations:</i> [Click to expand]</summary> <i>Name type</i> (chemical, proprietary)&nbsp;&nbsp;&nbsp;&nbsp;<i>Route</i> (oral, injected)&nbsp;&nbsp;&nbsp;&nbsp;<i>Purpose</i> (repository - broad/adaptable across contexts? disease-specific?)&nbsp;&nbsp;&nbsp;&nbsp;<i>Chemistry</i> (don't search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*)
+  </details>
 
 	<details><summary><i>Put all information of Step 1 into a spreadsheet, so you can refer back to it later:</i> [Click to expand]</summary>
 
