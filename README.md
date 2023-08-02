@@ -145,10 +145,10 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
     - So we write code to automate the re-sorting process to make each set mutually exclusive    
 
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*     
-    - *What is intentional overlap?*     
-      - “intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist)  
-      - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
+    - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections      
+    - *What is intentional overlap?*
+  		<details><summary><i>What is intentional overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist) </details>     
+  		<details><summary><i>What is an example?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>     
         
     - So we write code to automate re-sorting process to make those tags      
       - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
