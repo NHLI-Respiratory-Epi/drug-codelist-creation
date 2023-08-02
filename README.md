@@ -185,10 +185,16 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
-- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:    
-    - 0 = no - “clear exclusion”      
-    - 1 = yes - “certainty”   
-    - 2 = maybe - “uncertainty” - use for sensitivity analyses?   
+- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
+<div align="center">
+
+| Value | Label | Definition |
+| :-- | :-- | :-- |
+| 0 | No | Clear exclusion |
+| 1 | Yes | Certainty |
+| 2 | Maybe | Uncertainty - use for sensitivity analyses
+</div>
+
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
  
