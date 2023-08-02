@@ -2,6 +2,27 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
+## Pre-print
+Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
+
+## Summary
+- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
+- But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
+- We recommend Search A - the comprehensive one.  
+
+## Glossary 
+<div align="center">
+	
+| Term | Definition | Example |
+| :-- | :-- | :-- |
+| Phenotype | Medication which is to be researched | Antihypertensives |
+| Ontology | Hierarchical set up of a reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) Classification System: section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
+| Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
+| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
+| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
+
+</div>
+
 ## Creating drug codelists can be broken down in to 7 steps:
 ```mermaid
 flowchart TD
@@ -25,21 +46,6 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-## Glossary 
-<div align="center">
-	
-| Term | Definition | Example |
-| :-- | :-- | :-- |
-| Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) Classification System: section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
-| Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
-| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
-
-</div>
-
-## STEPS 
-
 At all stages, consider **clinical input**. We put **✱** where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
@@ -50,16 +56,16 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
-    - chemical names  <br />
-    - proprietary names (OPTIONAL - database dependent)  <br />
+    - chemical names
+    - proprietary names (OPTIONAL - database dependent)
 - Establish route (e.g., oral, parenteral/injected) **✱**  
 - Consider purpose:  
-    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5) <br />
-    - disease-specific (e.g., COPD inhalers, asthma inhalers)  <br />
+    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
+    - disease-specific (e.g., COPD inhalers, asthma inhalers)
 - Consider chemistry: **✱**   
-    - for search efficiency  <br /> 
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br /> 
+    - for search efficiency
+    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
+    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
@@ -73,7 +79,10 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.
-- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location 
+- <details><summary><i>Why import as strings?</i> [Click to expand]</summary>
+
+	- When searching you'll use wildcard (*) characters to pick up terms in *any* location
+</details>
 
 - **2a) Search database drug dictionary**  
     - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
@@ -709,13 +718,7 @@ and applied the codelist to a sample cohort to find prescriptions:
 	<img src="UpSetplot_Ch2.5codelist.png"/>
 </p>
 
-
-TDLR: 
-- Sometimes the search type matters (codes are missed), sometimes it doesn't matter (not many codes missed)   
+## Conlcusion
+- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
-
-So we recommend Search A, the comprehensive one!  
-
-
-## Pre-print
-Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
+- We recommend Search A - the comprehensive one.  
