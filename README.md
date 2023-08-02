@@ -67,13 +67,11 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 
 - **2a) Search database drug dictionary**  
-	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
-
-	- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
+	- **2a(i) chemical + proprietary term search**       (proprietary terms OPTIONAL - database dependent)  
+	- **2a(ii) search on underlying ontology**           (step OPTIONAL - database dependent)  
      
 
-- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
-    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
+- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)      
     - This checks if you included all possible terms.
 
         <details><summary><i>How are outstanding codes identified?</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
