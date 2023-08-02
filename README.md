@@ -102,12 +102,12 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 - **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
     - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
-    - This checks if you included all possible terms to ensure codelist completeness.  
-      
-    - *How are outstanding codes identified?*      
-        - By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii)      
-        - Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
-             
+    - This checks if you included all possible terms to ensure codelist completeness.
+
+        <details><summary><i>*How are outstanding codes identified?*</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
+     
+     </details>
+  
     - *So what happens if I get outstanding codes?*      
         - Add additional terms to value sets      
         - Re-run steps 2a to 2b   (ITERATIVELY - as necessary)      
