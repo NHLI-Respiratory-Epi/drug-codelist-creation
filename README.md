@@ -13,9 +13,9 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 | Term | Definition | Example |
 | :-- | :-- | :-- |
 | Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of reference guide | BNF chapter 2 for Circulatory System |
+| Ontology | Hierarchical set up of reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) section C for Cardiovascular System</li>  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | insert ex |  
+| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | CPRD Aurum database: Product Browser as a text file |  
 | Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
 
 </div>
@@ -596,7 +596,7 @@ drop RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505
 	
 	
 *************************************************************
-//5.) Compare to previous lists or taxonomic mapping 
+//5.) Compare to previous lists or ontology mapping 
 *************************************************************
 	*as necessary / if available
 	*e.g., codelist from previous CPRD Aurum version
