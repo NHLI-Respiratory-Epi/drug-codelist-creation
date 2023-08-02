@@ -79,9 +79,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.
-- <details><summary><i>Why import as strings?</i> [Click to expand]</summary>
-
-	- When searching you'll use wildcard (*) characters to pick up terms in *any* location
+- <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location
 </details>
 
 - **2a) Search database drug dictionary**  
@@ -92,7 +90,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 - **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
         - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
-        - <details><summary><i>Why slashes?</i> [Click to expand]</summary> Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )</details>
+        - <details><summary><i>Why slashes?</i> [Click to expand]</summary>Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )</details>
 
 - When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
