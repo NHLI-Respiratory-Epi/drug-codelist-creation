@@ -54,8 +54,8 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: **✱** 
-    	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
+- Consider chemistry: **✱**
+	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
@@ -74,13 +74,9 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
   </details>
 
 - **2a) Search database drug dictionary**  
-- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
+	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
 
-- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
-    - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)        
-               <details><summary><i>Why slashes?</i> [Click to expand]</summary>Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
-
-  </details>
+	- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
 
 - When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
