@@ -30,15 +30,16 @@ flowchart TD
     B -. optional .-> C([3. Exclude irrelevant codes])
     C -.-> D
     B --> D[4. Management of codes]
-    D --> E["5. Compare with pre-existing codelists
-(if possible)"]
-    E --> F[6. Export code list for clinical review]
+    D -. optional .-> E(["5. Compare with pre-existing codelists
+(if available)"])
+    D --> F
+    E -.-> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
     B:::step
     C:::optional
     D:::step
-    E:::step
+    E:::optional
     F:::step
     G:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
@@ -46,10 +47,10 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We put **✱** where we believe this to be essential.
+At all stages, consider **clinical input**. We put 🩺 where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure) 🩺
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)      
 
@@ -60,11 +61,11 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 - For each value set, collate search terms   
     - chemical names
     - proprietary names (OPTIONAL - database dependent)
-- Establish route (e.g., oral, parenteral/injected) **✱**  
+- Establish route (e.g., oral, parenteral/injected) 🩺
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: **✱**   
+- Consider chemistry: 🩺 
     - for search efficiency
     - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
     - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
@@ -123,15 +124,11 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 
 ## Step 3: Exclusions
-- Manually review each code, one by one     
-- *How exclude?* Eliminate by: name, route, formulation (not by product identifier)
-- *Why exclude?*
-    - The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart)
-- *Why not exclude using product identifiers?*
-    - Its a less transparent coding method.
-    - Product identifiers are numerical codes that do not contain qualitative information.
-    - Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script.
-    - This method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly
+- Manually review each code, one by one
+- Exclude by: name, route, formulation (not by product identifier)  
+&nbsp;  
+	<details><summary><i>Why exclude?</i> [Click to expand]</summary>The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart) </details>
+ 	<details><summary><i>Why not exclude using product identifiers?</i> [Click to expand]</summary>Its a less transparent coding method. Product identifiers are numerical codes that don't contain qualitative information. Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script. Our method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly </details>
 
   
 ## Step 4: Cleaning   
@@ -154,7 +151,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
       - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
         
     - So we write code to automate re-sorting process to make those tags      
-      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**      
+      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
 
     - *Why this proactive action for 4b) ?*  Helps codelist stay modifiable.     
       
