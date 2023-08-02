@@ -2,9 +2,6 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
-## Pre-print
-Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
-
 ## Glossary 
 <div align="center">
 	
@@ -110,11 +107,6 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
   	</details>
 &nbsp;   
 
-*Here's a diagram summarizing the Step 2 search process:*     
-<p align="center">
-	<img src="Step2_github.svg"/>
-</p>
-
 
 ## Step 3: Exclusions
 - Manually review each code, one by one
@@ -141,24 +133,15 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.<details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections
-      <details><summary><i>What is intentional overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist) </details>  
-      <details><summary><i>What is an example of overlap?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>       
+    - Proactively place permanent tags on codes drugs that overlap in other ontological sections
+      <details><summary><i>What is overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist). For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (resides in both BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>   
         
     - So we write code to automate re-sorting process to make those tags      
       - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
 
     - This step helps the codelist stay modifiable, for:
   		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
-  		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>      
-
-      <details><summary><i>What do you mean by "adapt" codelist?</i> [Click to expand]</summary>
-	       
-	     What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in the CPRD Aurum database, replicating [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) ?
-      We could adapt our broader, repository BNF Ch.2.5 codelist for this!
-      We would retain codes corresponding to Ch. 2.5.5 value set (RAAS-targeting drugs), exclude other value sets (pertaining to Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for fixed-combination drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged <i>hydrochlorothiazide/ telmisartan</i> as a fixed-combination drug also pertaining to Ch. 2.2 diuretics which may not apply to this study)
-
-      </details>        
+  		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>         
 
   
 - **4c) Modify value sets as necessary**    (OPTIONAL)  
@@ -172,10 +155,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - Version history = Merge together and compare current vs. previous versions
   		<details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
-    - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
-  		<details><summary><i>Why would we choose to map ontologies?</i> [Click to expand]</summary>
-			
-		Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
+
 
 *Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)* 
 
@@ -194,8 +174,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 </div>
 
 - Use multiple clinicians for studies with multimorbidity, resolve discordances between clinicians   (OPTIONAL)    
- 
-- Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
+
 
 
 ## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
@@ -206,9 +185,6 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
     - (iii) Codes finalized for study (1s only)  
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)    
       &nbsp;
-	<details><summary><i>Why?</i> [Click to expand]</summary>Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 
-	</details>
-
 
 
 *Here's an example (excerpt) of a master spreadsheet*
@@ -723,3 +699,7 @@ and applied the codelist to a sample cohort to find prescriptions:
 Notice sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).  
 But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.     
 We recommend Search A - the comprehensive one.    
+
+
+## Pre-print
+Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
