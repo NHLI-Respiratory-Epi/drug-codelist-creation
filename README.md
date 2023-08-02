@@ -47,10 +47,10 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We put **✱** where we believe this to be essential.
+At all stages, consider **clinical input**. We put 🩺 where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
+- 🩺 Establish a clinical definition (e.g., drugs for hypertension and heart failure) 
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)      
 
@@ -61,11 +61,11 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 - For each value set, collate search terms   
     - chemical names
     - proprietary names (OPTIONAL - database dependent)
-- Establish route (e.g., oral, parenteral/injected) **✱**  
+- 🩺 Establish route (e.g., oral, parenteral/injected) 
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: **✱**   
+- 🩺 Consider chemistry: 
     - for search efficiency
     - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
     - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
