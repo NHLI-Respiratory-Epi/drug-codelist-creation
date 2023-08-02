@@ -184,7 +184,7 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
 
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
-- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
+- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) 🩺  
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:    
     - 0 = no - “clear exclusion”      
     - 1 = yes - “certainty”   
@@ -203,7 +203,7 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
     - (iii) Codes finalized for study (1s only)  
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
 
-- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) **✱**  
+- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 🩺 
   
 
 
