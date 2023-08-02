@@ -34,10 +34,10 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We have put **✱**  where we believe this to be essential.
+At all stages, consider **clinical input**. 
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure)  **✱**
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure)  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
@@ -62,11 +62,9 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)      
     - This checks if you included all possible terms. 
 
-
 ## Step 3: Exclusions
 - Manually review each code, one by one
 - Exclude by: name, route, formulation (not by product identifier)  
-
   
 ## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets separate**     (OPTIONAL - depends on value sets)     
@@ -86,36 +84,22 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       - Computational considerations (e.g., *Stata* has macro character limits), or
       - You simply change your mind     
 
-
 ## Step 5: Compare to previous codelists or mapping ontologies    
 - Version history = Merge together and compare current vs. previous versions
-  		<details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
-
 
 *Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)* 
 
 
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
-- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
+- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context)    
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
-<div align="center">
-
-| Value | Label | Definition |
-| :-- | :-- | :-- |
-| 0 | No | Clear exclusion |
-| 1 | Yes | Certainty |
-| 2 | Maybe | Uncertainty - use for sensitivity analyses
-</div>
-
+- No (0), Yes (1), Maybe/Sensitivity Analysis (2)
 - Use multiple clinicians for studies with multimorbidity, resolve discordances between clinicians   (OPTIONAL)    
 
-
-
-## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
-  
-- Columns tag codes for different codelist versions:   
+## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**     
+- Columns tag codes for different versions:   
     - (i) Raw codes (before clinician review)  
     - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)  
     - (iii) Codes finalized for study (1s only)  
