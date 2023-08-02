@@ -15,8 +15,8 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 | Phenotype | Medication which is to be researched | Antihypertensives |
 | Ontology | Hierarchical set up of reference guide | BNF chapter 2 for Circulatory System |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | aka a "browser" with the full list of all possible drug codes | insert ex |  
-| Search Attribute Variables | Variables with key information you search through, data might be missing depending on the database | *termfromemis*, *productname*, *bnfchapter*, *drugsubstancename* in the database CPRD Aurum |
+| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | insert ex |  
+| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
 
 </div>
 
