@@ -5,11 +5,6 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
 
-## Summary
-- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
-- But you **cannot predict** how well any given search is going to perform. 
-- Therefore created a comprehensive, reproducible search process.
-
 ## Glossary 
 <div align="center">
 	
