@@ -15,6 +15,7 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 	
 | Term | Definition | Example |
 | :-- | :-- | :-- |
+| Codelist | A list of codes to define an event of interest in electronic health records that use a clinical terminology such as ICD-10 | |
 | Phenotype | Medication which is to be researched | Antihypertensives |
 | Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
@@ -26,29 +27,32 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 ## Creating drug codelists can be broken down in to 7 steps:
 ```mermaid
 flowchart TD
-    A[1. Identify drug of interest] --> B[2. Search the product dictionary]
-    B --> C[3. Exclude irrelevant codes]
-    C --> D[4. Management of codes]
-    D --> E["5. Compare with pre-existing codelists
-(if available)"]
-    E --> F[6. Export code list for clinical review]
+    A[1. Identify search terms] --> B[2. Search the product dictionary]
+    B -. optional .-> C([3. Exclude irrelevant codes])
+    C -.-> D
+    B --> D[4. Management of codes]
+    D -. optional .-> E(["5. Compare with pre-existing codelists
+(if available)"])
+    D --> F
+    E -.-> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
     B:::step
-    C:::step
+    C:::optional
     D:::step
-    E:::step
+    E:::optional
     F:::step
     G:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
+    classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
 At all stages, consider **clinical input**. We have put 🩺 where we believe this to be essential.
 
-## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) 🩺
-    - Choose organ system knowing what the drug targets (e.g., circulatory system)    
+### Step 1: Identify search terms 🩺
+- Establish purpose of codelist (e.g., drugs to treat hypertension)
+    - Identify target organ system for the drug(s) of interest (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
         <details><summary><i>User-friendly ontology resources:</i> [Click to expand]</summary>
