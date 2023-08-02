@@ -154,19 +154,6 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       &nbsp;
 
 
-*Here's an example (excerpt) of a master spreadsheet*
-
-Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)  
-Notice the missing data on the search attribute variables!  
-
-<p align="center">
-	<img src="Step7_github.png"/>
-</p>
-
-*The full example is available to download, file called________in____x folder______.*   
-
-
-
 
 
 ## Example *Stata* code (Steps 2 to 7)   
