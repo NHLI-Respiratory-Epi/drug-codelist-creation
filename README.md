@@ -5,7 +5,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 ## Pre-print
 Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
 
-## Summaryx
+## Summary
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well any given search is going to perform. 
 - Therefore created a comprehensive, reproducible search process.
@@ -153,8 +153,9 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
     - So we write code to automate re-sorting process to make those tags      
       - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
 
-    - *Why this proactive action for 4b) ?*  Helps codelist stay modifiable.     
-      
+    - This step helps the codelist stay modifiable, for:
+  	<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
+  	<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>      
     - *When to use 4b)?*  
       - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)     
       - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.      
