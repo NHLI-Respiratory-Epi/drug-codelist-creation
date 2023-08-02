@@ -142,11 +142,11 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)    
       
     - For example, let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:    
-      - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
-      - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
-      - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
-      - (.....sets continue)   
-      - As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.  
+      	Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
+      	Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
+      	Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
+      	(.....sets continue)   
+      	As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.  
         
     - So we write code to automate the re-sorting process to make each set mutually exclusive    
 
