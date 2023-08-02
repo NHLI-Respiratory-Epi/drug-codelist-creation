@@ -99,11 +99,10 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 
   
 ## Step 4: Cleaning   
-- **4a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
-    - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
-    - Then write code to automate the re-sorting process to make each set mutually exclusive
+- **4a) Remove overlapping codes to make value sets separate**     (OPTIONAL - depends on value sets)     
+    - Place temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
+    - Then re-sort to make each set separate (mutually exclusive)
  
-      
       <details><summary><i>What is an example?</i> [Click to expand]</summary>
 	      Let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:
       &nbsp;
@@ -115,12 +114,9 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.<details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Proactively place permanent tags on codes drugs that overlap in other ontological sections
-      <details><summary><i>What is overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist). For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (resides in both BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>   
-        
-    - So we write code to automate re-sorting process to make those tags      
-      - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
-
+    - Place permanent tags on codes for drugs that overlap in other ontology sections  
+    - Re-sort to make those sections separate
+    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
     - This step helps the codelist stay modifiable, for:
   		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
   		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>         
@@ -231,9 +227,10 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) //Imports
 // 2a. (i)Chemical + proprietary name searchterms
 //******
 	*Insert your search terms into each local as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
-
+	*Put chemical names first, brand names second
 
 *2.5.1 Vasodilator antihypertensive drugs
+	*ambrisentan = chemical name, volibris = proprietary/brand name
 local ambrisentan_list " "ambrisentan" "volibris" "
 local bosentan_list " "bosentan" "stayveer" "tracleer" "
 local diazoxide_list " "diazoxide" "proglycem" "eudemine" "
@@ -348,8 +345,8 @@ foreach searchterm in ///
 		}
 	}
 }
-
-
+*ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case 
+*brand/proprietary terms OPTIONAL - database dependent - if you have complete data on drugsubstancename, then you only need to search on drugsubstancename  
 
 ******
 // 2a(ii)separate BNF search 
