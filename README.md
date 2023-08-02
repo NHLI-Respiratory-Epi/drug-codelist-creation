@@ -52,8 +52,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
-    - A user-friendly BNF resource is [OpenPrescribing](https://openprescribing.net/bnf/)
-    - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)
+    - <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary><li>Resource for the BNF system: [OpenPrescribing](https://openprescribing.net/bnf/)</li><li>Resources for the ATC system: [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)</details> 
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
