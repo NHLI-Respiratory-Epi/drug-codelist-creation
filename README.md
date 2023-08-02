@@ -708,3 +708,8 @@ and applied the codelist to a sample cohort to find prescriptions:
 <p align="center">
 	<img src="UpSetplot_Ch2.5codelist.png"/>
 </p>
+
+## Conlcusion
+- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
+- But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
+- We recommend Search A - the comprehensive one.  
