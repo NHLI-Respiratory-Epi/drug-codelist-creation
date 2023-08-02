@@ -141,7 +141,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 ## Step 5: Compare to previous codelists or mapping ontologies    
 - Version history = Merge together and compare current vs. previous versions     
-- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VANDF mapping).    
+- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
       
 - *Why?* Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility to other database contexts  
