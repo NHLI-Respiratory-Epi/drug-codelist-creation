@@ -6,10 +6,11 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 ```mermaid
 flowchart TD
     A[1. Identify drug of interest] --> B[2. Search the product dictionary]
-    B -.-> C([3. Exclude irrelevant codes])
+    B -. optional .-> C([3. Exclude irrelevant codes])
     C -.-> D
     B --> D[4. Management of codes]
-    D --> E["5. Compare with pre-existing codelists (if possible)"]
+    D --> E["5. Compare with pre-existing codelists
+(if possible)"]
     E --> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
