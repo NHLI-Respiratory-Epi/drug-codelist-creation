@@ -68,15 +68,15 @@ At all stages, consider **clinical input**.
   
 ## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets separate**     (OPTIONAL - depends on value sets)     
-    - Place temporary tag to identify overlapping codes across multiple value sets. (possible scenario given the broad search)
+    - Place temporary tag to identify overlapping codes across multiple value sets. (Possible scenario given the broad search)
     - Re-sort to make each set separate (mutually exclusive)
  
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Place permanent tags on codes for drugs that overlap in other ontology sections  
-    - Re-sort to make those sections separate
+    - Re-sort to make sections separate
     - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)      
-    - This step helps the codelist stay modifiable for analysis stage and adaptation stages     
+    - This step helps the codelist stay adaptable across contexts     
 
 - **4c) Modify value sets as necessary**    (OPTIONAL)  
     - Combine multiple value sets into a broader value set because of:  
@@ -105,7 +105,6 @@ At all stages, consider **clinical input**.
     - (iii) Codes finalized for study (1s only)  
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)    
       &nbsp;
-
 
 
 
