@@ -77,9 +77,6 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 
 - **2a) Search database drug dictionary**  
 - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
-    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
-    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 
 - **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
     - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)        
