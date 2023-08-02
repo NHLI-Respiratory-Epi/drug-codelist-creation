@@ -56,16 +56,16 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
-    - chemical names  <br />
-    - proprietary names (OPTIONAL - database dependent)  <br />
+    - chemical names
+    - proprietary names (OPTIONAL - database dependent)
 - Establish route (e.g., oral, parenteral/injected) **✱**  
 - Consider purpose:  
-    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5) <br />
-    - disease-specific (e.g., COPD inhalers, asthma inhalers)  <br />
+    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
+    - disease-specific (e.g., COPD inhalers, asthma inhalers)
 - Consider chemistry: **✱**   
-    - for search efficiency  <br /> 
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br /> 
+    - for search efficiency
+    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
+    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
@@ -79,7 +79,10 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.
-- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location 
+- <details><summary><i>Why import as strings?</i> [Click to expand]</summary>
+
+	- When searching you'll use wildcard (*) characters to pick up terms in *any* location
+</details>
 
 - **2a) Search database drug dictionary**  
     - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
