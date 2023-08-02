@@ -104,19 +104,17 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
     - This checks if you included all possible terms to ensure codelist completeness.
 
-        <details><summary><i>*How are outstanding codes identified?*</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
+        <details><summary><i>How are outstanding codes identified?</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
      
      </details>
-  
-    - *So what happens if I get outstanding codes?*      
-        - Add additional terms to value sets      
-        - Re-run steps 2a to 2b   (ITERATIVELY - as necessary)      
-        - Upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms.  
-        - (in rare cases in CPRD you'll have outstanding terms left that still show up, that neither fit your value sets nor the ontology, in which case these may be drugs that are miscoded or recently put on the market, perhaps)
 
-    - *Why are Steps 2a(ii) and 2b optional and database-dependent?*      
-        - Database might have missing data in search "attribute" variables        
-        - For example, in CPRD Aurum, the 2a(i) search attribute variables are *termfromemis* (i.e., term from EMIS software), *productname* (containing chemical and proprietary information), *drugsubstancename* (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.  
+        <details><summary><i>So what happens if I get outstanding codes?</i> [Click to expand]</summary>Add additional terms you get to value sets. Re-run steps 2a to 2b (ITERATIVELY - as necessary). Upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms. (In rare cases in CPRD you'll have outstanding terms left that still show up, that neither fit your value sets nor the ontology, in which case these may be drugs that are miscoded or recently put on the market, perhaps).
+     
+     </details>
+
+        <details><summary><i>Why are Steps 2a(ii) and 2b optional and database-dependent?</i> [Click to expand]</summary>Database might have missing data in search "attribute" variables. For example, in CPRD Aurum, the 2a(i) search attribute variables are *termfromemis* (i.e., term from EMIS software), *productname* (containing chemical and proprietary information), *drugsubstancename* (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.
+     
+     </details>
 
 
 *Here's a diagram summarizing the Step 2 search process:*     
