@@ -36,8 +36,8 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - proprietary names (OPTIONAL - database dependent)  <br />
 - Establish route (e.g., oral, parenteral/injected) **✱**  
 - Consider purpose:  
-    - repository - broad? malleable for various study/disease contexts? <br />
-    - disease-specific (e.g., COPD inhalers)  <br />
+    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5) <br />
+    - disease-specific (e.g., COPD inhalers, asthma inhalers)  <br />
 - Consider chemistry: **✱**   
     - for search efficiency  <br /> 
     - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
