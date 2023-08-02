@@ -7,8 +7,8 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 
 ## Summary
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
-- But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
-- We recommend Search A - the comprehensive one.  
+- But you **cannot predict** how well any given search is going to perform. 
+- Therefore created a comprehensive, reproducible search process.
 
 ## Glossary 
 <div align="center">
