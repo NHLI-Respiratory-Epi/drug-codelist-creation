@@ -16,7 +16,7 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 | Term | Definition | Example |
 | :-- | :-- | :-- |
 | Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) Classification System: section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
+| Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
 | Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
 | Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
@@ -30,15 +30,16 @@ flowchart TD
     B -. optional .-> C([3. Exclude irrelevant codes])
     C -.-> D
     B --> D[4. Management of codes]
-    D --> E["5. Compare with pre-existing codelists
-(if possible)"]
-    E --> F[6. Export code list for clinical review]
+    D -. optional .-> E(["5. Compare with pre-existing codelists
+(if available)"])
+    D --> F
+    E -.-> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
     B:::step
     C:::optional
     D:::step
-    E:::step
+    E:::optional
     F:::step
     G:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
@@ -46,33 +47,39 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We put **✱** where we believe this to be essential.
+At all stages, consider **clinical input**. We have put 🩺 where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure) 🩺
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
-    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)      
+    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
-        <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary>BNF System Resource: https://openprescribing.net/bnf/  ATC system Resource: https://www.whocc.no/atc_ddd_index/
-     
-     </details>   
+        <details><summary><i>User-friendly ontology resources:</i> [Click to expand]</summary>
+	
+		- BNF: [OpenPrescribing](https://openprescribing.net/bnf/)
+    	- ATC: [WHO Collaborating Centre for Drug Statistics Methodology](https://www.whocc.no/atc_ddd_index/)
+     	</details>   
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
-    - proprietary names (OPTIONAL - database dependent)
-- Establish route (e.g., oral, parenteral/injected) **✱**  
+    - proprietary names (OPTIONAL - if present in database)
+- Establish route (e.g., oral, parenteral/injected) 🩺
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: **✱**   
-    - for search efficiency
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
+- Consider chemistry: 🩺 
+    - To reduce false positives:
+    	- do not search on common compounds, active or blocking groups, or side chains such as:
+     		- *-nitrate*
+     	 	- *-arginine*
+        	- *-hydrochloride*
+         	- *-mesilate*
+    	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
 <p align="center">
-	<img src="inline_Step1.png"/>
+	<img src="Step1_github.png"/>
 </p>
 
 *This spreadsheet is available for download, called _________.*
@@ -117,19 +124,17 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
   	</details>
    
 *Here's a diagram summarizing the Step 2 search process:*     
-[insert] 
+<p align="center">
+	<img src="Step2_github.svg"/>
+</p>
 
 
 ## Step 3: Exclusions
-- Manually review each code, one by one     
-- *How exclude?* Eliminate by: name, route, formulation (not by product identifier)
-- *Why exclude?*
-    - The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart)
-- *Why not exclude using product identifiers?*
-    - Its a less transparent coding method.
-    - Product identifiers are numerical codes that do not contain qualitative information.
-    - Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script.
-    - This method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly
+- Manually review each code, one by one
+- Exclude by: name, route, formulation (not by product identifier)  
+&nbsp;  
+	<details><summary><i>Why exclude?</i> [Click to expand]</summary>The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart) </details>
+ 	<details><summary><i>Why not exclude using product identifiers?</i> [Click to expand]</summary>Its a less transparent coding method. Product identifiers are numerical codes that don't contain qualitative information. Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script. Our method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly </details>
 
   
 ## Step 4: Cleaning   
@@ -146,23 +151,18 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - So we write code to automate the re-sorting process to make each set mutually exclusive    
 
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*     
-    - *What is intentional overlap?*     
-      - “intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist)  
-      - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
+    - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections
+      <details><summary><i>What is intentional overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist) </details>  
+      <details><summary><i>What is an example?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>       
         
     - So we write code to automate re-sorting process to make those tags      
-      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**      
+      - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
 
-    - *Why this proactive action for 4b) ?*  Helps codelist stay modifiable.     
-      
-    - *When to use 4b)?*  
-      - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)     
-      - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.      
-      - Here's an example of when to use:
-      - What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD Aurum data, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?     
-      - We would be adapt our codelist by retaining codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged *hydrochlorothiazide/ telmisartan* as a drug also pertaining to Ch. 2.2 diuretics).     
+    - This step helps the codelist stay modifiable, for:
+  		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
+  		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>      
 
+      <details><summary><i>What is an example?</i> [Click to expand]</summary>What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD Aurum data, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist? We would be adapt our codelist by retaining codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged <i>hydrochlorothiazide/ telmisartan</i> as a drug also pertaining to Ch. 2.2 diuretics) </details>        
 
   
 - **4c) Modify value sets as necessary**    (OPTIONAL)  
@@ -173,12 +173,13 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 
 ## Step 5: Compare to previous codelists or mapping ontologies    
-- Version history = Merge together and compare current vs. previous versions     
+- Version history = Merge together and compare current vs. previous versions
+  		<details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
-      
-- *Why?* Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility to other database contexts  
-
+  		<details><summary><i>Why would we choose to map ontologies?</i> [Click to expand]</summary>
+			
+		Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
@@ -186,10 +187,15 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
-- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:    
-    - 0 = no - “clear exclusion”      
-    - 1 = yes - “certainty”   
-    - 2 = maybe - “uncertainty” - use for sensitivity analyses?   
+- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
+<div align="center">
+
+| Value | Label | Definition |
+| :-- | :-- | :-- |
+| 0 | No | Clear exclusion |
+| 1 | Yes | Certainty |
+| 2 | Maybe | Uncertainty - use for sensitivity analyses
+</div>
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
  
@@ -204,7 +210,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
     - (iii) Codes finalized for study (1s only)  
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
 
-- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) **✱**  
+- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 🩺 
   
 
 
@@ -215,7 +221,7 @@ Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)
 Notice the missing data on the search attribute variables!  
 
 <p align="center">
-	<img src="Step7_forexample_photo.png"/>
+	<img src="Step7_github.png"/>
 </p>
 
 *The full example is available to download, file called ________[insert]________.*   
@@ -715,10 +721,10 @@ Here is what happens if you were to carry out a **Search B** based on just chemi
 and applied the codelist to a sample cohort to find prescriptions:  
 
 <p align="center">
-	<img src="UpSetplot_Ch2.5codelist.png"/>
+	<img src="UpSetplot_Ch2.5codelist_github.png"/>
 </p>
 
-## Conlcusion
+## Conclusion
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
 - We recommend Search A - the comprehensive one.  
