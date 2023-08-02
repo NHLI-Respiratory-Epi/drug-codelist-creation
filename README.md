@@ -721,7 +721,7 @@ Here is what happens if you were to carry out a **Search B** based on just chemi
 and applied the codelist to a sample cohort to find prescriptions:  
 
 <p align="center">
-	<img src="UpSetplot_Ch2.5codelist_github.png"/>
+	<img src="UpSetplot_Ch2.5_github.svg"/>
 </p>
 
 ## Conclusion
