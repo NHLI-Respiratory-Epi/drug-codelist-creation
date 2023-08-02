@@ -122,7 +122,7 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
         &nbsp;<details><summary><i>Why are Steps 2a(ii) and 2b optional and database-dependent?</i> [Click to expand]</summary>Database might have missing data in search "attribute" variables. For example, in CPRD Aurum, the 2a(i) search attribute variables are <i>termfromemis</i> (i.e., term from EMIS software), <i>productname</i> (containing chemical and proprietary information), <i>drugsubstancename</i> (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.
 
   	</details>
-   
+&nbsp;    
 *Here's a diagram summarizing the Step 2 search process:*     
 <p align="center">
 	<img src="Step2_github.svg"/>
