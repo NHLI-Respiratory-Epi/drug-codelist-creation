@@ -195,11 +195,11 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
 <div align="center">
 
-| Value | Label | Definition |
-| :-- | :-- | :-- |
-| 0 | No | Clear exclusion |
-| 1 | Yes | Certainty |
-| 2 | Maybe | Uncertainty - use for sensitivity analyses
+| Label | Definition |
+| :-- | :-- |
+| 0 | No - clear exclusion |
+| 1 | Yes - clear inclusion |
+| 2 | Maybe - use for sensitivity analyses |
 </div>
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
