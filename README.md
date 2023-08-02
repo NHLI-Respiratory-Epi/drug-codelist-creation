@@ -49,15 +49,13 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
-    - proprietary names (OPTIONAL - if present in database)
+    - proprietary names (OPTIONAL - if not missing data on chemical names in databases)
 - Establish route (e.g., oral, parenteral/injected) **✱** 
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
 - Consider chemistry: **✱** 
-    - To reduce false positives:
     	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
-    	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
