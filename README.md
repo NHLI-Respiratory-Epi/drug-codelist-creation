@@ -52,7 +52,9 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
-- <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary><li>Resource for the BNF system: [OpenPrescribing](https://openprescribing.net/bnf/)</li><li>Resources for the ATC system: [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)</details>   
+- <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary><li>Resource for the BNF system: [OpenPrescribing](https://openprescribing.net/bnf/)  </li><li>Resources for the ATC system: [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)  
+
+</details>   
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
@@ -78,8 +80,9 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.
-  <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location
-</details>
+  <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location  
+  
+  </details>
 
 - **2a) Search database drug dictionary**  
 - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
@@ -89,7 +92,9 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 - **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
         - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
-        - <details><summary><i>Why slashes?</i> [Click to expand]</summary>Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )</details>
+        - <details><summary><i>Why slashes?</i> [Click to expand]</summary>Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
+
+  </details>
 
 - When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
