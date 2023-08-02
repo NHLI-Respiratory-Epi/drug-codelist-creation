@@ -51,11 +51,8 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
     - chemical names
     - proprietary names (OPTIONAL - if not missing data on chemical names in databases)
 - Establish route (e.g., oral, parenteral/injected) **✱** 
-- Consider purpose:  
-    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
-    - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: **✱**
-	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
+- Consider purpose (repository - broad? malleable for various contexts? disease-specific?
+- Consider chemistry: (do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*) **✱**
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
@@ -68,17 +65,11 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
-- Import all “attribute” variables searched upon as *strings*.  
-  <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location  
-  
-  </details>
 
 - **2a) Search database drug dictionary**  
 	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
 
 	- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
-
-- When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
 
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
@@ -228,8 +219,9 @@ log using `filename', text replace
 local browser_dir "Z:\Database guidelines and info\CPRD\CPRD_CodeBrowser_202202_Aurum"
 
 //Import latest product browser 
-import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) 
-	*FORCE 'prodcode' and 'dmdcode' to be string variable, or will lose data
+import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) //Imports all “attribute” variables searched upon as strings
+	*FORCE 'prodcodeid' and 'dmdid' to be string variable, or will lose data
+	*Why import variables as strings? When searching you'll use wildcard (*) characters to pick up terms in *any* location 
 
 //no EMIS lookupfile required (unlike medical code browsing)
 
