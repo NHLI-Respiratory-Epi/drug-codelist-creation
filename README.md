@@ -30,15 +30,16 @@ flowchart TD
     B -. optional .-> C([3. Exclude irrelevant codes])
     C -.-> D
     B --> D[4. Management of codes]
-    D --> E["5. Compare with pre-existing codelists
-(if possible)"]
-    E --> F[6. Export code list for clinical review]
+    D -. optional .-> E(["5. Compare with pre-existing codelists
+(if available)"])
+    D --> F
+    E -.-> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
     B:::step
     C:::optional
     D:::step
-    E:::step
+    E:::optional
     F:::step
     G:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
