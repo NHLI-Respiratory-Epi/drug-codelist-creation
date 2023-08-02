@@ -72,7 +72,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
 <p align="center">
-	<img src="inline_Step1.png"/>
+	<img src="Step1_github.png"/>
 </p>
 
 *This spreadsheet is available for download, called _________.*
@@ -117,7 +117,9 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
   	</details>
    
 *Here's a diagram summarizing the Step 2 search process:*     
-[insert] 
+<p align="center">
+	<img src="Step2_github.svg"/>
+</p>
 
 
 ## Step 3: Exclusions
@@ -215,7 +217,7 @@ Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)
 Notice the missing data on the search attribute variables!  
 
 <p align="center">
-	<img src="Step7_forexample_photo.png"/>
+	<img src="Step7_github.png"/>
 </p>
 
 *The full example is available to download, file called ________[insert]________.*   
@@ -715,7 +717,7 @@ Here is what happens if you were to carry out a **Search B** based on just chemi
 and applied the codelist to a sample cohort to find prescriptions:  
 
 <p align="center">
-	<img src="UpSetplot_Ch2.5codelist.png"/>
+	<img src="UpSetplot_Ch2.5codelist_github.png"/>
 </p>
 
 ## Conlcusion
