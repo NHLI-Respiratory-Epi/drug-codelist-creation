@@ -177,7 +177,9 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
   		<details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
-  		<details><summary><i>Why would we choose to map ontologies?</i> [Click to expand]</summary>Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
+  		<details><summary><i>Why would we choose to map ontologies?</i> [Click to expand]</summary>
+			
+		Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
