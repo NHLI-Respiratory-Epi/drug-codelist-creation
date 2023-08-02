@@ -68,7 +68,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 	<img src="Step1_github.png"/>
 </p>
 
-*This spreadsheet is available for download, called _________.*
+*This spreadsheet is available for download, called ________in____x folder______.*
 
 
 ## Step 2: Conducting search
@@ -108,7 +108,8 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
         &nbsp;<details><summary><i>Why are Steps 2a(ii) and 2b optional and database-dependent?</i> [Click to expand]</summary>Database might have missing data in search "attribute" variables. For example, in CPRD Aurum, the 2a(i) search attribute variables are <i>termfromemis</i> (i.e., term from EMIS software), <i>productname</i> (containing chemical and proprietary information), <i>drugsubstancename</i> (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.
 
   	</details>
-&nbsp;    
+&nbsp;   
+
 *Here's a diagram summarizing the Step 2 search process:*     
 <p align="center">
 	<img src="Step2_github.svg"/>
@@ -176,7 +177,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 			
 		Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
 
-**Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
+*Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)* 
 
 
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
@@ -219,7 +220,7 @@ Notice the missing data on the search attribute variables!
 	<img src="Step7_github.png"/>
 </p>
 
-*The full example is available to download, file called ________[insert]________.*   
+*The full example is available to download, file called________in____x folder______.*   
 
 
 
