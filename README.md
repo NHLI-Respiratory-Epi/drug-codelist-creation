@@ -31,140 +31,192 @@ flowchart TD
 | Term | Definition | Example |
 | :-- | :-- | :-- |
 | Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of reference guide | BNF chapter 2 for Circulatory System |
+| Ontology | Hierarchical set up of a reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) Classification System: section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | aka a "browser" with the full list of all possible drug codes | insert ex |  
-| Search Attribute Variables | Variables with key information you search through | *termfromemis*, *productname*, *bnfchapter*, *drugsubstancename* in the database CPRD Aurum |
+| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
+| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
 
 </div>
 
 ## STEPS 
 
-At all stages, request clinical input. We put **✱** where we believe this to be essential.
+At all stages, consider **clinical input**. We put **✱** where we believe this to be essential.
 
-**Step 1 : Define purpose and value sets**  
+## Step 1 : Define purpose and value sets  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
     - A user-friendly BNF resource is [OpenPrescribing](https://openprescribing.net/bnf/)
-    - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank Database](https://go.drugbank.com/atc)
+    - A user-friendly ATC resource is from the [World Health Organization](https://www.whocc.no/atc_ddd_index/) or the [DrugBank](https://go.drugbank.com/atc)
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names  <br />
-    - proprietary names (OPTIONAL)  <br />
+    - proprietary names (OPTIONAL - database dependent)  <br />
 - Establish route (e.g., oral, parenteral/injected) **✱**  
 - Consider purpose:  
-    - repository  <br />
-    - disease-specific (e.g., COPD inhalers)  <br />
-- Consider chemistry: **✱**  
-    - for search efficiency  <br />
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br />
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br />
+    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5) <br />
+    - disease-specific (e.g., COPD inhalers, asthma inhalers)  <br />
+- Consider chemistry: **✱**   
+    - for search efficiency  <br /> 
+    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*   <br /> 
+    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest  <br /> 
 
-*Put all information of Step 1 into a spreadsheet, so you can refer back to this later:*   
+*Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
 <p align="center">
 	<img src="inline_Step1.png"/>
 </p>
 
+*This spreadsheet is available for download, called _________.*
 
-**Step 2: Conducting search**
-- Before searching on your collated list, import the database’s drug “dictionary” as a text file. Import all “attribute” variables searched upon as *strings*.
 
-- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location within a string
+## Step 2: Conducting search
+- Before searching using your collated list, import the database’s drug “dictionary” as a text file.
+- Import all “attribute” variables searched upon as *strings*.
+- *Why import as strings?* When searching you'll use wildcard (*) characters to pick up terms in *any* location 
 
-- Search the browser dictionary in 2 stages  
 - **2a) Search database drug dictionary**  
-    - **2a(i) chemical + proprietary term search** (proprietary terms OPTIONAL - database dependent)  
+    - **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
         - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-        - For example, the *Stata* coding for BNF Ch. 2.5.1 would be the *ambrisentan* drug list ("*ambrisentan*" "*volibris*") and *bosentan* drug list ("*bosentan*" "*stayveer*" "*tracleer*") both nested within the list for value set Ch. 2.5.1 vasodilator anti-hypertensives ("*ambrisentan_list*" "*bosentan_list*".....)  
-        - In *Stata*, parent and child lists take the form of local macros; in R a comparable step would be to name a list of vectors, and nesting the lists as necessary.  
+        - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
+        - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 
+    - **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
+        - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
+        - *Why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
 
-    - **2a(ii) search on underlying ontology** (OPTIONAL - database dependent)  
-        - consider syntax with slashes (eg, in STATA coding: "*/ 302*" and "302*" for Ch. 3.2 BNF)
-        - *why slashes?* medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for betamethasone use slashes because may be recorded as both “3020000” and “10010201/ 8020200/ 3020000” within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )  
-
-- When searching dictionary for each of your search terms defined in **Step 1**, ensure dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case  
+- When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
      
 
-- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively** (OPTIONAL - database dependent)  
-    - tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone  
-    - allows you to check if you included all possible terms / codelist completeness  
-    - *How are outstanding codes identified?*    
-        - We compare the tags for columns corresponding to Step 2a(i) and Step 2a(ii)    
-        - Codes are outstanding if there is an absence of a Step 2a(i) tag, but a presence of a Step2a(ii) tag (i.e., output for 2a(i) does not equal output for 2a(ii)    
-    - *So what do I do if I get outstanding codes?*    
-        - add the additional terms to the value sets    
-        - re-run steps 2a to 2b (ITERATIVELY - as necessary)    
-        - upon multiple iterations, there should be an absence of tags, indicating inclusion of all appropriate terms.    
+- **2b) Tag codes additionally identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
+    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
+    - This checks if you included all possible terms to ensure codelist completeness.  
+      
+    - *How are outstanding codes identified?*      
+        - By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii)      
+        - Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
+             
+    - *So what happens if I get outstanding codes?*      
+        - Add additional terms to value sets      
+        - Re-run steps 2a to 2b   (ITERATIVELY - as necessary)      
+        - Upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms.  
+        - (in rare cases in CPRD you'll have outstanding terms left that still show up, that neither fit your value sets nor the ontology, in which case these may be drugs that are miscoded or recently put on the market, perhaps)
 
-    - *Why are Steps 2a(ii) and 2b database-dependent?*    
-        - The database might have missing data in the search "attribute" variables      
-        - For example, in CPRD Aurum, the search attribute variables are *termfromemis* (i.e., the term from EMIS software) and *productname* (containing chemical and proprietary information) and *drugsubstancename* (chemical information) - and there's missing data for *productname* and *drugsubstancename*      
+    - *Why are Steps 2a(ii) and 2b optional and database-dependent?*      
+        - Database might have missing data in search "attribute" variables        
+        - For example, in CPRD Aurum, the 2a(i) search attribute variables are *termfromemis* (i.e., term from EMIS software), *productname* (containing chemical and proprietary information), *drugsubstancename* (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.  
 
 
-Here's a diagram summarizing the Step 2 search process:   
+*Here's a diagram summarizing the Step 2 search process:*     
 [insert] 
 
-**Step 3: Exclusions**
-- Manually review each code, one by one 
-- *How?* Eliminate by: name, route, formulation 
-- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to those given in the eye for glaucoma, instead of those given for the heart)
-  
-**Step 4: Cleaning**   
-- **4a) Remove overlapping codes to make value sets mutually exclusive** (OPTIONAL - depends on value sets)   
-    - This step places a temporary tag to identify overlapping codes that were categorized across multiple value sets.  
-    - This unintended scenario wherein codes across value sets overlap is possible - given the broad search.  
-    - For example, let's say we created a disease-specific codelist (i.e., not a general one for the repository) for COPD inhalers, with the following value sets:  
-      - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)   
-      - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)  
-      - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids)  
-      - (.....sets continue)  
-      - As you can see above, since I structured my search based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), I might be left with overlapping codes across the three sets.  
-    - So we write code to automate the re-sorting process to make each set mutually exclusive  
 
-- **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**  
-- Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*   
-- *What is intentional overlap?*   
-    - “Intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections. *hydrochlorothiazide/captopril* for example is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
-- So we write code to automate the re-sorting process to make those tags  
-    - In this code, define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**  
-
-- *Why is this proactive action for 4b) helpful?*   
-    - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)   
-    - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.    
-    - Here's an example: What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?   
-    - We would be adapt our codelist by retaining the drug codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding the other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged that corresponded to fixed combination drugs with chemicals "intentionally overlapping" and located a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged Hydrochlorothiazide/ Telmisartan as a drug also pertaining to Ch. 2.2 diuretics).   
-
+## Step 3: Exclusions
+- Manually review each code, one by one     
+- *How exclude?* Eliminate by: name, route, formulation     
+- *Why?* The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart)  
 
   
-- **4c) Modify value sets as necessary** (OPTIONAL)  
-- For example, combine multiple value sets into a broader value set upon study context or computational considerations (e.g., *Stata* has macro character limits)  
+## Step 4: Cleaning   
+- **4a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
+    - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)    
+      
+    - For example, let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:    
+      - Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
+      - Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
+      - Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
+      - (.....sets continue)   
+      - As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.  
+        
+    - So we write code to automate the re-sorting process to make each set mutually exclusive    
+
+- **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
+    - Proactively place permanent tags on codes corresponding to fixed combination drugs with *intentional overlap*     
+    - *What is intentional overlap?*     
+      - “intentional overlap” = when one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist)  
+      - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
+        
+    - So we write code to automate re-sorting process to make those tags      
+      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**      
+
+    - *Why this proactive action for 4b) ?*  Helps codelist stay modifiable.     
+      
+    - *When to use 4b)?*  
+      - Analysis stage = If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself)     
+      - Adaptation = You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it.      
+      - Here's an example of when to use:
+      - What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in CPRD Aurum data, i.e., replicate [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) using our broader, repository Ch.2.5 codelist?     
+      - We would be adapt our codelist by retaining codes corresponding to Ch. 2.5.5 value set (i.e., RAAS-targeting drugs), excluding other value sets (Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged *hydrochlorothiazide/ telmisartan* as a drug also pertaining to Ch. 2.2 diuretics).     
 
 
-**Step 5: Compare to previous codelists or mapping ontologies**
-
-**Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist**
-
-**Step 7: Keep "master" codelist spreadsheet - with all versions and tags**
-- Have columns that tags codes for certain codelist versions:
-    - (i) Raw codes (before clinician review)
-    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 sensitivity analysis)
-    - (iii) Codes finalized for study (i.e., containing 1s only)
-    - (iv) Tags for overlapping, fixed combination drugs falling into multiple underlying ontology sections (e.g., Ch. 2.5 codelist, but drug also corresponds to Ch. 2.2 and Ch. 2.6)
-
-*Here's an example (excerpt) of a master spreadsheet:
-[insert screenshot of excel with clinician flags]
+  
+- **4c) Modify value sets as necessary**    (OPTIONAL)  
+    - Combine multiple value sets into a broader value set because of:  
+      - Study context  
+      - Computational considerations (e.g., *Stata* has macro character limits), or
+      - You simply change your mind     
 
 
-## Example *Stata* code (Steps 2 to 7) 
+## Step 5: Compare to previous codelists or mapping ontologies    
+- Version history = Merge together and compare current vs. previous versions     
+- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
+    - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
+      
+- *Why?* Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility to other database contexts  
 
-This code is an example to create a codelist for Chapter 2.5 of the British National Formulary.
 
-*NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
+**Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
+
+
+## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
+- Export codelist as an Excel spreadsheet   
+- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
+- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:    
+    - 0 = no - “clear exclusion”      
+    - 1 = yes - “certainty”   
+    - 2 = maybe - “uncertainty” - use for sensitivity analyses?   
+- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
+    - Resolve discordances between clinicians    (OPTIONAL)    
+ 
+- Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
+
+
+## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
+  
+- Columns tag codes for different codelist versions:   
+    - (i) Raw codes (before clinician review)  
+    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)  
+    - (iii) Codes finalized for study (1s only)  
+    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
+
+- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) **✱**  
+  
+
+
+
+*Here's an example (excerpt) of a master spreadsheet*
+
+Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)  
+Notice the missing data on the search attribute variables!  
+
+<p align="center">
+	<img src="Step7_forexample_photo.png"/>
+</p>
+
+*The full example is available to download, file called ________[insert]________.*   
+
+
+
+
+
+## Example *Stata* code (Steps 2 to 7)   
+
+This code is an example to create a codelist for Chapter 2.5 of the BNF ontology (i.e., [drugs indicated for hypertension and heart failure](https://openprescribing.net/bnf/0205/) )  
+
 
 ```stata
+*NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
+
 //*******************************************************************************
 //*1) Define purpose and value sets: drug class(es) of interest, collate list of terms for value sets
 //*******************************************************************************/
@@ -562,7 +614,7 @@ drop RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505
 	
 	
 *************************************************************
-//5.) Compare to previous lists or taxonomic mapping 
+//5.) Compare to previous lists or ontology mapping 
 *************************************************************
 	*as necessary / if available
 	*e.g., codelist from previous CPRD Aurum version
@@ -644,14 +696,18 @@ log close
 
 In CPRD Aurum, because there's missing data in the drug dictionary...  
 
-Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), and applied the codelist to a sample cohort to find prescriptions:  
+Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), 
+and applied the codelist to a sample cohort to find prescriptions:  
 
 <p align="center">
 	<img src="UpSetplot_Ch2.5codelist.png"/>
 </p>
 
-What the key takeway is sometimes the search type matters, sometimes it doesn't.   
-But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
+
+TDLR: 
+- Sometimes the search type matters (codes are missed), sometimes it doesn't matter (not many codes missed)   
+- But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
+
 So we recommend Search A, the comprehensive one!  
 
 
