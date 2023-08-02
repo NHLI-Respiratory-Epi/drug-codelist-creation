@@ -58,31 +58,14 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - **2a) Search database drug dictionary**  
 	- **2a(i) chemical + proprietary term search**       (proprietary terms OPTIONAL - database dependent)  
 	- **2a(ii) search on underlying ontology**           (step OPTIONAL - database dependent)  
-     
 
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)      
-    - This checks if you included all possible terms.
-
-        <details><summary><i>How are outstanding codes identified?</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
-     
-     	</details>
-     
-          
-	  	<details><summary><i>So what happens if I get outstanding codes?</i> [Click to expand]</summary>Add additional terms you get to value sets. Re-run steps 2a to 2b (ITERATIVELY - as necessary). Upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms. (In rare cases in CPRD you'll have outstanding terms left that still show up, that neither fit your value sets nor the ontology, in which case these may be drugs that are miscoded or recently put on the market, perhaps).
-
-  	</details>
-        &nbsp;<details><summary><i>Why are Steps 2a(ii) and 2b optional and database-dependent?</i> [Click to expand]</summary>Database might have missing data in search "attribute" variables. For example, in CPRD Aurum, the 2a(i) search attribute variables are <i>termfromemis</i> (i.e., term from EMIS software), <i>productname</i> (containing chemical and proprietary information), <i>drugsubstancename</i> (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.
-
-  	</details>
-&nbsp;   
+    - This checks if you included all possible terms. 
 
 
 ## Step 3: Exclusions
 - Manually review each code, one by one
 - Exclude by: name, route, formulation (not by product identifier)  
-&nbsp;  
-	<details><summary><i>Why exclude?</i> [Click to expand]</summary>The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart) </details>
- 	<details><summary><i>Why not exclude using product identifiers?</i> [Click to expand]</summary>Its a less transparent coding method. Product identifiers are numerical codes that don't contain qualitative information. Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script. Our method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly </details>
 
   
 ## Step 4: Cleaning   
@@ -95,11 +78,8 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
     - Place permanent tags on codes for drugs that overlap in other ontology sections  
     - Re-sort to make those sections separate
     - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
-    - This step helps the codelist stay modifiable, for:
-  		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
-  		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>         
+    - This step helps the codelist stay modifiable for analysis stage and adaptation stages     
 
-  
 - **4c) Modify value sets as necessary**    (OPTIONAL)  
     - Combine multiple value sets into a broader value set because of:  
       - Study context  
