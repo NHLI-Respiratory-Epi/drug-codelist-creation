@@ -51,7 +51,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 ## Step 1 : Define purpose and value sets  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱**  
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
-    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)
+    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)      
 
         <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary>BNF System Resource: https://openprescribing.net/bnf/  ATC system Resource: https://www.whocc.no/atc_ddd_index/
      
@@ -80,7 +80,7 @@ At all stages, consider **clinical input**. We put **✱** where we believe this
 
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
-- Import all “attribute” variables searched upon as *strings*.
+- Import all “attribute” variables searched upon as *strings*.  
   <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location  
   
   </details>
