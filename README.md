@@ -77,7 +77,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Place permanent tags on codes for drugs that overlap in other ontology sections  
     - Re-sort to make those sections separate
-    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**       
+    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)      
     - This step helps the codelist stay modifiable for analysis stage and adaptation stages     
 
 - **4c) Modify value sets as necessary**    (OPTIONAL)  
