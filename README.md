@@ -27,23 +27,20 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 ```mermaid
 flowchart TD
     A[1. Identify drug of interest] --> B[2. Search the product dictionary]
-    B -. optional .-> C([3. Exclude irrelevant codes])
-    C -.-> D
-    B --> D[4. Management of codes]
-    D -. optional .-> E(["5. Compare with pre-existing codelists
-(if available)"])
-    D --> F
-    E -.-> F[6. Export code list for clinical review]
+    B --> C[3. Exclude irrelevant codes]
+    C --> D[4. Management of codes]
+    D --> E["5. Compare with pre-existing codelists
+(if available)"]
+    E --> F[6. Export code list for clinical review]
     F --> G[7. Restrict code list to approved codes]
     A:::step
     B:::step
-    C:::optional
+    C:::step
     D:::step
-    E:::optional
+    E:::step
     F:::step
     G:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
-    classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
