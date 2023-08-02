@@ -136,7 +136,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       	Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
       	Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
       	Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
-      	(.....sets continue)&nbsp;
+      	(.....sets continue)&nbsp;  
       As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.<details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
@@ -203,10 +203,10 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
     - (i) Raw codes (before clinician review)  
     - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)  
     - (iii) Codes finalized for study (1s only)  
-    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
-
-- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 🩺 
-  
+    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)    
+      &nbsp;
+	<details><summary><i>Why?</i> [Click to expand]</summary>Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 
+	</details>
 
 
 
