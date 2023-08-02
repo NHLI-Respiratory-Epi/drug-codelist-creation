@@ -123,8 +123,8 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
 
 ## Step 3: Exclusions
 - Manually review each code, one by one
-- Eliminate by: name, route, formulation (not by product identifier) </details>
-&nbsp;
+- Exclude by: name, route, formulation (not by product identifier)  
+&nbsp;  
 	<details><summary><i>Why exclude?</i> [Click to expand]</summary>The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart) </details>
  	<details><summary><i>Why not exclude using product identifiers?</i> [Click to expand]</summary>Its a less transparent coding method. Product identifiers are numerical codes that don't contain qualitative information. Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script. Our method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly </details>
 
