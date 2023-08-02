@@ -201,6 +201,7 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
 | 1 | Yes - clear inclusion |
 | 2 | Maybe - use for sensitivity analyses |
 </div>
+
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
  
