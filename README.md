@@ -56,8 +56,8 @@ At all stages, consider **clinical input**.
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 
 - **2a) Search database drug dictionary**  
-	- **2a(i) chemical + proprietary term search**       (proprietary terms OPTIONAL - database dependent)  
-	- **2a(ii) search on underlying ontology**           (step OPTIONAL - database dependent)  
+	- 2a(i) chemical + proprietary term search       (proprietary terms OPTIONAL - database dependent)  
+	- 2a(ii) search on underlying ontology           (step OPTIONAL - database dependent)  
 
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)      
     - This checks if you included all possible terms. 
