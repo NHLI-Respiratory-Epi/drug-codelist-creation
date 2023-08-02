@@ -16,7 +16,7 @@ Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, 
 | Term | Definition | Example |
 | :-- | :-- | :-- |
 | Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>British National Formulary (BNF) Chapter 2 for Circulatory System</li><li>Anatomical Therapeutic Chemical (ATC) Classification System: section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
+| Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
 | Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
 | Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
@@ -47,28 +47,34 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-At all stages, consider **clinical input**. We put 🩺 where we believe this to be essential.
+At all stages, consider **clinical input**. We have put 🩺 where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
 - Establish a clinical definition (e.g., drugs for hypertension and heart failure) 🩺
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
-    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)  (or for the ATC: section C: Cardiovascular System)      
+    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
-        <details><summary><i>Here are some user-friendly ontology resources:</i> [Click to expand]</summary>BNF System Resource: https://openprescribing.net/bnf/  ATC system Resource: https://www.whocc.no/atc_ddd_index/
-     
-     </details>   
+        <details><summary><i>User-friendly ontology resources:</i> [Click to expand]</summary>
+	
+		- BNF: [OpenPrescribing](https://openprescribing.net/bnf/)
+    	- ATC: [WHO Collaborating Centre for Drug Statistics Methodology](https://www.whocc.no/atc_ddd_index/)
+     	</details>   
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
-    - proprietary names (OPTIONAL - database dependent)
+    - proprietary names (OPTIONAL - if present in database)
 - Establish route (e.g., oral, parenteral/injected) 🩺
 - Consider purpose:  
     - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
 - Consider chemistry: 🩺 
-    - for search efficiency
-    - don't search on common compounds, active or blocking groups, or side chains such as  *-nitrate -arginine -hydrochloride -mesilate*
-    - although these suffixes may be listed as part of the drug name, they are not chemical-of-interest
+    - To reduce false positives:
+    	- do not search on common compounds, active or blocking groups, or side chains such as:
+     		- *-nitrate*
+     	 	- *-arginine*
+        	- *-hydrochloride*
+         	- *-mesilate*
+    	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
 
@@ -178,11 +184,16 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
 
 ## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
-- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) 🩺  
-- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:    
-    - 0 = no - “clear exclusion”      
-    - 1 = yes - “certainty”   
-    - 2 = maybe - “uncertainty” - use for sensitivity analyses?   
+- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
+- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
+<div align="center">
+
+| Value | Label | Definition |
+| :-- | :-- | :-- |
+| 0 | No | Clear exclusion |
+| 1 | Yes | Certainty |
+| 2 | Maybe | Uncertainty - use for sensitivity analyses
+</div>
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
  
@@ -711,7 +722,7 @@ and applied the codelist to a sample cohort to find prescriptions:
 	<img src="UpSetplot_Ch2.5codelist_github.png"/>
 </p>
 
-## Conlcusion
+## Conclusion
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
 - We recommend Search A - the comprehensive one.  
