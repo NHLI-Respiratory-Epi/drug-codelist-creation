@@ -3,12 +3,7 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
-## Summary
-- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
-- But you **cannot predict** how well any given search is going to perform. 
-- Therefore created a comprehensive, reproducible search process.
-
-## Creating drug codelists can be broken down in to 7 steps:
+## 7-step process
 ```mermaid
 flowchart TD
     A[1. Identify search terms] --> B[2. Search the product dictionary]
@@ -31,8 +26,6 @@ flowchart TD
     classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
-
-At all stages, consider **clinical input**. We have put 🩺 where we believe this to be essential.
 
 ### Step 1: Identify search terms 🩺
 - Establish purpose of codelist (e.g., drugs to treat hypertension)
@@ -61,82 +54,33 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
          	- *-mesilate*
     	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
 
-*Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
-
-<p align="center">
-	<img src="images/Step1_github.png"/>
-</p>
-
-*This spreadsheet is available for download, called _________.*
-
-
-## Step 2: Conducting search
+### Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.  
-  <details><summary><i>Why import as strings?</i> [Click to expand]</summary>When searching you'll use wildcard (*) characters to pick up terms in *any* location  
-  
-  </details>
 
-- **2a) Search database drug dictionary**  
-- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
-    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
-    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
-
-- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)  
-    - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)        
-               <details><summary><i>Why slashes?</i> [Click to expand]</summary>Medicines may be indicated for multiple conditions and hence recorded in multiple ontology sections (e.g., for *betamethasone* use slashes because may be recorded as both `“3020000”` and `“10010201/ 8020200/ 3020000”` within the ontology variable - corresponding to Ch. 10, Ch. 8, and Ch. 3 for neuromuscular, immunosuppression, and respiratory purposes) (in CPRD Aurum database the ontology variable is called *bnfchapter* )
-
-  </details>
+	- **2a) Search database drug dictionary**  
+	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
+	    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
+	    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
+	    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
+	
+	- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)
+	    - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
 
 - When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
-     
 
-- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
-    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
-    - This checks if you included all possible terms to ensure codelist completeness.
+	- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
+	    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
+	    - This checks if you included all possible terms to ensure codelist completeness.
 
-        <details><summary><i>How are outstanding codes identified?</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
-     
-     	</details>
-     
-          
-	  	<details><summary><i>So what happens if I get outstanding codes?</i> [Click to expand]</summary>Add additional terms you get to value sets. Re-run steps 2a to 2b (ITERATIVELY - as necessary). Upon multiple iterations, there should be an absence of tags - indicating inclusion of all appropriate terms. (In rare cases in CPRD you'll have outstanding terms left that still show up, that neither fit your value sets nor the ontology, in which case these may be drugs that are miscoded or recently put on the market, perhaps).
-
-  	</details>
-        &nbsp;<details><summary><i>Why are Steps 2a(ii) and 2b optional and database-dependent?</i> [Click to expand]</summary>Database might have missing data in search "attribute" variables. For example, in CPRD Aurum, the 2a(i) search attribute variables are <i>termfromemis</i> (i.e., term from EMIS software), <i>productname</i> (containing chemical and proprietary information), <i>drugsubstancename</i> (chemical information/recipe). Ideally if this database didn't have missing data, you would just search on *drugsubstancename* but there is so we search in 2a(i) using all these variables, and perform steps 2a(ii) and 2b.
-
-  	</details>
-&nbsp;    
-*Here's a diagram summarizing the Step 2 search process:*     
-<p align="center">
-	<img src="images/Step2_github.svg"/>
-</p>
-
-
-## Step 3: Exclusions
+### Step 3: Exclusions
 - Manually review each code, one by one
-- Exclude by: name, route, formulation (not by product identifier)  
-&nbsp;  
-	<details><summary><i>Why exclude?</i> [Click to expand]</summary>The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart) </details>
- 	<details><summary><i>Why not exclude using product identifiers?</i> [Click to expand]</summary>Its a less transparent coding method. Product identifiers are numerical codes that don't contain qualitative information. Unlike excluding by name, route, formulation, exclusions in this way are harder to visualise as one reads through the coding script. Our method is helpful if a researcher were to return to the script, and can easily view and revise exclusions explicitly </details>
-
+- Exclude by: name, route, formulation (not by product identifier)
   
-## Step 4: Cleaning   
+### Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
     - Then write code to automate the re-sorting process to make each set mutually exclusive
- 
-      
-      <details><summary><i>What is an example?</i> [Click to expand]</summary>
-	      Let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:
-      &nbsp;
-              
-      	Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
-      	Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
-      	Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
-      	(.....sets continue)&nbsp;
-      As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets. <details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections
@@ -166,37 +110,32 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
       - You simply change your mind     
 
 
-## Step 5: Compare to previous codelists or mapping ontologies    
+### Step 5: Compare to previous codelists or mapping ontologies    
 - Version history = Merge together and compare current vs. previous versions
-  		<details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
-  		<details><summary><i>Why would we choose to map ontologies?</i> [Click to expand]</summary>
-			
-		Mapping allows [harmonization](https://doi.org/10.1186/s12911-022-02093-0) and reproducibility of methods across database contexts. </details>      
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
-
-## Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
+### Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
 <div align="center">
 
-| Value | Label | Definition |
-| :-- | :-- | :-- |
-| 0 | No | Clear exclusion |
-| 1 | Yes | Certainty |
-| 2 | Maybe | Uncertainty - use for sensitivity analyses
+| Label | Definition                           |
+| :---: | :----------------------------------- |
+| 0     | No - clear exclusion                 |
+| 1     | Yes - clear inclusion                |
+| 2     | Maybe - use for sensitivity analyses |
 </div>
+
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
     - Resolve discordances between clinicians    (OPTIONAL)    
  
 - Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
 
-
-## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
+### Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
   
 - Columns tag codes for different codelist versions:   
     - (i) Raw codes (before clinician review)  
@@ -205,29 +144,10 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
     - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
 
 - *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 🩺 
-  
 
-
-
-*Here's an example (excerpt) of a master spreadsheet*
-
-Notice that the codelist is sorted by value set (e.g., 2.5.1, 2.5.2....etc)  
-Notice the missing data on the search attribute variables!  
-
-<p align="center">
-	<img src="images/Step7_github.png"/>
-</p>
-
-*The full example is available to download, file called ________[insert]________.*   
-
-
-
-
-
-## Example *Stata* code (Steps 2 to 7)   
+## Example *Stata* code
 
 This code is an example to create a codelist for Chapter 2.5 of the BNF ontology (i.e., [drugs indicated for hypertension and heart failure](https://openprescribing.net/bnf/0205/) )  
-
 
 ```stata
 *NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
@@ -706,22 +626,6 @@ use "`filename'", clear  //so that you can see results of search after do file r
 
 log close
 ```  
-
-^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
-
-In CPRD Aurum, because there's missing data in the drug dictionary...  
-
-Here is what happens if you were to carry out a **Search B** based on just chemical attribute variable only (i.e., *drugsubstance* name in CPRD Aurum) or a **Search C** based on just ontology attribute variable only (i.e., *bnfchapter* in CPRD Aurum), 
-and applied the codelist to a sample cohort to find prescriptions:  
-
-<p align="center">
-	<img src="images/UpSetplot_Ch2.5_github.svg"/>
-</p>
-
-## Conclusion
-- Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
-- But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
-- We recommend Search A - the comprehensive one.
 
 ## Glossary 
 <div align="center">
