@@ -1,28 +1,12 @@
+[![medRxiv:10.1101/2023.04.14.23287661](https://img.shields.io/badge/medRxiv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1101/2023.04.14.23287661)
 # How to: create drug codelists for recorded prescriptions
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
-
-## Pre-print
-Graul EL, Stone PW, Massen GM, Hatam S, Adamson A, Denaxas S, Peters NS, Quint, JK. Determining prescriptions in electronic healthcare record (EHR) data: methods for development of standardized, reproducible drug codelists. medRxiv [Internet] 2023; Available from: https://doi.org/10.1101/2023.04.14.23287661
 
 ## Summary
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well any given search is going to perform. 
 - Therefore created a comprehensive, reproducible search process.
-
-## Glossary 
-<div align="center">
-	
-| Term | Definition | Example |
-| :-- | :-- | :-- |
-| Codelist | A list of codes to define an event of interest in electronic health records that use a clinical terminology such as ICD-10 | |
-| Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
-| Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
-| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
-
-</div>
 
 ## Creating drug codelists can be broken down in to 7 steps:
 ```mermaid
@@ -737,4 +721,18 @@ and applied the codelist to a sample cohort to find prescriptions:
 ## Conclusion
 - Sometimes the search type matters (codes are missed); sometimes it doesn't matter (not many codes missed).
 - But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.   
-- We recommend Search A - the comprehensive one.  
+- We recommend Search A - the comprehensive one.
+
+## Glossary 
+<div align="center">
+	
+| Term | Definition | Example |
+| :-- | :-- | :-- |
+| Codelist | A list of codes to define an event of interest in electronic health records that use a clinical terminology such as ICD-10 | |
+| Phenotype | Medication which is to be researched | Antihypertensives |
+| Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
+| Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
+| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
+| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
+
+</div>
