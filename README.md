@@ -59,7 +59,7 @@ At all stages, consider **clinical input**. We have put 🩺 where we believe th
     - disease-specific (e.g., COPD inhalers, asthma inhalers)
 - Consider chemistry: 🩺 
     - To reduce false positives:
-    	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*
+    	- do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*  
     	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
 
 *Put all information of Step 1 into a spreadsheet, so you can refer back to it later:*   
