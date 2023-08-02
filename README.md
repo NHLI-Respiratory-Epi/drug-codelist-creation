@@ -37,7 +37,7 @@ flowchart TD
 At all stages, consider **clinical input**. We have put **✱**  where we believe this to be essential.
 
 ## Step 1 : Define purpose and value sets  
-- Establish a clinical definition (e.g., drugs for hypertension and heart failure) **✱** 
+- Establish a clinical definition (e.g., drugs for hypertension and heart failure)  **✱**
     - Choose organ system knowing what the drug targets (e.g., circulatory system)    
     - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
 
@@ -74,7 +74,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
     - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
-    - This checks if you included all possible terms to ensure codelist completeness.
+    - This checks if you included all possible terms.
 
         <details><summary><i>How are outstanding codes identified?</i> [Click to expand]</summary>By comparing tags for columns corresponding to Step 2a(i) versus Step 2a(ii). Outstanding codes mean if there is an absence of a Step 2a(i) tag, but presence of a Step2a(ii) tag.
      
@@ -100,18 +100,9 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
   
 ## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets separate**     (OPTIONAL - depends on value sets)     
-    - Place temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
-    - Then re-sort to make each set separate (mutually exclusive)
+    - Place temporary tag to identify overlapping codes across multiple value sets. (possible scenario given the broad search)
+    - Re-sort to make each set separate (mutually exclusive)
  
-      <details><summary><i>What is an example?</i> [Click to expand]</summary>
-	      Let's say we created a disease-specific codelist for COPD inhalers (i.e., not a general one for the repository) with the following value sets:
-      &nbsp;
-              
-      	Set 1: LABA (single therapy, LABA for Long-Acting Beta Agonists)     
-      	Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
-      	Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
-      	(.....sets continue)&nbsp;  
-      As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.</details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Place permanent tags on codes for drugs that overlap in other ontology sections  
