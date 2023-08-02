@@ -49,19 +49,19 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms   
     - chemical names
-    - proprietary names (OPTIONAL - if not missing data on chemical names in databases)
-- Establish route (e.g., oral, parenteral/injected) **✱** 
-- Consider purpose (repository - broad? malleable for various contexts? disease-specific?
-- Consider chemistry: (do not search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*) **✱**
+    - proprietary names (OPTIONAL - if not missing data on chemical names in database)
+      <details><summary><i>Other considerations:</i> [Click to expand]</summary> <i>Route</i> (oral, injected)&nbsp;&nbsp;&nbsp;&nbsp;<i>Purpose</i> (repository - broad/adaptable across contexts? disease-specific?)&nbsp;&nbsp;&nbsp;&nbsp;<i>Chemistry</i> (don't search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*)
 
-<details><summary><i>Put all information of Step 1 into a spreadsheet, so you can refer back to it later:</i> [Click to expand]</summary>
+       </details>
 
-<p align="center">
-	<img src="Step1_github.png"/>
-</p>
+	<details><summary><i>Put all information of Step 1 into a spreadsheet, so you can refer back to it later:</i> [Click to expand]</summary>
 
-*This spreadsheet is available for download, called ________in____x folder______.*
-</details>
+	<p align="center">
+		<img src="Step1_github.png"/>
+	</p>
+
+	*This spreadsheet is available for download, called ________in____x folder______.*
+	</details>
 
 ## Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
@@ -111,7 +111,7 @@ At all stages, consider **clinical input**. We have put **✱**  where we believ
       	Set 2: LABA/LAMA (dual fixed combination therapy, LAMA for Long-Acting Muscarinic Antagonist)    
       	Set 3: LABA/LAMA/ICS (triple fixed combination therapy, ICS for Inhaled Corticosteroids) 
       	(.....sets continue)&nbsp;  
-      As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.<details> 
+      As you can see above, since the search structure was based on both fixed combination status (single, dual, triple) and active ingredient (LABA, LAMA, ICS), one might be left with overlapping codes across the three sets.</details> 
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Place permanent tags on codes for drugs that overlap in other ontology sections  
