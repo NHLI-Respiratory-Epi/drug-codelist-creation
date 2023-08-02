@@ -123,7 +123,7 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
 
 ## Step 3: Exclusions
 - Manually review each code, one by one     
-- *How exclude?* Eliminate by: name, route, formulation (not by product identifier)
+- *How exclude?* Eliminate by: name, route, formulation (not by product identifier) 🩺
 - *Why exclude?*
     - The broad search may pick up different medications with the same active chemical but of an inappropriate route, i.e., for a different medical indication corresponding to a different organ system (e.g., in a cardiovascular codelist, exclude "ocular" beta-blockers referring to medications given in the eye for glaucoma, instead of medications given by mouth to slow the heart)
 - *Why not exclude using product identifiers?*
@@ -153,7 +153,7 @@ At all stages, consider **clinical input**. We put 🩺 where we believe this to
       - For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively).  
         
     - So we write code to automate re-sorting process to make those tags      
-      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) **✱**      
+      - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
 
     - *Why this proactive action for 4b) ?*  Helps codelist stay modifiable.     
       
