@@ -1,7 +1,7 @@
 [![medRxiv:10.1101/2023.04.14.23287661](https://img.shields.io/badge/medRxiv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1101/2023.04.14.23287661)
 # How to: create drug codelists for recorded prescriptions
 
-This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
+This is an adaptation of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which contains considerations specific to generating codelists for drugs or medical devices, instead of for symptoms and conditions.
 
 ## 7-step process
 ```mermaid
@@ -27,32 +27,21 @@ flowchart TD
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
-### Step 1: Identify search terms 🩺
-- Establish purpose of codelist (e.g., drugs to treat hypertension)
-    - Identify target organ system for the drug(s) of interest (e.g., circulatory system)    
-    - Use this information to select the relevant database’s underlying ontology (e.g., BNF, Ch. 2 circulatory system) and the relevant chapter (e.g., Ch. 2.5 hypertension and heart failure drugs)(or for the ATC: section C: Cardiovascular System)      
-
-        <details><summary><i>User-friendly ontology resources:</i> [Click to expand]</summary>
-	
-		- BNF: [OpenPrescribing](https://openprescribing.net/bnf/)
-    	- ATC: [WHO Collaborating Centre for Drug Statistics Methodology](https://www.whocc.no/atc_ddd_index/)
-     	</details>   
-- Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
-- For each value set, collate search terms   
-    - chemical names
-    - proprietary names (OPTIONAL - if present in database)
-- Establish route (e.g., oral, parenteral/injected) 🩺
-- Consider purpose:  
-    - repository - broad? malleable for various study/disease contexts? (e.g., all drugs in Ch. 2.5)
-    - disease-specific (e.g., COPD inhalers, asthma inhalers)
-- Consider chemistry: 🩺 
-    - To reduce false positives:
-    	- do not search on common compounds, active or blocking groups, or side chains such as:
-     		- *-nitrate*
-     	 	- *-arginine*
-        	- *-hydrochloride*
-         	- *-mesilate*
-    	- although these suffixes may be listed as part of the drug name, they are not the chemical-of-interest
+### Step 1: Identify search terms
+- To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest.
+    - Make sure to include all regional variations or ensure that identified names are appropriate for the target region.
+        - For example, include both adrenaline and epinephrine.
+    - Where a codelist of a specific class of drug(s) is desired (e.g. broad-spectrum penicillins), the [British National Forumlary (BNF)](https://openprescribing.net/bnf/) or the World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) provide a hierarchical classification of drugs that may be helpful to identify all required drug (generic) names.
+    - The National Health Service Business Services Authority (NHSBSA) [dictionary of medicines and devices (dm+d) browser](https://services.nhsbsa.nhs.uk/dmd-browser/) can be used to find brand names of drugs used in the UK.
+    - Clinician and/or pharmacist input is essential to identify all relevant terms. 
+- Next create "search terms" to find each of the synonymous terms.
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example Stata do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74).
+    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above.
+    - To reduce false positives limit search terms to just the drug chemical of interest, and exclude common suffixes such as:
+        - *-nitrate*
+     	- *-arginine*
+        - *-hydrochloride*
+        - *-mesilate*
 
 ### Step 2: Conducting search
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
