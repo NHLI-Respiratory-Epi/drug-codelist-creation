@@ -192,6 +192,7 @@ local centact20502 " "clonidine_list" "guanfacine_list" "methyldopa_list" "moxon
 	
 *2.5.3 Adrenergic neurone blocking drugs	
 local guanethidine_monosulfate_list " "guanethidine"  "ismelin" "
+*^^Notice I didn't search on -monosulfate. Just guanethidine.
 
 local adrblocker20503 " "guanethidine_monosulfate_list" "
 
@@ -203,6 +204,7 @@ local phenoxybenzamine_list " "phenoxybenzamine" "dibenyline" "
 local phentolamine_mesilate_list " "phentolamine" "rogitine" "
 local prazosin_list " "prazosin" "hypovase" "minipress"  "
 local terazosin_list " "terazosin" "benph" "hytrin" "
+*^^Notice I didn't search on -mesilate chemical blocking group. Just doxazosin.
 
 local ablocker20504 " "doxazosin_mesilate_list" "indoramin_list" "phenoxybenzamine_list" "phentolamine_mesilate_list" "prazosin_list" "terazosin_list" "
 
@@ -217,7 +219,7 @@ local fosinopril_list " "fosinopril" "
 local imidapril_list " "imidapril" "tanatril" "
 local moexipril_list " "moexipril" "perdix" "
 *2.5.5: RAAS - overlap - diuretics, CCB 
-local captopril_list " "captopril" "kaplon" "ecopace" "noyada" "zidocapt" "capozide" "acezide" "capoten" "tensopril" "acepril" " // co-zidocapt - don't use dash
+local captopril_list " "captopril" "kaplon" "ecopace" "noyada" "zidocapt" "capozide" "acezide" "capoten" "tensopril" "acepril" " // co-zidocapt brand name- don't use dash
 local enalapril_list " "enalapril" "innovace" "pralenal" "innozide" "
 local irbesartan_list " "irbesartan" "aprovel" "ifirmasta" "coaprovel" "
 local lisinopril_list " "lisinopril" "lisicostad" "carace" "zestril" "lisopress" "zestoretic" "
@@ -453,11 +455,13 @@ sort termfromemis
 *exclude by BNFCHAPTER - not recommended since very incomplete data
 
 *Why don't we recommend excluding by PRODUCT IDENTIFIER? (i.e., prodcodeid in CPRD)
-/*Why? It is a less transparent coding method. As product identifiers are
-numerical codes that do not contain qualitative information (eg, name, route, formulation),
+/*Why? It is a less transparent coding method.
+As product identifiers are numerical codes
+that do not contain qualitative information (eg, name, route, formulation),
 the exclusions are harder to visualise as one read through the coding script.
-This is important partiicularly when a researcher were to return to the script,
-e.g., to revise the nature of the codelist exclusions, and visualise these exclusions explicity. */
+This is helpful if one were to return to the script,
+e.g., to revise the exclusions,
+and could visualise these exclusions explicity. */
 
 *************************************************************
 //4.) Cleaning / resorting
@@ -510,6 +514,8 @@ browse
 	replace step4b_also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*pamil*") 
 	replace step4b_also_0206_CCB=1 if strmatch(lower(term),"*pamil*") 
 	count if step4b_also_0206_CCB==1 		// 28 codes with ingredients also Ch. 2.6 CCB
+
+*^^Notice I used chemical suffixes to make this tagging step more efficient (-azide, -pamide, -triapin, -dipine, -pamil)
 
 ******		
 //4c. Modify value sets, as necessary
