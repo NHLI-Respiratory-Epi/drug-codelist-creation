@@ -39,7 +39,6 @@
 **Step 5: Compare to previous codelists or mapping ontologies**    
 <details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>     
 <details><summary><i>Where can I find a mapping resource for ATC-BNF?</i> [Click to expand]</summary>For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases) </details>
-<details><summary><i>Where can I find a mapping resource for ATC-BNF?</i> [Click to expand]</summary>For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases) </details>
 &nbsp;       
 &nbsp;      
 &nbsp;
