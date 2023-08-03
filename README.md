@@ -159,7 +159,8 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) //Imports
 	*Put chemical names first, brand names second
 
 *2.5.1 Vasodilator antihypertensive drugs
-	*ambrisentan = chemical name, volibris = proprietary/brand name
+	*each drug list (e.g., ambrisentan_list) has chemical name (e.g., ambrisentan), then brand/proprietary name (e.g., volibris)
+	*notice the drug lists (e.g., ambrisentan_list) is nested within the value set list (vasodil20501 for vasodilator anti-hypertensives)
 local ambrisentan_list " "ambrisentan" "volibris" "
 local bosentan_list " "bosentan" "stayveer" "tracleer" "
 local diazoxide_list " "diazoxide" "proglycem" "eudemine" "
