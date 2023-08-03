@@ -8,7 +8,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 | Term | Definition | Example |
 | :-- | :-- | :-- |
 | Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>[BNF Classification System](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[ATC Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System  |
+| Ontology | Hierarchical set up of a reference guide | <li>[BNF Classification System:](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[ATC Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System  |
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
 
 </div>
