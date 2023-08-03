@@ -604,12 +604,12 @@ and applied the codelist to a sample cohort of patients with COPD to find their 
 	<img src="/readme_subfiles/UpSetplot_Ch2.5_github.svg"/>
 </p>
 
-Notice sometimes the search type matters (codes are missed),
-Sometimes it doesn't matter (not many codes missed).  
+Notice sometimes the search type matters (codes are missed).    
+Sometimes it doesn't matter (not many codes missed).    
 
-But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.
+But you **cannot predict** how well a restricted search (e.g., B or C) is going to perform.  
 
-We recommend Search A - the comprehensive one.    
+We recommend Search A - the comprehensive one.      
 
 
 ## Pre-print
