@@ -155,15 +155,16 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) //Imports
 //******
 // 2a. (i)Chemical + proprietary name searchterms
 //******
-	*
 	*Insert your search terms into each local macro as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
 	*Put chemical names first, brand names second
 
 *2.5.1 Vasodilator antihypertensive drugs = value set 1
 	*ambrisentan_list = macro for ambrisentan's "drug list"
 	*vasodil20501 = macro for BNF Ch. 2.5.1 (value set 1)
-	*each drug list (e.g., ambrisentan_list) has chemical name (e.g., ambrisentan), then brand/proprietary name (e.g., volibris)
-	*notice the drug lists (e.g., ambrisentan_list) is nested within the value set list (vasodil20501 for vasodilator anti-hypertensives)
+	*each drug list (e.g., ambrisentan_list):
+		*has chemical name (e.g., ambrisentan),
+		*then brand/proprietary name (e.g., volibris)
+	*notice the drug lists (e.g., ambrisentan_list) are nested within the value set list (vasodil20501 for vasodilator anti-hypertensives)
 	*for example, ambrisentan_list only has one brand name, but bosentan_list has two brand names.
 local ambrisentan_list " "ambrisentan" "volibris" "
 local bosentan_list " "bosentan" "stayveer" "tracleer" "
