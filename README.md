@@ -104,7 +104,7 @@ At all stages, consider **clinical input**.
     - (i) Raw codes (before clinician review)  
     - (ii) Codes marked by clinician(s) for study codelist (0 No, 1 Yes, 2 Maybe)  
     - (iii) Codes finalized for study (1s only)  
-    - (iv) Tags for drugs overlapping across ontology sections    
+    - (iv) Tags for drugs overlapping across ontology sections (from Step 4b)    
       &nbsp;
 
 
