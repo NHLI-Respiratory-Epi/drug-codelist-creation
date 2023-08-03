@@ -279,7 +279,7 @@ foreach searchterm in ///
 *brand/proprietary terms OPTIONAL - database dependent - if you have complete data on drugsubstancename, then you only need to search on drugsubstancename  
 
 ******
-// 2a(ii)separate BNF search 
+// 2a(ii)separate BNF ontology search 
 ******
 *helps pick up outstanding brand or chem names
 *can't include in above - nested macros don't like astricks (***)
@@ -303,7 +303,7 @@ browse
 
 
 ******
-//2b. Did BNF search pick up *outstanding / additional* codes(proprietary or chemical names) not initially searched on in (2ai)?
+//2b. Did BNF ontology search pick up *outstanding / additional* codes(proprietary or chemical names) not initially searched on in (2ai)?
 ******
 
 generate byte 	step2b_BNFoutstanding=.
@@ -339,7 +339,7 @@ replace othadrblocker20508=. if othadrblocker20508==0
 sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505 othadrblocker20508 termfromemis 
 
 *************************************************************
-//3.) Remove any irrelevant codes
+//3.) Exclusions - Remove any irrelevant codes
 *************************************************************
 
 *exclude by outstanding codes - N/A
@@ -445,7 +445,7 @@ sort termfromemis
 
 *exclude by BNFCHAPTER - not recommended since very incomplete data
 
-*Why don't exclude by PRODUCT IDENTIFIER? (i.e., prodcodeid in CPRD)
+*Why don't we recommend excluding by PRODUCT IDENTIFIER? (i.e., prodcodeid in CPRD)
 /*Why? It is a less transparent coding method. As product identifiers are
 numerical codes that do not contain qualitative information (eg, name, route, formulation),
 the exclusions are harder to visualise as one read through the coding script.
@@ -502,7 +502,7 @@ browse
 ******		
 //4c. Modify value sets, as necessary
 ******
-
+*combine the macros/value sets that were initially separated due to stata macro character limits:
 generate byte RAAS20505=.
 replace RAAS20505=1 if RAASnooverlap20505==1
 replace RAAS20505=1 if RAAS1overlap20505==1
@@ -594,6 +594,7 @@ use "`filename'", clear  //so that you can see results of search after do file r
 
 log close
 ```  
+
 
 ^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
 
