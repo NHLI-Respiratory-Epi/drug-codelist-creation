@@ -604,6 +604,11 @@ and applied the codelist to a sample cohort of patients with COPD to find their 
 	<img src="/readme_subfiles/UpSetplot_Ch2.5_github.svg"/>
 </p>
 
+<sub><sup>[Credit for UpSet plot design](https://doi.org/10.1109/TVCG.2014.2346248)</sub></sup>  
+
+
+
+  
 Notice sometimes the search type matters (codes are missed).    
 Sometimes it doesn't matter (not many codes missed).    
 
