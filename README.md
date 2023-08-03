@@ -95,7 +95,7 @@ At all stages, consider **clinical input**.
 - Export codelist as an Excel spreadsheet   
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context)    
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
-- No (0), Yes (1), Maybe/Sensitivity Analysis (2)
+- 	No (0), Yes (1), Maybe/Sensitivity Analysis (2)
 - Use multiple clinicians for studies with multimorbidity, resolve discordances between clinicians   (OPTIONAL)    
 
 ## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**     
