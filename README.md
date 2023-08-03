@@ -61,7 +61,7 @@ At all stages, consider **clinical input**.
 	- 2a(ii) search on underlying ontology&nbsp;&nbsp;(step OPTIONAL - database dependent)  
 
 - **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**&nbsp;&nbsp;(OPTIONAL - database dependent)      
-    - This checks if you included all possible terms. 
+    - This checks if you included all possible terms.    
 
 ## Step 3: Exclusions
 - Manually review each code, one by one
@@ -69,15 +69,15 @@ At all stages, consider **clinical input**.
   
 ## Step 4: Cleaning   
 - **4a) Remove overlapping codes to make value sets separate**&nbsp;&nbsp;(OPTIONAL - depends on value sets)     
-    - Place temporary tag to identify overlapping codes across multiple value sets. (Possible scenario given the broad search)
-    - Re-sort to make each set separate (mutually exclusive)
+    - Place temporary tag to identify codes overlapping across value sets. (Possible scenario given the broad search)
+    - Re-sort to make each set separate. (mutually exclusive)
  
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Place permanent tags on codes for drugs that overlap in other ontology sections  
-    - Re-sort to make sections separate
-    - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)      
-    - This step helps the codelist stay adaptable across contexts     
+    - Place permanent tags on codes for drugs overlapping across ontology sections  
+    - Re-sort to make sections separate (mutually exclusive)
+    - For the tags, define chemical suffixes for efficiency, e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)
+    - This step helps the codelist stay adaptable across contexts          
 
 - **4c) Modify/Combine value sets as necessary**&nbsp;&nbsp;(OPTIONAL)  
     - Study context  
@@ -104,7 +104,7 @@ At all stages, consider **clinical input**.
     - (i) Raw codes (before clinician review)  
     - (ii) Codes marked by clinician(s) for study codelist (0 No, 1 Yes, 2 Maybe)  
     - (iii) Codes finalized for study (1s only)  
-    - (iv) Tags for overlapping drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but fits as Ch. 2.2 and Ch. 2.6 too)    
+    - (iv) Tags for drugs overlapping across ontology sections    
       &nbsp;
 
 
