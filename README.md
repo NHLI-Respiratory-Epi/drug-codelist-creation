@@ -53,21 +53,21 @@ At all stages, consider **clinical input**.
 
 
 ## Step 2: Conducting search
-- Before searching using your collated list, import the database’s drug “dictionary” as a text file.
+- Before searching using your collated list, import the database’s drug “dictionary” 
 
 - **2a) Search database drug dictionary**  
-	- 2a(i) chemical + proprietary term search       (proprietary terms OPTIONAL - database dependent)  
-	- 2a(ii) search on underlying ontology           (step OPTIONAL - database dependent)  
+	- 2a(i) chemical + proprietary term search&nbsp;&nbsp;(proprietary terms OPTIONAL - database dependent)  
+	- 2a(ii) search on underlying ontology&nbsp;&nbsp;(step OPTIONAL - database dependent)  
 
-- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)      
+- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**&nbsp;&nbsp;(OPTIONAL - database dependent)      
     - This checks if you included all possible terms. 
 
 ## Step 3: Exclusions
 - Manually review each code, one by one
-- Exclude by: name, route, formulation (not by product identifier)  
+- Exclude by: name, route, formulation   
   
 ## Step 4: Cleaning   
-- **4a) Remove overlapping codes to make value sets separate**     (OPTIONAL - depends on value sets)     
+- **4a) Remove overlapping codes to make value sets separate**&nbsp;&nbsp;(OPTIONAL - depends on value sets)     
     - Place temporary tag to identify overlapping codes across multiple value sets. (Possible scenario given the broad search)
     - Re-sort to make each set separate (mutually exclusive)
  
@@ -78,15 +78,14 @@ At all stages, consider **clinical input**.
     - Define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)      
     - This step helps the codelist stay adaptable across contexts     
 
-- **4c) Modify value sets as necessary**    (OPTIONAL)  
-    - Combine multiple value sets into a broader value set because of:  
-      - Study context  
-      - Computational considerations (e.g., *Stata* has macro character limits), or
-      - You simply change your mind     
+- **4c) Modify/Combine value sets as necessary**&nbsp;&nbsp;(OPTIONAL)  
+    - Study context  
+    - Computational considerations (e.g., *Stata* has macro character limits), or
+    - You change your mind     
 
 ## Step 5: Compare to previous codelists or mapping ontologies    
-- Version history = Merge together and compare current vs. previous versions
-- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
+- Version history = Merge together and compare current vs. previous versions (for reproducibility)
+- Mapping = Merge and map codes labeled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping) (for harmonization)  
 
 *Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)* 
 
@@ -96,14 +95,15 @@ At all stages, consider **clinical input**.
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context)    
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
 - 	No (0), Yes (1), Maybe/Sensitivity Analysis (2)
-- Use multiple clinicians for studies with multimorbidity, resolve discordances between clinicians   (OPTIONAL)    
+- Use multiple clinicians for studies with multimorbidity - resolve different initials between clinicians   (OPTIONAL)    
 
 ## Step 7: Keep "master" codelist spreadsheet - with all versions and tags**     
+- Put this master list in your repository
 - Columns tag codes for different versions:   
     - (i) Raw codes (before clinician review)  
-    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)  
+    - (ii) Codes marked by clinician(s) for study codelist (0 No, 1 Yes, 2 Maybe)  
     - (iii) Codes finalized for study (1s only)  
-    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)    
+    - (iv) Tags for overlapping drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but fits as Ch. 2.2 and Ch. 2.6 too)    
       &nbsp;
 
 
