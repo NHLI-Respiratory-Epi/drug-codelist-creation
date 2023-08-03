@@ -29,14 +29,16 @@
 &nbsp;
 &nbsp;      
 
-**Step 4: Cleaning**     
-*In Step 4b, how does tagging overlapping codes across ontological sections help the codelist stay adaptable in **analysis** and **adaptation** stages?*
-<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may choose to later exclude those tagged drug codes. (This depends on the size and nature of the codelist and cohort) </details>
-<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug doesn't make sense your study cohort. </details>    
+**Step 4: Cleaning**
+<details><summary><i>In Step 4b, tell me more about what a code overlapping across ontological sections means?</i> [Click to expand]</summary>When a code for a fixed combination drug (consisting of multiple drug classes or mechanisms of action) it may be classified in various ontological sections (and therefore resides or could pertain to a different codelist) </details>
+<details><summary><i>What is an example of a Step 4b tag?</i> [Click to expand]</summary>For example, <i>hydrochlorothiazide/captopril</i> is a single drug including both diuretic (BNF Ch. 2.2) and Renin-angiotensin-aldosterone system (RAAS) chemical components (BNF Ch. 2.5). So in a Ch. 2.5 hypertension/heart failure codelist for example, we would also tag it as BNF Ch. 2.2. </details> 
+<details><summary><i>How does tagging overlapping codes across ontological sections help the codelist stay adaptable in analysis stage?</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may choose to later exclude those tagged drug codes. (This depends on the size and nature of the codelist and cohort) </details>
+<details><summary><i>How does tagging overlapping codes across ontological sections help the codelist stay adaptable in adaptaion stage?</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug doesn't make sense your study cohort. </details>    
 &nbsp;  
 
 **Step 5: Compare to previous codelists or mapping ontologies**    
 <details><summary><i>Why do we care about previous versions?</i> [Click to expand]</summary>Comparison facilitates correct categorization and possible identification of outstanding codes from a previous codelist. </details>     
+<details><summary><i>Where can I find a mapping resource for ATC-BNF?</i> [Click to expand]</summary>For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases) </details>
 <details><summary><i>Where can I find a mapping resource for ATC-BNF?</i> [Click to expand]</summary>For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases) </details>
 &nbsp;       
 &nbsp;      
@@ -51,9 +53,7 @@
 
 
 **Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
-[insert FAQs]
-&nbsp;           
-&nbsp;   
+<details><summary><i>Why keep a master codelist?</i> [Click to expand]</summary>For codelist adaptability and reproducibility (sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts. </details>  
 
 
 
