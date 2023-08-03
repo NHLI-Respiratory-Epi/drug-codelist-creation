@@ -53,7 +53,7 @@
 
 
 **Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
-<details><summary><i>Why keep a master codelist?</i> [Click to expand]</summary>For codelist adaptability and reproducibility (sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts. </details>  
+<details><summary><i>Why keep a master codelist?</i> [Click to expand]</summary>For codelist adaptability and reproducibility (sensitivity analyses; generalization and/or reproducibility to future study contexts; harmonization between databases/contexts. </details>  
 
 
 
