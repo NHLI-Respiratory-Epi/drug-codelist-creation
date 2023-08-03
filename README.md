@@ -2,7 +2,7 @@
 
 This is an extension of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which adds additional steps to adapt for considerations specific to generating codelists for drugs, instead of for symptoms and conditions.
 
-## Glossary 
+<details><summary><b>Glossary</b></summary> 
 <div align="center">
 	
 | Term | Definition | Example |
@@ -12,6 +12,7 @@ This is an extension of [our work to create SNOMED-CT codelists](https://github.
 | Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
 
 </div>
+</details>
 
 ## Creating drug codelists can be broken down in to 7 steps:
 ```mermaid
