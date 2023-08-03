@@ -121,7 +121,7 @@ This code is an example to create a codelist for Chapter 2.5 of the BNF ontology
 //*1) Define purpose and value sets: drug class(es) of interest, collate list of terms for value sets
 //*******************************************************************************/
 
-//(spreadsheet as above)
+// used the OpenPrescribing BNF resource to collate my term list (to find all chemical and brand names): https://openprescribing.net/bnf/0205/
 
 //*******************************************************************************
 //*2) Searching CPRD Aurum Product Browser
