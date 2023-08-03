@@ -630,8 +630,8 @@ and applied the codelist to a sample cohort of patients with COPD to find their 
 
 
   
-Notice for some value sets:
-Sometimes the search type matters (meaning codes/counts are missed; prescriptions are not picked up).    
+Notice for some value sets:   
+Sometimes the search type matters (meaning codes/counts are missed; prescriptions are not picked up).       
 Sometimes the search type doesn't matter (meaning not many codes or prescriptions are missed).    
 
 But you **cannot predict** how well any given search (e.g., B or C restricted search) is going to perform.  
