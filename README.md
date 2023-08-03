@@ -74,9 +74,9 @@ At all stages, consider **clinical input**.
  
       
 - **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Place permanent tags on codes for drugs overlapping across ontology sections  
+    - Place permanent tags on codes for drugs overlapping across ontology sections
+        <details><summary><i>Considerations for tags:</i> [Click to expand]</summary>When writing the tags, use chemical suffixes for efficiency, e.g., <i>-azide</i> for diuretics (BNF ontology Ch. 2.2), or <i>-pril</i> for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) (BNF ontology Ch. 2.5) </details>
     - Re-sort to make sections separate (mutually exclusive)
-    - For the tags, define chemical suffixes for efficiency, e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs)
     - This step helps the codelist stay adaptable across contexts          
 
 - **4c) Modify/Combine value sets as necessary**&nbsp;&nbsp;(OPTIONAL)  
