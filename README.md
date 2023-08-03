@@ -48,7 +48,7 @@ At all stages, consider **clinical input**.
      	</details>   
 - Define value sets (e.g., vasodilator antihypertensives for set 1, centrally-acting antihypertensives for set 2)
 - For each value set, collate search terms
-  <details><summary><i>Other considerations:</i> [Click to expand]</summary> <i>Name type</i> (chemical, proprietary)&nbsp;&nbsp;&nbsp;&nbsp;<i>Route</i> (oral, injected)&nbsp;&nbsp;&nbsp;&nbsp;<i>Purpose</i> (repository - broad/adaptable across contexts? disease-specific?)&nbsp;&nbsp;&nbsp;&nbsp;<i>Chemistry</i> (don't search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*)
+  <details><summary><i>Considerations for search terms:</i> [Click to expand]</summary> <b>Name type</b> (chemical, proprietary)&nbsp;&nbsp;&nbsp;&nbsp;<b>Route</b> (oral, injected)&nbsp;&nbsp;&nbsp;&nbsp;<b>Purpose</b> (repository - broad/adaptable across contexts? disease-specific?)&nbsp;&nbsp;&nbsp;&nbsp;<b>Chemistry</b> (don't search on common compounds, active or blocking groups, or side chains such as *-nitrate* *-arginine* *-hydrochloride* *-mesilate*)
   </details>
 
 
