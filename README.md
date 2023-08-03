@@ -155,12 +155,16 @@ import delimited "`browser_dir'/CPRDAurumProduct.txt", stringcols(1 2) //Imports
 //******
 // 2a. (i)Chemical + proprietary name searchterms
 //******
-	*Insert your search terms into each local as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
+	*
+	*Insert your search terms into each local macro as shown below, change local names according to chemical name, then group chemical macros into bnfsubsection macro
 	*Put chemical names first, brand names second
 
-*2.5.1 Vasodilator antihypertensive drugs
+*2.5.1 Vasodilator antihypertensive drugs = value set 1
+	*ambrisentan_list = macro for ambrisentan's "drug list"
+	*vasodil20501 = macro for BNF Ch. 2.5.1 (value set 1)
 	*each drug list (e.g., ambrisentan_list) has chemical name (e.g., ambrisentan), then brand/proprietary name (e.g., volibris)
 	*notice the drug lists (e.g., ambrisentan_list) is nested within the value set list (vasodil20501 for vasodilator anti-hypertensives)
+	*for example, ambrisentan_list only has one brand name, but bosentan_list has two brand names.
 local ambrisentan_list " "ambrisentan" "volibris" "
 local bosentan_list " "bosentan" "stayveer" "tracleer" "
 local diazoxide_list " "diazoxide" "proglycem" "eudemine" "
@@ -177,7 +181,7 @@ local vericiguat_list " "vericiguat" "verquvo" "
 local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
 
 	
-*2.5.2 Centrally-acting antihypertensive drugs
+*2.5.2 Centrally-acting antihypertensive drugs = value set 2
 local clonidine_list " "clonidine"  "catapres" "
 local guanfacine_list " "guanfacine" "tenex" "
 local methyldopa_list " "methyldopa" "aldomet" "
@@ -191,7 +195,7 @@ local guanethidine_monosulfate_list " "guanethidine"  "ismelin" "
 local adrblocker20503 " "guanethidine_monosulfate_list" "
 
 
-*2.5.4: Alpha-adrenoceptor blocking drugs
+*2.5.4: Alpha-adrenoceptor blocking drugs = value set 3
 local doxazosin_mesilate_list " "doxazosin"  "cardura" "doxadura" "larbex" "raporsin" "slocinx" "
 local indoramin_list " "indoramin" "baratol" "doralese" "
 local phenoxybenzamine_list " "phenoxybenzamine" "dibenyline" "
@@ -201,7 +205,8 @@ local terazosin_list " "terazosin" "benph" "hytrin" "
 
 local ablocker20504 " "doxazosin_mesilate_list" "indoramin_list" "phenoxybenzamine_list" "phentolamine_mesilate_list" "prazosin_list" "terazosin_list" "
 
-*2.5.5: RAAS - no overlap 
+*RAAS 
+*2.5.5: RAAS - no overlap = value set 4 - we broke up BNF Ch. 2.5.5 value set into 3 macros - because Stata has macro character limits
 local aliskiren_list " "aliskiren"  "rasilez" "
 local azilsartan_medoxomil_list " "azilsartan" "edarbi" "
 local candesartan_cilexetil_list " "candesartan" "amias" "
@@ -210,7 +215,7 @@ local eprosartan_list " "eprosartan" "teveten" "
 local fosinopril_list " "fosinopril" "
 local imidapril_list " "imidapril" "tanatril" "
 local moexipril_list " "moexipril" "perdix" "
-*2.5.5: RAAS - overlap - diuretics, CCB
+*2.5.5: RAAS - overlap - diuretics, CCB 
 local captopril_list " "captopril" "kaplon" "ecopace" "noyada" "zidocapt" "capozide" "acezide" "capoten" "tensopril" "acepril" " // co-zidocapt - don't use dash
 local enalapril_list " "enalapril" "innovace" "pralenal" "innozide" "
 local irbesartan_list " "irbesartan" "aprovel" "ifirmasta" "coaprovel" "
@@ -234,7 +239,7 @@ local RAAS2overlap20505 " "perindopril_list" "quinapril_list" "ramipril_list" "t
 	*need to break up into multiple macros
 	*if Stata is used, for primary subsections that exceed the programming software's character limit for information contained within nested macros, subsections may need to be temporarily split (e.g., 2.5.5 drugs for Renin-angiotensin system).  
 
-*2.5.8 Other adrenergic neurone blocking drugs 
+*2.5.8 Other adrenergic neurone blocking drugs
 local ketanserin_list " "ketanserin" "ketensin" "
 
 local othadrblocker20508 " "ketanserin_list" "
@@ -276,13 +281,13 @@ foreach searchterm in ///
 	}
 }
 *ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case 
-*brand/proprietary terms OPTIONAL - database dependent - if you have complete data on drugsubstancename, then you only need to search on drugsubstancename  
+*brand/proprietary terms OPTIONAL - database dependent - if you have complete data on drugsubstancename (chemical composition), then you only need to search on drugsubstancename since that's the shared recipe.
 
 ******
-// 2a(ii)separate BNF ontology search 
+// 2a(ii)separate BNF ontology search (OPTIONAL - database-dependent - depending on if there's missing data in the database)
 ******
-*helps pick up outstanding brand or chem names
-*can't include in above - nested macros don't like astricks (***)
+*helps pick up outstanding brand or chemical names
+*can't include 2a(ii) in above - nested macros don't like astricks (***) when they are passed through a loop
 
 generate byte 	step2aii_bnfsearch205=.
 replace 		step2aii_bnfsearch205=1 if 	strmatch(bnfchapter,"205*")  | ///
@@ -303,8 +308,9 @@ browse
 
 
 ******
-//2b. Did BNF ontology search pick up *outstanding / additional* codes(proprietary or chemical names) not initially searched on in (2ai)?
+//2b. Did BNF ontology search pick up *outstanding / additional* codes (proprietary or chemical names) not initially searched on in (2ai)? (OPTIONAL - database-dependent - depending on if there's missing data in the database)
 ******
+*this step helps make sure we included all terms in 2a(i).
 
 generate byte 	step2b_BNFoutstanding=.
 replace 		step2b_BNFoutstanding=1 if step2ai_chem_brand_term!=1 & step2aii_bnfsearch205==1
@@ -342,17 +348,17 @@ sort vasodil20501 centact20502 adrblocker20503 ablocker20504 RAASnooverlap20505 
 //3.) Exclusions - Remove any irrelevant codes
 *************************************************************
 
-*exclude by outstanding codes - N/A
+*consider exclude by outstanding codes - N/A
 	*only if all not part of chemical value set. (step may not be indicated in all codelists)
-	*here N/A keep for clinician review
+	*here, for this codelist, N/A keep for clinician review
 	
 *exclude ROUTE 
-preserve // this code here gives you a list of the routes 
+preserve // this code here gives you a list of the routes only
 keep route
 duplicates drop
 list route
 restore
-
+*these routes don't make sense for our codelist:
 local exclude_route " "*ocular*" "*intracavernous*" "*cutaneous*" " 
 
 //search for route-codes to exclude
@@ -457,7 +463,7 @@ e.g., to revise the nature of the codelist exclusions, and visualise these exclu
 *************************************************************
 
 ******
-//4a. flag the codes in multiple BNF subsections / overlap/not mutually exclusive - that should NOT be + make mutually exclusive
+//4a. flag the overlapping codes across value sets (BNF ontology subsections) + make them separated (mutually exclusive)
 ******
 *this may be more important for chapters with subsections that may have overlap in resulting found terms, if your search is specific/broad enough (e.g., in Ch. 2.2 Diuretics, searching just on "furosemide" would lead to found terms in both 2.2.2 and 2.2.4 and 2.2.8, that should not be )
 
@@ -479,10 +485,15 @@ browse
 	*N/A for this codelist
 
 ******
-//4b. Flag codes in multiple BNF subsections, that SHOULD be - for clinician & covariate analysis
+//4b. Tag codes in multiple BNF subsections, that SHOULD be - for clinician & epidemiologist
 ******
+*When?
+*e.g., for analysis stage - for covariates/ analysis - if you needed to exclude these tagged codes because this codelist overlaps with another codelist, causing collinearity. Most likely only a consideration for smaller cohorts or which codelists you want for your study (how they are defined, how much they overlap)
+*e.g., for adaptation stage - if you only wanted single-ingredient drugs for your study (i.e., didn't want combination drugs for your study) and needed a way of marking these codes for later in case you decided to remove them.
 
-	*flagging 0202 diuretics
+*For this Ch. 2.5 codelist, we have codes for (fixed) combination drugs that could pertain to a different codelist (different BNF chapter).
+*In this case it is Ch. 2.2 and Ch. 2.6
+	*flagging BNF Ch. 0202 diuretics - these codes could be part of a different codelist
 	generate byte step4b_also_0202_diuretic=.
 	replace step4b_also_0202_diuretic=1 if strmatch(lower(term),"*azide*") 
 	replace step4b_also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*azide*") 
@@ -490,7 +501,7 @@ browse
 	replace step4b_also_0202_diuretic=1 if strmatch(lower(drugsubstancename),"*pamide*")
 	count if step4b_also_0202_diuretic==1 	// 66 codes with ingredients also Ch. 2.2 diuretic
 
-	*flagging 0206 Ca2+ channel blockers
+	*flagging BNF Ch. 0206 Ca2+ channel blockers - these codes could be part of a different codelist
 	generate byte step4b_also_0206_CCB=.
 	replace step4b_also_0206_CCB=1 if strmatch(lower(term),"*triapin*")  
 	replace step4b_also_0206_CCB=1 if strmatch(lower(drugsubstancename),"*dipine*") 
@@ -525,10 +536,10 @@ drop RAASnooverlap20505 RAAS1overlap20505 RAAS2overlap20505
 
 	
 *************************************************************
-*Final order, export for clinician review, generate study-specific codelist, tag file
+*Final order, export for clinician(s) review, generate study-specific codelist, tag file
 
 //6) Send raw codelist for clinician review - for study-specific codelist
-//7) Keep 'master' codelist with all versions & tags
+//7) Keep 'master' codelist with all versions & tags - for easy adaptability of the codelist to various study contexts
 *************************************************************
 
 //order
