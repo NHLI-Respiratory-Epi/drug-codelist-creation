@@ -119,17 +119,17 @@ flowchart TD
       - You simply change your mind     
 
 
-### Step 6: Compare to previous codelists or mapping ontologies    
+### Step 6: [OPTIONAL] Compare with pre-existing codelists    
 - Version history = Merge together and compare current vs. previous versions
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
-### Step 7: Send "raw" codelist for clinician to review, to decide study-specific codelist   
-- Export codelist as an Excel spreadsheet   
-- Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
-- Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
+### Step 7: Export codelist for review by a clinician
+- Export codelist as an Excel spreadsheet.
+- Ask clinician(s) to review codelist and check codes are appropriate to identify prescription events of interest in your desired study.
+- Ask the reviewing clinican to generate a column at the end of the spreadsheet headed with their initials where they label the list of terms for inclusion or exclusion using the following definitions:
 <div align="center">
 
 | Label | Definition                           |
@@ -139,20 +139,13 @@ flowchart TD
 | 2     | Maybe - use for sensitivity analyses |
 </div>
 
-- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist...)    
-    - Resolve discordances between clinicians    (OPTIONAL)    
- 
-- Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
+- Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist, etc.)    
 
-### Step 8: Keep "master" codelist spreadsheet - with all versions and tags**   
-  
-- Columns tag codes for different codelist versions:   
-    - (i) Raw codes (before clinician review)  
-    - (ii) Codes marked by clinician(s) for study codelist (0 no, 1 yes, 2 maybe)  
-    - (iii) Codes finalized for study (1s only)  
-    - (iv) Tags for overlapping, fixed combination drugs falling into multiple ontology sections (e.g., Ch. 2.5 codelist, but corresponds to Ch. 2.2 and Ch. 2.6 too)  
-
-- *Why?* Again, for codelist malleability (e.g., sensitivity analyses; generalization to future study contexts; harmonization between databases/contexts) 🩺 
+### Step 8: Restrict your codelist to codes approved by clinician(s) and save.
+- Remove any codes from the codelist that were marked with a 0 by the reviewing clinican in [Step 7](#step-7-export-codelist-for-review-by-a-clinician).
+- Save your finished codelist and export it.
+- Your codelist is now ready to use in your study!
+- Codelists produced *en route* to your final codelist may come in useful for sensitivity analyses or future studies so do not discard them!
 
 ## Example *Stata* code
 
@@ -634,18 +627,4 @@ export delimited "`filename'.tag", replace novarnames delimiter(tab)
 use "`filename'", clear  //so that you can see results of search after do file run
 
 log close
-```  
-
-## Glossary 
-<div align="center">
-	
-| Term | Definition | Example |
-| :-- | :-- | :-- |
-| Codelist | A list of codes to define an event of interest in electronic health records that use a clinical terminology such as ICD-10 | |
-| Phenotype | Medication which is to be researched | Antihypertensives |
-| Ontology | Hierarchical set up of a reference guide | <li>[British National Formulary (BNF)](https://bnf.nice.org.uk/) Chapter 2 for Circulatory System</li><li>[Anatomical Therapeutic Chemical (ATC) Classification System](https://www.who.int/tools/atc-ddd-toolkit/atc-classification): section C for Cardiovascular System</li><li>US Veterans Affairs Classification System: section CV for Cardiovascular Medications  |
-| Value set | Subgroups of medications based upon broader code list | <li>BNF Ch 2.5.1 Vasodilator anti-hypertensives</li><li>BNF Ch 2.5.1 Centrally-acting anti-hypertensives</li> |  
-| Drug dictionary | a full list of all possible drugs, their unique numerical identifiers, and their recipe information stored as variables (chemical ingredients, proprietary/brand name, formulation, dosage strength...etc.) | <li>CPRD Aurum database: Product Dictionary</li><li>US Veterans EHR data: Veterans Health Administration National Drug File (VANDF) |  
-| Search Attribute Variables | Variables with key qualitative information you search through. Data of these variables might be missing depending on the database | CPRD Aurum database: *termfromemis* (term from EMIS EHR software), *productname*, *drugsubstancename* (chemical ingredients), *bnfchapter* (ontology variable). All except *termfromemis* have missing data. |
-
-</div>
+```
