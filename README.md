@@ -10,7 +10,7 @@ flowchart TD
     B -. optional .-> C([3. Search by drug class])
     B --> D[4. Exclude inappropriate codes]
     C -.-> D
-    D --> E[5. Cleaning]
+    D --> E[5. Cleaning and tagging]
     E -. optional .-> F(["6. Compare with pre-existing codelists
 (if available)"])
     E --> G
@@ -86,7 +86,7 @@ flowchart TD
 - Before removing any terms highlighted for exclusion, make sure any desired terms are not erroneously highlighted.
 - Once all the codes that can be removed in an automated fashion have been removed, it is important to complete a final manual screen of your codelist and manually remove any undesired codes using their product identifier.
 
-### Step 5: Cleaning   
+### Step 5: Cleaning and tagging
 - **5a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
     - Then write code to automate the re-sorting process to make each set mutually exclusive
