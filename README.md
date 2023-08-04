@@ -7,10 +7,10 @@ This is an adaptation of [our work to create SNOMED-CT codelists](https://github
 ```mermaid
 flowchart TD
     A[1. Identify drug of interest] --> B[2. Search the product dictionary]
-    B --> C[3. Use drug class to find additional drugs (Optional)]
+    B --> C["3. Use drug class to find additional drugs (Optional)"]
     C --> D[4. Exclude irrelevant codes]
     D --> E[5. Management of codes]
-    E --> F[6. Tagging codes for future utility (Optional)]
+    E --> F["6. Tagging codes for future utility (Optional)"]
     F --> G["7. Compare with pre-existing codelists (Optional)"]
     G --> H[8. Export code list for clinical review]
     H --> I[9. Restrict code list to approved codes]
@@ -28,15 +28,15 @@ flowchart TD
 ```
 
 ### Step 1: Identify search terms
-- To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest.
+- To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest (synonyms of drug names).
     - Make sure to include all regional variations or ensure that identified names are appropriate for the target region.
         - For example, include both adrenaline and epinephrine.
-    - To find specific classes of drug(s) (e.g. broad-spectrum penicillins), the following resources provide a hierarchical classification that will be helpful to identify all required drug names (use the most appropriate for your dataset):
-        - [British National Forumlary (BNF)](https://openprescribing.net/bnf/)
+    - We recommend the following resources as they provide a hierarchical classification to identify all required drug classes and names (use the most appropriate for your dataset):
+        - [British National Formulary (BNF)](https://openprescribing.net/bnf/)
         - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
-    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74):
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file][insert link]
         ```stata
 	    //2.5.1 Vasodilator antihypertensive drugs
 	    local ambrisentan_list " "ambrisentan" "volibris" "
@@ -52,11 +52,11 @@ flowchart TD
 	    local tadalafil_list " "tadalafil" "adcirca" "
 	    local vericiguat_list " "vericiguat" "verquvo" "
         ```
-    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example *Stata* do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above:
+    - Within a drug class, we recommend nesting search terms to provide a convenient way of tagging all drug codes within a class. See our example *Stata* do file where [insert line] nesting the grouped terms highlighted above:
         ```stata
         local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
         ```
-    - To reduce false positives limit search terms to just the drug chemical of interest, and exclude common suffixes such as:
+    - Limit search terms to just the drug chemical of interest, and exclude common suffixes such as:
         - *-nitrate*
      	- *-arginine*
         - *-hydrochloride*
@@ -83,7 +83,7 @@ flowchart TD
 - Before removing any terms highlighted for exclusion, make sure any desired terms are not erroneously highlighted.
 - Once all the codes that can be removed in an automated fashion have been removed, it is important to complete a final manual screen of your codelist and manually remove any undesired codes using their product identifier.
 
-### Step 5: Cleaning and tagging
+### Step 5: Cleaning 
 - **5a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
     - Then write code to automate the re-sorting process to make each set mutually exclusive
