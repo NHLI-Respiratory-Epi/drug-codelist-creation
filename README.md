@@ -3,25 +3,26 @@
 
 This is an adaptation of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which contains considerations specific to generating codelists for drugs or medical devices, instead of for symptoms and conditions.
 
-## 7-step process
 ```mermaid
 flowchart TD
     A[1. Identify search terms] --> B[2. Search the product dictionary]
-    B -. optional .-> C([3. Exclude irrelevant codes])
+    B -. optional .-> C([3. Search by drug class])
+    B --> D[4. Exclude inappropriate codes]
     C -.-> D
-    B --> D[4. Management of codes]
-    D -. optional .-> E(["5. Compare with pre-existing codelists
+    D --> E[5. Cleaning]
+    E -. optional .-> F(["6. Compare with pre-existing codelists
 (if available)"])
-    D --> F
-    E -.-> F[6. Export code list for clinical review]
-    F --> G[7. Restrict code list to approved codes]
+    E --> G
+    F -.-> G[7. Export code list for clinical review]
+    G --> H[8. Restrict code list to approved codes]
     A:::step
     B:::step
     C:::optional
     D:::step
-    E:::optional
-    F:::step
-    G:::final
+    E:::step
+    F:::optional
+    G:::step
+    H:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
     classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
@@ -35,15 +36,41 @@ flowchart TD
     - The National Health Service Business Services Authority (NHSBSA) [dictionary of medicines and devices (dm+d) browser](https://services.nhsbsa.nhs.uk/dmd-browser/) can be used to find brand names of drugs used in the UK.
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
-    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example Stata do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74).
-    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above.
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example Stata do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74):
+        ```stata
+	    //2.5.1 Vasodilator antihypertensive drugs
+	    local ambrisentan_list " "ambrisentan" "volibris" "
+	    local bosentan_list " "bosentan" "stayveer" "tracleer" "
+	    local diazoxide_list " "diazoxide" "proglycem" "eudemine" "
+	    local hydralazine_list " "hydralazine" "apresoline" "
+	    local iloprost_list " "iloprost" "ilomedin" "ventavis" "
+	    local macitentan_list " "macitentan" "opsumit" "
+	    local minoxidil_list " "minoxidil" "loniten" "
+	    local riociguat_list " "riociguat" "adempas" "
+	    local sildenafil_list " "sildenafil" "granpidam" "revatio" "
+	    local sitaxentan_list " "sitaxentan" "
+	    local tadalafil_list " "tadalafil" "adcirca" "
+	    local vericiguat_list " "vericiguat" "verquvo" "
+        ```
+    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above:
+        ```stata
+        local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
+        ```
     - To reduce false positives limit search terms to just the drug chemical of interest, and exclude common suffixes such as:
         - *-nitrate*
      	- *-arginine*
         - *-hydrochloride*
         - *-mesilate*
 
-### Step 2: Conducting search
+### Step 2: Search the product dictionary using the search terms
+- Import the product dictionary that includes the drugs contained within the electronic healthcare record (EHR) database that you will use with your codelist.
+- Search the dictionary for each of your search terms defined in [Step 1](#step-1-identify-search-terms), ensuring that the dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case.
+- Once you have searched the dictionary for all your terms, keep only the SNOMED CT terms that matched with at least 1 of your search terms.
+
+```
+- Using CPRD Aurum as an example we search through lower(term), lower(productname), and lower(drugsubstancename) variables
+```
+
 - Before searching using your collated list, import the database’s drug “dictionary” as a text file.
 - Import all “attribute” variables searched upon as *strings*.  
 
@@ -53,25 +80,23 @@ flowchart TD
 	    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
 	    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 	
-	- **2a(ii) search on underlying ontology**    (OPTIONAL - database dependent)
-	    - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
+### Step 3: [OPTIONAL] Use drug class to find additional drugs
+- Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
+- When searching the dictionary for each of your terms defined in [Step 1](#step-1-identify-search-terms), ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
+- Tag outstanding codes identified by searching on underlying ontology; Repeat 2-3 iteratively**    (OPTIONAL - database dependent)    
+- Tag outstanding codes from **Step 3** not found by **Step 2**’s search on chemical and proprietary terms alone    
+- This checks if you included all possible terms to ensure codelist completeness.
 
-- When searching the dictionary for each of your terms defined in **Step 1**, ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
-
-	- **2b) Tag outstanding codes identified by searching on (ii) underlying ontology; Repeat 2a-2b iteratively**    (OPTIONAL - database dependent)    
-	    - Tag outstanding codes from **Step 2a(ii)** not found by **Step 2a(i)**’s search on chemical and proprietary terms alone    
-	    - This checks if you included all possible terms to ensure codelist completeness.
-
-### Step 3: Exclusions
+### Step 4: Exclusions
 - Manually review each code, one by one
 - Exclude by: name, route, formulation (not by product identifier)
   
-### Step 4: Cleaning   
-- **4a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
+### Step 5: Cleaning   
+- **5a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
     - Then write code to automate the re-sorting process to make each set mutually exclusive
       
-- **4b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
+- **5b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
     - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections
       <details><summary><i>What is intentional overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist) </details>  
       <details><summary><i>What is an example of overlap?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>       
@@ -92,21 +117,21 @@ flowchart TD
       </details>        
 
   
-- **4c) Modify value sets as necessary**    (OPTIONAL)  
+- **5c) Modify value sets as necessary**    (OPTIONAL)  
     - Combine multiple value sets into a broader value set because of:  
       - Study context  
       - Computational considerations (e.g., *Stata* has macro character limits), or
       - You simply change your mind     
 
 
-### Step 5: Compare to previous codelists or mapping ontologies    
+### Step 6: Compare to previous codelists or mapping ontologies    
 - Version history = Merge together and compare current vs. previous versions
 - Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
-### Step 6: Send "raw" codelist for clinician to review, to decide study-specific codelist   
+### Step 7: Send "raw" codelist for clinician to review, to decide study-specific codelist   
 - Export codelist as an Excel spreadsheet   
 - Ask clinician(s) to review codelist and check codes are appropriate to identify your prescription event of interest (for *your* study context) **✱**   
 - Each clinician has their own column headed with their initials, where they label the list of terms for keeping:
@@ -124,7 +149,7 @@ flowchart TD
  
 - Step 6 adapts "clinician initials" method based on [this study](https://doi.org/10.1136/bmjopen-2017-019637))  
 
-### Step 7: Keep "master" codelist spreadsheet - with all versions and tags**   
+### Step 8: Keep "master" codelist spreadsheet - with all versions and tags**   
   
 - Columns tag codes for different codelist versions:   
     - (i) Raw codes (before clinician review)  
