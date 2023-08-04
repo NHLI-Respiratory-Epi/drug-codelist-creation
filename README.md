@@ -32,7 +32,9 @@ flowchart TD
 - To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest.
     - Make sure to include all regional variations or ensure that identified names are appropriate for the target region.
         - For example, include both adrenaline and epinephrine.
-    - Where a codelist of a specific class of drug(s) is desired (e.g. broad-spectrum penicillins), the [British National Forumlary (BNF)](https://openprescribing.net/bnf/) or the World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) provide a hierarchical classification of drugs that may be helpful to identify all required drug (generic) names.
+    - Where a codelist of a specific class of drug(s) is desired (e.g. broad-spectrum penicillins), the following provide a hierarchical classification of drugs that may be helpful to identify all required drug (generic) names:
+        - [British National Forumlary (BNF)](https://openprescribing.net/bnf/)
+        - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
     - The National Health Service Business Services Authority (NHSBSA) [dictionary of medicines and devices (dm+d) browser](https://services.nhsbsa.nhs.uk/dmd-browser/) can be used to find brand names of drugs used in the UK.
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
@@ -63,24 +65,23 @@ flowchart TD
         - *-mesilate*
 
 ### Step 2: Search the product dictionary using the search terms
-- Import the product dictionary that includes the drugs contained within the electronic healthcare record (EHR) database that you will use with your codelist.
+- Import the product dictionary that includes the drugs contained within the electronic healthcare record (EHR) database that you are creating your codelist for.
 - Search the dictionary for each of your search terms defined in [Step 1](#step-1-identify-search-terms), ensuring that the dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case.
-- Once you have searched the dictionary for all your terms, keep only the SNOMED CT terms that matched with at least 1 of your search terms.
+    - Using CPRD Aurum as an example we search through lower(term), lower(productname), and lower(drugsubstancename) variables
+- Once you have searched the dictionary for all your terms, keep only the terms that matched with at least 1 of your search terms.
 
 ```
-- Using CPRD Aurum as an example we search through lower(term), lower(productname), and lower(drugsubstancename) variables
+
 ```
 
-- Before searching using your collated list, import the database’s drug “dictionary” as a text file.
-- Import all “attribute” variables searched upon as *strings*.  
-
-	- **2a) Search database drug dictionary**  
+- **2a) Search database drug dictionary**  
 	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
 	    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
 	    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
 	    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 	
 ### Step 3: [OPTIONAL] Use drug class to find additional drugs
+- mention that should be imported as string in step2
 - Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
 - When searching the dictionary for each of your terms defined in [Step 1](#step-1-identify-search-terms), ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
 - Tag outstanding codes identified by searching on underlying ontology; Repeat 2-3 iteratively**    (OPTIONAL - database dependent)    
