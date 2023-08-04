@@ -74,16 +74,18 @@ flowchart TD
 ### Step 3: [OPTIONAL] Use drug class to find additional drugs
 - If the EHR database you are using has BNF or ATC codes, you can utilise the drug class hierarchy of these codes to find additional desired drugs that may have been omitted from the search terms.
 - In order to search these codes, they must be imported in string format in [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms).
-    - If working with CPRD Aurum, which includes BNF codes, note that drugs existing in multiple locations within the formulary hierarchy have multiple BNF codes separated by a slash and a space `/ `. This will require a search to match codes in 2 possible formats. For example, to search for BNF chapter 3.2 using *Stata*:
+    - If working with CPRD Aurum, which includes BNF codes, note that drugs existing in multiple locations within the formulary hierarchy have multiple BNF codes separated by a slash and a space `/ `. This will require a search to match codes in 2 possible formats. For example, to search for BNF chapter 2.5 using *Stata*:
         ```stata
-        replace match = 1 if strmatch(bnfchapter, "302*") | strmatch(bnfchapter,"*/ 302*")
+        replace match = 1 if strmatch(bnfchapter, "205*")  | strmatch(bnfchapter, "*/ 205*") 
         ```
 - If you find additional desired drugs, these can be added to the search terms in [Step 1](#step-1-identify-search-terms), and [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms) and [Step 3](#step-3-optional-use-drug-class-to-find-additional-drugs) can be run again. This process can be repeated until all desired drugs are included.
 
-### Step 4: Exclusions
-- Manually review each code, one by one
-- Exclude by: name, route, formulation (not by product identifier)
-  
+### Step 4: Exclude inappropriate codes
+- There is a good chance that your search terms will identify terms that are not relevant for your intended use of the codelist.
+- Further searches using *exclusion* terms can be performed to highlight drugs for removal based on name, route of administration, or formulation (where these data are provided).
+- Before removing any terms highlighted for exclusion, make sure any desired terms are not erroneously highlighted.
+- Once all the codes that can be removed in an automated fashion have been removed, it is important to complete a final manual screen of your codelist and manually remove any undesired codes using their product identifier.
+
 ### Step 5: Cleaning   
 - **5a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
     - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
