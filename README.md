@@ -33,10 +33,9 @@ flowchart TD
 - To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest.
     - Make sure to include all regional variations or ensure that identified names are appropriate for the target region.
         - For example, include both adrenaline and epinephrine.
-    - Where a codelist of a specific class of drug(s) is desired (e.g. broad-spectrum penicillins), the following provide a hierarchical classification of drugs that may be helpful to identify all required drug (generic) names:
+    - To find specific classes of drug(s) (e.g. broad-spectrum penicillins), the following resources provide a hierarchical classification that will be helpful to identify all required drug names (use the most appropriate for your dataset - it may not be one listed below):
         - [British National Forumlary (BNF)](https://openprescribing.net/bnf/)
         - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
-    - The National Health Service Business Services Authority (NHSBSA) [dictionary of medicines and devices (dm+d) browser](https://services.nhsbsa.nhs.uk/dmd-browser/) can be used to find brand names of drugs used in the UK.
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
     - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74):
