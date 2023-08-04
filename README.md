@@ -6,26 +6,24 @@ This is an adaptation of [our work to create SNOMED-CT codelists](https://github
 
 ```mermaid
 flowchart TD
-    A[1. Identify search terms] --> B[2. Search the product dictionary]
-    B -. optional .-> C([3. Search by drug class])
-    B --> D[4. Exclude inappropriate codes]
-    C -.-> D
-    D --> E[5. Cleaning and tagging]
-    E -. optional .-> F(["6. Compare with pre-existing codelists
-(if available)"])
-    E --> G
-    F -.-> G[7. Export code list for clinical review]
-    G --> H[8. Restrict code list to approved codes]
+    A[1. Identify drug of interest] --> B[2. Search the product dictionary]
+    B --> C[3. Use drug class to find additional drugs (Optional)]
+    C --> D[4. Exclude irrelevant codes]
+    D --> E[5. Management of codes]
+    E --> F[6. Tagging codes for future utility (Optional)]
+    F --> G["7. Compare with pre-existing codelists (Optional)"]
+    G --> H[8. Export code list for clinical review]
+    H --> I[9. Restrict code list to approved codes]
     A:::step
     B:::step
-    C:::optional
+    C:::step
     D:::step
     E:::step
-    F:::optional
+    F:::step
     G:::step
-    H:::final
+    H:::step
+    I:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
-    classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
