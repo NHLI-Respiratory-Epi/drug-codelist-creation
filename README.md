@@ -1,4 +1,5 @@
-[![medRxiv:10.1101/2023.04.14.23287661](https://img.shields.io/badge/medRxiv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1101/2023.04.14.23287661)
+[![medRχiv:10.1101/2023.04.14.23287661](https://img.shields.io/badge/medR%CF%87iv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1101/2023.04.14.23287661)
+
 # How to: create drug codelists for recorded prescriptions
 
 This is an adaptation of [our work to create SNOMED-CT codelists](https://github.com/NHLI-Respiratory-Epi/SNOMED-CT-codelists/tree/main) which contains considerations specific to generating codelists for drugs or medical devices, instead of for symptoms and conditions.
@@ -38,7 +39,7 @@ flowchart TD
     - The National Health Service Business Services Authority (NHSBSA) [dictionary of medicines and devices (dm+d) browser](https://services.nhsbsa.nhs.uk/dmd-browser/) can be used to find brand names of drugs used in the UK.
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
-    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example Stata do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74):
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L63-L74):
         ```stata
 	    //2.5.1 Vasodilator antihypertensive drugs
 	    local ambrisentan_list " "ambrisentan" "volibris" "
@@ -54,7 +55,7 @@ flowchart TD
 	    local tadalafil_list " "tadalafil" "adcirca" "
 	    local vericiguat_list " "vericiguat" "verquvo" "
         ```
-    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above:
+    - Where a whole class of drug is desired, nesting search terms provides a convenient way of tagging all codes in a drug class. See our example *Stata* do file where [this line](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing.do#L76) nests the grouped terms highlighted above:
         ```stata
         local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
         ```
@@ -66,27 +67,18 @@ flowchart TD
 
 ### Step 2: Search the product dictionary using the search terms
 - Import the product dictionary that includes the drugs contained within the electronic healthcare record (EHR) database that you are creating your codelist for.
-- Search the dictionary for each of your search terms defined in [Step 1](#step-1-identify-search-terms), ensuring that the dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case.
-    - Using CPRD Aurum as an example we search through lower(term), lower(productname), and lower(drugsubstancename) variables
+- Search the dictionary for each of your search terms defined in [Step 1](#step-1-identify-search-terms), ensuring that both the search and dictionary terms are passed through a `lower()` function to avoid missing matches due to differing case.
+    - Search within each variable that contains information about the drug name. In the [Clinical Practice Research Datalink (CPRD) Aurum](https://cprd.com/primary-care-data-public-health-research) this is the *term*, *productname*, and *drugsubstancename* variables.
 - Once you have searched the dictionary for all your terms, keep only the terms that matched with at least 1 of your search terms.
-
-```
-
-```
-
-- **2a) Search database drug dictionary**  
-	- **2a(i) chemical + proprietary term search**    (proprietary terms OPTIONAL - database dependent)  
-	    - This automated search for (i) puts chemical and proprietary terms within each drug list (child lists) nested within broader value sets (parent lists)  
-	    - For example, the *Stata* coding for BNF Ch. 2.5.1 would have an *ambrisentan_list:* (`"*ambrisentan*" "*volibris*"`) and a *bosentan_list:* (`"*bosentan*" "*stayveer*" "*tracleer*"`)
-	    - These two lists would be nested within the value set list for Ch. 2.5.1 for vasodilator anti-hypertensives: (`"*ambrisentan_list*" "*bosentan_list*"`.......others......)  
 	
 ### Step 3: [OPTIONAL] Use drug class to find additional drugs
-- mention that should be imported as string in step2
-- Consider syntax with slashes (e.g., in *Stata* coding: `"*/ 302*"` and `"302*"` for Ch. 3.2 BNF)
-- When searching the dictionary for each of your terms defined in [Step 1](#step-1-identify-search-terms), ensure dictionary terms passed through a `lower()` function to avoid missing matches due to differing case  
-- Tag outstanding codes identified by searching on underlying ontology; Repeat 2-3 iteratively**    (OPTIONAL - database dependent)    
-- Tag outstanding codes from **Step 3** not found by **Step 2**’s search on chemical and proprietary terms alone    
-- This checks if you included all possible terms to ensure codelist completeness.
+- If the EHR database you are using has BNF or ATC codes, you can utilise the drug class hierarchy of these codes to find additional desired drugs that may have been omitted from the search terms.
+- In order to search these codes, they must be imported in string format in [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms).
+    - If working with CPRD Aurum, which includes BNF codes, note that drugs existing in multiple locations within the formulary hierarchy have multiple BNF codes separated by a slash and a space `/ `. This will require a search to match codes in 2 possible formats. For example, to search for BNF chapter 3.2 using *Stata*:
+        ```stata
+        replace match = 1 if strmatch(bnfchapter, "302*") | strmatch(bnfchapter,"*/ 302*")
+        ```
+- If you find additional desired drugs, these can be added to the search terms in [Step 1](#step-1-identify-search-terms), and [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms) and [Step 3](#step-3-optional-use-drug-class-to-find-additional-drugs) can be run again. This process can be repeated until all desired drugs are included.
 
 ### Step 4: Exclusions
 - Manually review each code, one by one
