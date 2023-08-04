@@ -33,7 +33,7 @@ flowchart TD
 - To begin, identify all generic and brand names related to your drug(s) or medical device(s) of interest.
     - Make sure to include all regional variations or ensure that identified names are appropriate for the target region.
         - For example, include both adrenaline and epinephrine.
-    - To find specific classes of drug(s) (e.g. broad-spectrum penicillins), the following resources provide a hierarchical classification that will be helpful to identify all required drug names (use the most appropriate for your dataset - it may not be one listed below):
+    - To find specific classes of drug(s) (e.g. broad-spectrum penicillins), the following resources provide a hierarchical classification that will be helpful to identify all required drug names (use the most appropriate for your dataset):
         - [British National Forumlary (BNF)](https://openprescribing.net/bnf/)
         - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
