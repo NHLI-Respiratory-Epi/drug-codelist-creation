@@ -84,46 +84,24 @@ flowchart TD
 - Once all the codes that can be removed in an automated fashion have been removed, it is important to complete a final manual screen of your codelist and manually remove any undesired codes using their product identifier.
 
 ### Step 5: Cleaning 
-- **5a) Remove overlapping codes to make value sets mutually exclusive**     (OPTIONAL - depends on value sets)     
-    - Place a temporary tag to identify overlapping codes that were categorized across multiple value sets. (possible scenario given the broad search)
-    - Then write code to automate the re-sorting process to make each set mutually exclusive
-      
-- **5b) Tag overlapping codes across ontological sections, for clinician and/or epidemiologist**    
-    - Proactively place permanent tags on codes corresponding to fixed combination drugs with potentialy *intentional overlap* in other ontological sections
-      <details><summary><i>What is intentional overlap?</i> [Click to expand]</summary>When one code corresponds to a fixed combination drug consisting of two drug classes (ie, mechanisms of action) such that it resides in multiple ontological sections (and therefore resides or could pertain to a different codelist) </details>  
-      <details><summary><i>What is an example of overlap?</i> [Click to expand]</summary>For example, *hydrochlorothiazide/captopril* is a single drug including both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively) </details>       
-        
-    - So we write code to automate re-sorting process to make those tags      
-      - To do this, we define chemical suffixes for the tags for efficiency e.g., “*azide*” for diuretics, or “*pril*” for angiotensin-converting enzyme (ACE) inhibitors and angiotensin receptor blockers (ARBs) 🩺      
+- There step is for "cleaning" the data
+- First, there's a good chance some of your codes are "overlapping" across value sets if they are combination-recipe drugs, in which case you will need to resort the codes to make these value sets separate
+- Second, you may need to categorize drugs into required drug groups, perhaps because of computational considerations (e.g., *Stata* has macro character limits) you weren't able to do this initially
 
-    - This step helps the codelist stay modifiable, for:
-  		<details><summary><i>Analysis stage</i> [Click to expand]</summary>If you have drug covariates, overlaps in class could present collinearity so you may exclude certain drug codes with overlap. (This depends on the size and nature of the codelist itself) </details>
-  		<details><summary><i>Adaptation stage</i> [Click to expand]</summary>You might use these tags to adapt your codelist. Maybe you only care about single certain mechanism of action, and/or that drug is contraindicated in your study cohort and it doesn't make sense to include it. </details>      
+### Step 6: [OPTIONAL] Tagging for utility 
+- In come cases, there may be combination-recipe drugs that could correspond to a different ontological section (i.e., a different codelist)
+- We tag these drugs to help facilitate the codelist’s broader utility (e.g., excluding for future analyses or study contexts)
+- This helps facilitate the codelist’s broader utility and adaptability
+- For example, *hydrochlorothiazide/captopril* is a single drug we would tag - it includes both *diuretic* and *Renin-angiotensin-aldosterone system* (RAAS) chemical components (BNF Ch. 2.2 for diuretics and Ch. 2.5 for RAAS respectively)        
 
-      <details><summary><i>What do you mean by "adapt" codelist?</i> [Click to expand]</summary>
-	       
-	     What if we sought to examine the safety of anti-hypertensives (e.g., thiazide diuretics and RAAS-targeting drugs) in HIV patients in the CPRD Aurum database, replicating [this study that utilized US Veterans data](https://doi.org/10.1161/HYPERTENSIONAHA.120.16263) ?
-      We could adapt our broader, repository BNF Ch.2.5 codelist for this!
-      We would retain codes corresponding to Ch. 2.5.5 value set (RAAS-targeting drugs), exclude other value sets (pertaining to Ch. 2.5.1-2.5.4; 2.5.8), and consider excluding or performing a senstivity analysis for fixed-combination drug codes we tagged "intentionally overlapping" and located in a different BNF chapter (e.g., within Ch. 2.5.5 value set we tagged <i>hydrochlorothiazide/ telmisartan</i> as a fixed-combination drug also pertaining to Ch. 2.2 diuretics which may not apply to this study)
-
-      </details>        
-
-  
-- **5c) Modify value sets as necessary**    (OPTIONAL)  
-    - Combine multiple value sets into a broader value set because of:  
-      - Study context  
-      - Computational considerations (e.g., *Stata* has macro character limits), or
-      - You simply change your mind     
-
-
-### Step 6: [OPTIONAL] Compare with pre-existing codelists    
-- Version history = Merge together and compare current vs. previous versions
-- Mapping = Merge and map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
+### Step 7: [OPTIONAL] Compare with pre-existing codelists    
+- Version history = compare current vs. previous versions
+- Mapping = map codes labelled under different ontologies (e.g., ATC-BNF mapping, ATC-VA_Class mapping).    
     - For CPRD Aurum, use [NHS Digital's TRUD site](https://isd.digital.nhs.uk/trud/users/guest/filters/0/categories/6/items/24/releases)    
 
 **Now we have the “raw” codelist (not study-specific; ready for adaptation to a cohort through clinical review)**     
 
-### Step 7: Export codelist for review by a clinician
+### Step 8: Export codelist for review by a clinician
 - Export codelist as an Excel spreadsheet.
 - Ask clinician(s) to review codelist and check codes are appropriate to identify prescription events of interest in your desired study.
 - Ask the reviewing clinican to generate a column at the end of the spreadsheet headed with their initials where they label the list of terms for inclusion or exclusion using the following definitions:
@@ -138,7 +116,7 @@ flowchart TD
 
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist, etc.)    
 
-### Step 8: Restrict your codelist to codes approved by clinician(s) and save.
+### Step 9: Restrict your codelist to codes approved by clinician(s) and save.
 - Remove any codes from the codelist that were marked with a 0 by the reviewing clinican in [Step 7](#step-7-export-codelist-for-review-by-a-clinician).
 - Save your finished codelist and export it.
 - Your codelist is now ready to use in your study!
