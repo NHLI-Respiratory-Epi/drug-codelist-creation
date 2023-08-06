@@ -128,15 +128,19 @@ This code is an example to create a codelist for Chapter 2.5 of the BNF ontology
 
 ```stata
 
-*NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
-
 *******************************************************************************
 *1) Define drug class(es) of interest - collate list of terms for value sets
 *******************************************************************************/
+```
 
+- here's our example spreadsheet for [Step 1](images/Step1_github.png) 
+
+```stata
 *******************************************************************************
 *2) Searching CPRD Aurum Product Browser
 *******************************************************************************/
+
+*NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
 
 clear all
 macro drop _all
