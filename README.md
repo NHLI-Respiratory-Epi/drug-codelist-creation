@@ -52,7 +52,7 @@ flowchart TD
 	    local tadalafil_list " "tadalafil" "adcirca" "
 	    local vericiguat_list " "vericiguat" "verquvo" "
         ```
-    - Within a drug class, we recommend nesting search terms to provide a convenient way of tagging all drug codes within a class. [See our example *Stata* do file]((examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing_aug.do#L77) where we nest the grouped terms highlighted above:
+    - Within a drug class, we recommend nesting search terms to provide a convenient way of tagging all drug codes within a class. [See our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing_aug.do#L77) where we nest the grouped terms highlighted above:
         ```stata
         local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
         ```
