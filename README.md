@@ -608,7 +608,7 @@ log close
 
 ```
 
-^ That was our search method simulated in CPRD Aurum for a BNF Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
+^ That was our search method simulated in CPRD Aurum for a BNF Ch. 2.5 repository codelist. We'll call this comprehensive method **Search A**.  
 
 In CPRD Aurum, because there's missing data in the drug dictionary...  
 
@@ -622,10 +622,19 @@ and applied the codelist to a sample cohort of patients with COPD to find their 
 <sub><sup>[Credit for UpSet plot design](https://doi.org/10.1109/TVCG.2014.2346248)</sub></sup>  
 
 
-Notice for some value sets:   
+**Notice in the above figure that for some value sets:**   
 Sometimes the search type matters (meaning codes/counts are missed; prescriptions are not picked up).       
 Sometimes the search type doesn't matter (meaning not many codes or prescriptions are missed).    
 
-But you **cannot predict** how well any given search (e.g., B or C restricted search) is going to perform.  
+But one **cannot predict** how well any given search (e.g., B or C restricted search) is going to perform.  
 
 We recommend our Search A - the comprehensive one.
+    
+&nbsp;  
+     
+**If you'd like to download examples, visit these links to view our:**
+
+[Repository codelist example (Hypertension/HF drugs, BNF Ch. 2.5)](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs)      
+[Disease-specific codelist example (COPD inhalers, BNF Ch. 3.1/3.2)](examples/disease-specific-codelist_BNF_Ch.3_copd_inhalers)
+
+
