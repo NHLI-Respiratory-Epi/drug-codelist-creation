@@ -117,7 +117,7 @@ flowchart TD
 - Use multiple clinicians for studies with multimorbidity (e.g., pulmonologist, cardiologist, nephrologist, etc.)    
 
 ### Step 9: Restrict your codelist to codes approved by clinician(s) and save.
-- Remove any codes from the codelist that were marked with a 0 by the reviewing clinican in [Step 7](#step-7-export-codelist-for-review-by-a-clinician).
+- Remove any codes from the codelist that were marked with a 0 by the reviewing clinican in [Step 8](#step-8-export-codelist-for-review-by-a-clinician).
 - Save your finished codelist and export it.
 - Your codelist is now ready to use in your study!
 - Codelists produced *en route* to your final codelist (e.g. the codelists labelled by clinicians) may come in useful for sensitivity analyses or future studies so do not discard them!
