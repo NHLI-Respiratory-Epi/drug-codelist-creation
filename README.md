@@ -36,7 +36,7 @@ flowchart TD
         - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
-    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file][insert link]
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing_aug.do#L62-L76):
         ```stata
 	    //2.5.1 Vasodilator antihypertensive drugs
 	    local ambrisentan_list " "ambrisentan" "volibris" "
