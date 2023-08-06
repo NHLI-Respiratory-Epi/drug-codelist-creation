@@ -608,7 +608,7 @@ log close
 
 ```
 
-^ That was our search method simulated in CPRD Aurum for Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
+^ That was our search method simulated in CPRD Aurum for a BNF Ch. 2.5 codelist. We'll call this comprehensive method **Search A**.  
 
 In CPRD Aurum, because there's missing data in the drug dictionary...  
 
