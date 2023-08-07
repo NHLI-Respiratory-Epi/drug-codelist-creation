@@ -209,7 +209,7 @@ browse
 
 generate byte 	step3_BNFoutstanding=.
 replace 		step3_BNFoutstanding=1 if step2_chem_brand_term!=1 & step3_bnfsearch205==1
-label define lab1 1 "outstanding from 2aii BNFsearch"
+label define lab1 1 "outstanding from Step 3 BNFsearch"
 label values 	step3_BNFoutstanding lab1 
 
 codebook 	step3_BNFoutstanding
