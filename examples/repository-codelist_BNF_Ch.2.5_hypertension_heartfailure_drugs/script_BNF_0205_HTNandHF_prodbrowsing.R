@@ -1,38 +1,28 @@
-###############################################################################
-# CPRD Product Code Browser Searching
-# 23/09/2020	ELA #    Updated by PWS on 2022-06-22  #  Updated by ELG for Product Browsing 2022-04-11
-# 2 Dec 2022
-# Emily Graul
-# Codelist: BNF, 0205 HTN and Heart Failure RX
-# 
-###############################################################################/
-  
-# STEPS
-# 1) Define drug class(es) of interest and collate list of terms
-# 2) Searching CPRD Aurum Product Browser
-# 3) Remove any irrelevant codes / exclusions
-#    Nothing equivalent to merging and comparing with SNOMED concept IDs
-# 4) Cleaning, resort, tag
-# 5) Compare with previous list(s) if applicable / mapping to NHSBSA
-#    Final order, export for clinician review, tag file
-# 6) Send raw codelist for clinician review - for study-specific codelist
-# 7) Keep 'master' codelist with all versions & tags
+#/********************************************************************************
+#	CPRD Product Browser Searching
+#	23/09/2020	ELA //   Updated by PWS on 2022-06-22  // Updated by ELG for Product Browsing 2022-12-02 
+#       // adapted for R by AA 
+#	2 Dec 2022
+#	Emily Graul
+#	Codelist: BNF 0301-01,02,04; 0302 COPD Rx inhalers
+#	
+#*******************************************************************************/
 #
-  
-  # NB You shouldn't need to change any code within loops, apart from local-macro names, e.g., searchterm, exclude_route, exclude_term, etc.
+#/*STEPS
+#*1) Define drug class(es) of interest - collate list of terms - for value sets
+#*2) Searching CPRD Aurum Product Browser
+#*3) Use drug class/ontology to find additional drugs
+#*4) Remove any irrelevant codes / exclusions
+#*5) Cleaning
+#*6) Tagging for utility
+#*7) Compare with previous list(s) if applicable / mapping to other ontologies
+#Final order, export for clinician review, tag file:
+#*8) Explort raw codelist for clinician review - for study-specific codelist
+#*9) Keep 'master' codelist with all versions & tags
+#*/
 
-###############################################################################
-#1) Define drug class(es) of interest - collate list of terms for value sets
-	 #(refer to Appendix __ spreadsheet)
 
-###############################################################################/
-
-###############################################################################
-#2) Searching CPRD Aurum Product Browser
-###############################################################################/
-
-
-# read in appropraite libraries
+# read in appropriate libraries
 
 library(tidyverse) # a package for tidy working in R
 library(openxlsx2) # for writing excel files
@@ -40,6 +30,77 @@ library(openxlsx2) # for writing excel files
 
 # for the R equivalent of 'log', you can go to file -> compile -> pdf document. 
 # for this to wowrk you need to have rmarkdown and LaTeX installed. 
+
+# This is the function to do the searching for all the elements named in the list:
+
+searchProdBro <- function(prodbro, searchlist, chapterstarts = NULL, searchin = c("Term.from.EMIS", "ProductName", "DrugSubstanceName")) {
+
+  # This will automatically search through Term.from.EMIS, ProductName, and DrugSubstanceName. If you are searching through different columns,
+  # or you've renamed the column names from the original ones read into R, then you need to change the column names by providing a 
+  # vector to 'searchin'
+  
+  # This part of the code names the list if it is an unnamed  vector. The output have a column named 'allterms' if an unnamed vector is provided
+  if (typeof(searchlist) != "list") {
+    searchlist <- list(allterms = searchlist) 
+  }
+
+  # then, for each of the search terms in 'searchlist', search through the 'searchin' columns for a match.
+  # slightly different process required for if there is 1 or greater than 1 'searchin' element
+  
+for (i in names(searchlist)) {
+
+  # first element in 'searchin'
+  tempdat <- data.frame(V1 = grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[searchin[1]]], ignore.case = TRUE))
+  colnames(tempdat) <- searchin[1]
+  
+  # for greater than 1 element in 'searchin'
+  if (length(searchin) > 1) {
+    
+  for (j in searchin[2:length(searchin)]) {
+  
+#  tempdat[[j]] <- grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[searchin[j]]], ignore.case = TRUE)
+    tempdat[[j]] <- grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[j]], ignore.case = TRUE)
+    
+      }
+    }
+  
+  # greater than 1 element in 'searchin', use rowSums  
+  if (length(searchin) > 1) {
+    
+  prodbro[[i]] <- rowSums(tempdat[ , 1:length(searchin)])
+  prodbro[[i]][prodbro[[i]] > 1] <- 1
+  
+    } else {
+    
+    # 1 element in 'searchin', just convert colum to numeric (from logical) 
+    prodbro[[i]] <- as.numeric(tempdat[ , 1])
+    }
+  
+  tempdat <- NULL
+  
+  }
+
+
+# then, if chapter starts is specified:
+
+if (!is.null(chapterstarts)) {
+
+tempdat <- data.frame(first = str_starts(string = prodbro$BNFChapter, pattern = paste0(chapterstarts, collapse = "|")))
+tempdat$second = str_detect(string = prodbro$BNFChapter,  pattern = paste0("/ ", chapterstarts, collapse = "|"))
+prodbro$chapterstarts <- pmax(tempdat$first, tempdat$second)
+prodbro$chapterstarts
+
+  }
+  
+  if (!is.null(chapterstarts)) {
+  print("Newly added columns: ")
+    print(c(names(searchlist), "chapterstarts"))
+  } else {
+    print("Newly added columns: ")
+    print(names(searchlist))
+  }
+  return(prodbro)
+}
 
 
 # Set working directory for where the files you need are saved
@@ -77,7 +138,15 @@ glimpse(prodbro)
 
 # no lookupfile required (unlike medical code browsing)
 
+###############################################################################
+#1) Define drug class(es) of interest - collate list of terms for value sets
+	 #(refer to Appendix __ spreadsheet)
+# (Collate your list of drugs for the codelist, and put these as search terms in Step 2)
+###############################################################################/
 
+#############################################
+#*2) and 3) Searching CPRD Aurum Product Browser and use drug class/ontology to find additional drugs
+#############################################
 
 ######
   #  2a. Chemical + proprietary name searchterms
@@ -179,78 +248,6 @@ chapterstarts <- c(205)
 
 
 
-# This is the function to do the searching for all the elements named in the list:
-
-searchProdBro <- function(prodbro, searchlist, chapterstarts = NULL, searchin = c("Term.from.EMIS", "ProductName", "DrugSubstanceName")) {
-
-  # This will automatically search through Term.from.EMIS, ProductName, and DrugSubstanceName. If you are searching through different columns,
-  # or you've renamed the column names from the original ones read into R, then you need to change the column names by providing a 
-  # vector to 'searchin'
-  
-  # This part of the code names the list if it is an unnamed  vector. The output have a column named 'allterms' if an unnamed vector is provided
-  if (typeof(searchlist) != "list") {
-    searchlist <- list(allterms = searchlist) 
-  }
-
-  # then, for each of the search terms in 'searchlist', search through the 'searchin' columns for a match.
-  # slightly different process required for if there is 1 or greater than 1 'searchin' element
-  
-for (i in names(searchlist)) {
-
-  # first element in 'searchin'
-  tempdat <- data.frame(V1 = grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[searchin[1]]], ignore.case = TRUE))
-  colnames(tempdat) <- searchin[1]
-  
-  # for greater than 1 element in 'searchin'
-  if (length(searchin) > 1) {
-    
-  for (j in searchin[2:length(searchin)]) {
-  
-#  tempdat[[j]] <- grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[searchin[j]]], ignore.case = TRUE)
-    tempdat[[j]] <- grepl(paste0(searchlist[[i]], collapse = "|"), prodbro[[j]], ignore.case = TRUE)
-    
-      }
-    }
-  
-  # greater than 1 element in 'searchin', use rowSums  
-  if (length(searchin) > 1) {
-    
-  prodbro[[i]] <- rowSums(tempdat[ , 1:length(searchin)])
-  prodbro[[i]][prodbro[[i]] > 1] <- 1
-  
-    } else {
-    
-    # 1 element in 'searchin', just convert colum to numeric (from logical) 
-    prodbro[[i]] <- as.numeric(tempdat[ , 1])
-    }
-  
-  tempdat <- NULL
-  
-  }
-
-
-# then, if chapter starts is specified:
-
-if (!is.null(chapterstarts)) {
-
-tempdat <- data.frame(first = str_starts(string = prodbro$BNFChapter, pattern = paste0(chapterstarts, collapse = "|")))
-tempdat$second = str_detect(string = prodbro$BNFChapter,  pattern = paste0("/ ", chapterstarts, collapse = "|"))
-prodbro$chapterstarts <- pmax(tempdat$first, tempdat$second)
-prodbro$chapterstarts
-
-  }
-  
-  if (!is.null(chapterstarts)) {
-  print("Newly added columns: ")
-    print(c(names(searchlist), "chapterstarts"))
-  } else {
-    print("Newly added columns: ")
-    print(names(searchlist))
-  }
-  return(prodbro)
-}
-
-
 prodbro <- searchProdBro(prodbro, searchlist, chapterstarts)
 
 
@@ -281,7 +278,7 @@ nrow(prodbro)
 
 
 #############################################################
-# 3.) Remove any irrelevant codes
+#//4.) Exclusions - Remove any irrelevant codes
 #############################################################
 
 
@@ -313,11 +310,11 @@ prodbro <- prodbro %>% filter(exclude_terms2 == 0) %>% dplyr::select(-exclude_te
 
 
 #############################################################
-# 4.) Cleaning / resorting
+# 5.) Cleaning / resorting
 #############################################################
 
 ######
-# 4a. flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
+#  Flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
 ######
 #this may be more important for chapters with subsections that may have overlap in resulting found terms, 
 # if your search is specific/broad enough (e.g., in Ch. 2.2 Diuretics, searching just on "furosemide" would lead 
@@ -336,7 +333,8 @@ prodbro <- prodbro %>% dplyr::select(-flag_me)
 	#N/A
 
 ######
-# 4b. Flag codes in multiple BNF subsections, that SHOULD be - for clinician & covariate analysis
+# 6 Tagging for utility / codelist adaptability 
+# Flag codes in multiple BNF subsections, that SHOULD be - for clinician & covariate analysis
 ######
 
 	#flagging 0202 diuretics
@@ -354,7 +352,7 @@ also_0206_CCB <- c("triapin", "dipine", "pamil")
 		prodbro <- searchProdBro(prodbro, searchlist = flagcodes, searchin = c("Term.from.EMIS", "DrugSubstanceName"))
 		colnames(prodbro)
 ######		
-# 4c. Combine your searchterms into one BNF sub-subsection, if applicable
+#  Combine your searchterms into one BNF sub-subsection, if applicable
 ######
 
 prodbro$RAAS20505 <- 0
@@ -365,7 +363,7 @@ prodbro$RAAS20505[prodbro$RAAS2overlap20505 == 1] <- 1
 prodbro <- prodbro %>% dplyr::select(-RAASnooverlap20505, -RAAS1overlap20505, -RAAS2overlap20505)
 
 #############################################################
-# 5.) Compare with previous list(s) if applicable
+# 7.) Compare with previous list(s) if applicable
 #############################################################
 	#as necessary / if available
 	#e.g., codelist from previous CPRD Aurum version
@@ -375,8 +373,8 @@ prodbro <- prodbro %>% dplyr::select(-RAASnooverlap20505, -RAAS1overlap20505, -R
 #############################################################
 #Final order, export for clinician review, generate study-specific codelist, tag file
 
-# 6) Send raw codelist for clinician review - for study-specific codelist
-# 7) Keep 'master' codelist with all versions & tags
+# 8) Send raw codelist for clinician review - for study-specific codelist
+# 9) Keep 'master' codelist with all versions & tags
 #############################################################
 
 colnames(prodbro)
