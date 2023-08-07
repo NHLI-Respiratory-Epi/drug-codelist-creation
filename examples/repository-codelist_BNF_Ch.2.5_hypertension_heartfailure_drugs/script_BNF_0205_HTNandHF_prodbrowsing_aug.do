@@ -193,10 +193,10 @@ replace 		step3_bnfsearch205=1 if 	strmatch(bnfchapter,"205*")  | ///
 generate byte step2_chem_brand_term = .
 replace step2_chem_brand_term=1 if vasodil20501==1 | centact20502==1 | adrblocker20503==1 | ablocker20504==1 | RAASnooverlap20505==1 | RAAS1overlap20505==1 | RAAS2overlap20505==1 | othadrblocker20508==1
 
-count if step2_chem_brand_term == 1 	// 617 from (2a,i)
-count if step3_bnfsearch205	 == 1		// 281 from (2a,ii)
+count if step2_chem_brand_term == 1 	// 617 from (Step 2)
+count if step3_bnfsearch205	 == 1		// 281 from (Step 3)
 
-keep if step2_chem_brand_term == 1 | step3_bnfsearch205==1  // 627 from (2a i and ii together)
+keep if step2_chem_brand_term == 1 | step3_bnfsearch205==1  // 627 from (Step 2 and 3 together)
 
 compress
 count // 627 total  (Step 2 and 3 together)
