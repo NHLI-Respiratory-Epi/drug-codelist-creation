@@ -132,7 +132,7 @@ This code is an example to create a codelist for Chapter 2.5 of the BNF ontology
 *1) Define drug class(es) of interest - collate list of terms for value sets
 *******************************************************************************/
 ```
-
+(Collate your list of drugs for the codelist, and put these as search terms in Step 2)
 - here's our example spreadsheet for [Step 1](images/Step1_github.png) 
 
 ```stata
