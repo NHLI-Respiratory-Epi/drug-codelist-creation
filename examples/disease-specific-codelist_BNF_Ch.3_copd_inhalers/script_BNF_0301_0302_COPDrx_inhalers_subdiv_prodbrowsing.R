@@ -366,7 +366,7 @@ nrow(prodbro)
 
 
 #######
-# 5. flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
+# flag the codes in multiple BNF subsections / mutually exclusive - that should NOT be + make not mutually exclusive
 #######
 # this may be more important for chapters with subsections that may have overlap in resulting found terms, if your search is specific/broad enough (e.g., in Ch. 2.2 Diuretics, searching just on "furosemide" would lead to found terms in both 2.2.2 and 2.2.4 and 2.2.8, that should not be )
 
@@ -417,7 +417,7 @@ summary(prodbro)
 # Flag codes in multiple BNF subsections, that SHOULD be - for clinician & covariate analysis
 ######
 
-	#flagging 0202 diuretics
+	
 
 also_0303_cromo <- c("cromoglicate")
 		
