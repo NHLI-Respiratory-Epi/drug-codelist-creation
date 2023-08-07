@@ -6,24 +6,29 @@ This is an adaptation of [our work to create SNOMED-CT codelists](https://github
 
 ```mermaid
 flowchart TD
-    A[1. Identify drug of interest] --> B[2. Search the product dictionary]
-    B --> C["3. Use drug class to find additional drugs (Optional)"]
-    C --> D[4. Exclude irrelevant codes]
-    D --> E[5. Management of codes]
-    E --> F["6. Tagging codes for future utility (Optional)"]
-    F --> G["7. Compare with pre-existing codelists (Optional)"]
+    A[1. Identify search terms] --> B[2. Search the product dictionary]
+    B -. optional .-> C["3. Use drug class to find additional drugs"]
+    B -.-> D
+    C --> D[4. Exclude inappropriate codes]
+    D --> E[5. Cleaning]
+    E -. optional .-> F["6. Tag codes for future utility"]
+    E -.-> H
+    F -. optional .-> G["7. Compare with pre-existing codelists"]
+    E -.-> G
+    F -.-> H
     G --> H[8. Export code list for clinical review]
     H --> I[9. Restrict code list to approved codes]
     A:::step
     B:::step
-    C:::step
+    C:::optional
     D:::step
     E:::step
-    F:::step
-    G:::step
+    F:::optional
+    G:::optional
     H:::step
     I:::final
     classDef step color:black, fill:#aec6cf, stroke:#779ecb
+    classDef optional color:black, fill:#e9967a, stroke:#c23b22
     classDef final color:black, fill:#8fbc8f, stroke:#006400
 ```
 
@@ -70,10 +75,10 @@ flowchart TD
 	
 ### Step 3: [OPTIONAL] Use drug class to find additional drugs
 - If the EHR database you are using has BNF or ATC codes, you can utilise the drug class hierarchy of these codes to find additional desired drugs that may have been omitted from the search terms.
-- In order to search these codes, they must be imported in string format in [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms).
+- In order to search these codes, they must be imported as strings (not numeric) in [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms).
     - If working with CPRD Aurum, which includes BNF codes, note that drugs existing in multiple locations within the formulary hierarchy have multiple BNF codes separated by a slash and a space `/ `. This will require a search to match codes in 2 possible formats. For example, to search for BNF chapter 2.5 using *Stata*:
         ```stata
-        replace match = 1 if strmatch(bnfchapter, "205*")  | strmatch(bnfchapter, "*/ 205*") 
+        replace match = 1 if strmatch(bnfchapter, "205*") | strmatch(bnfchapter, "*/ 205*") 
         ```
 - If you find additional desired drugs, these can be added to the search terms in [Step 1](#step-1-identify-search-terms), and [Step 2](#step-2-search-the-product-dictionary-using-the-search-terms) and [Step 3](#step-3-optional-use-drug-class-to-find-additional-drugs) can be run again. This process can be repeated until all desired drugs are included.
 
@@ -84,11 +89,10 @@ flowchart TD
 - Once all the codes that can be removed in an automated fashion have been removed, it is important to complete a final manual screen of your codelist and manually remove any undesired codes using their product identifier.
 
 ### Step 5: Cleaning 
-- There step is for "cleaning" the data
 - First, there's a good chance some of your codes are "overlapping" across value sets if they are combination-recipe drugs, in which case you will need to resort the codes to make these value sets separate
 - Second, you may need to categorize drugs into required drug groups, perhaps because of computational considerations (e.g., *Stata* has macro character limits) you weren't able to do this initially
 
-### Step 6: [OPTIONAL] Tagging for utility 
+### Step 6: [OPTIONAL] Tag codes for future utility 
 - In come cases, there may be combination-recipe drugs that could correspond to a different ontological section (i.e., a different codelist)
 - We tag these drugs to help facilitate the codelist’s broader utility (e.g., excluding for future analyses or study contexts)
 - This helps facilitate the codelist’s broader utility and adaptability
