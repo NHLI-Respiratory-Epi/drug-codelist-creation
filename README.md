@@ -36,7 +36,7 @@ flowchart TD
         - World Health Organization Collaborating Centre for Drug Statistics Methodology (WHOCC) [Anatomical Therapeutic Chemical (ATC) Classification System](https://www.whocc.no/atc_ddd_index/) 
     - Clinician and/or pharmacist input is essential to identify all relevant terms. 
 - Next create "search terms" to find each of the synonymous terms.
-    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing_aug.do#L63-L75):
+    - Grouping together synonyms for each drug into individual lists of search terms will make identification of relevant codes easier. See [highlighted lines in our example *Stata* do file](examples_from_publication/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_HtnHF.do#L63-L75):
         ```stata
 	    //2.5.1 Vasodilator antihypertensive drugs
 	    local ambrisentan_list " "ambrisentan" "volibris" "
@@ -52,7 +52,7 @@ flowchart TD
 	    local tadalafil_list " "tadalafil" "adcirca" "
 	    local vericiguat_list " "vericiguat" "verquvo" "
         ```
-    - Within a drug class, we recommend nesting search terms to provide a convenient way of tagging all drug codes within a class. [See our example *Stata* do file](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_BNF_0205_HTNandHF_prodbrowsing_aug.do#L77) where we nest the grouped terms highlighted above:
+    - Within a drug class, we recommend nesting search terms to provide a convenient way of tagging all drug codes within a class. [See our example *Stata* do file](examples_from_publication/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs/script_HtnHF.do#L77) where we nest the grouped terms highlighted above:
         ```stata
         local vasodil20501 " "ambrisentan_list" "bosentan_list" "diazoxide_list" "hydralazine_list" "iloprost_list" "macitentan_list" "minoxidil_list" "riociguat_list" "sildenafil_list" "sitaxentan_list" "tadalafil_list" "vericiguat_list" "
         ```
@@ -632,9 +632,9 @@ We recommend our Search A - the comprehensive one.
     
 &nbsp;  
      
-**If you'd like to download examples, visit these links to view our:**
+**If you'd like to download and view examples of our methodology, please visit these links:**
 
-[Repository codelist example (Hypertension/HF drugs, BNF Ch. 2.5)](examples/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs)      
-[Disease-specific codelist example (COPD inhalers, BNF Ch. 3.1/3.2)](examples/disease-specific-codelist_BNF_Ch.3_copd_inhalers)
+[Repository codelist (Hypertension/HF drugs, BNF Ch. 2.5)](examples_from_publication/repository-codelist_BNF_Ch.2.5_hypertension_heartfailure_drugs)      
+[Disease-specific codelist (COPD inhalers, BNF Ch. 3.1/3.2)](examples_from_publication/disease-specific-codelist_BNF_Ch.3_copd_inhalers)
 
 
