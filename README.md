@@ -1,4 +1,4 @@
-[![medRχiv:10.1101/2023.04.14.23287661](https://img.shields.io/badge/medR%CF%87iv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1101/2023.04.14.23287661)
+[![JAMIA-Open:10.1093/jamiaopen/ooad078](https://img.shields.io/badge/medR%CF%87iv-10.1101%2F2023.04.14.23287661-red)](https://doi.org/10.1093/jamiaopen/ooad078)
 
 # How to: create drug codelists for recorded prescriptions
 
